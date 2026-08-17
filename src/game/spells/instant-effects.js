@@ -1,6 +1,6 @@
-import { adjacentCells } from "./area-effects.js";
-import { isBlocked } from "../../core/grid.js";
-import { STONE_DAMAGE, damageEnemyAt } from "../combat/damage.js";
+import { adjacentCells } from "./area-effects.js?v=svg-test-03";
+import { isBlocked } from "../../core/grid.js?v=svg-test-03";
+import { STONE_DAMAGE, damageEnemyAt } from "../combat/damage.js?v=svg-test-03";
 
 const enemyAt = (state, cell) => state.enemies.find((enemy) => enemy.x === cell.x && enemy.y === cell.y);
 
