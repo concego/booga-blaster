@@ -1,4 +1,4 @@
-import { isInsideGrid } from "../../core/grid.js";
+import { isInsideGrid } from "../../core/grid.js?v=svg-test-03";
 
 export const adjacentCells = (state, center) => {
   const candidates = [
