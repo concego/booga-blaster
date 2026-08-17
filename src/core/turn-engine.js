@@ -1,10 +1,8 @@
-import { processEnemyTurn } from "../game/combat/enemy-engine.js?v=svg-test-16";
+import { processEnemyTurn } from "../game/combat/enemy-engine.js?v=svg-test-21";
+import { resolveProjectiles } from "../game/spells/projectile-engine.js?v=svg-test-21";
 
 export const advanceTurn = (state) => {
   state.turn += 1;
-
-  // Inimigos agem enquanto as zonas ainda estão ativas neste turno.
-  state.turnEvents = processEnemyTurn(state);
 
   const activeEffects = state.effects
     .map((effect) => ({ ...effect, turns: effect.turns - 1 }))
@@ -16,6 +14,8 @@ export const advanceTurn = (state) => {
     .map((zone) => ({ ...zone, turns: zone.turns - 1 }))
     .filter((zone) => zone.turns > 0);
 
+  state.turnEvents = resolveProjectiles(state);
+  state.turnEvents.push(...processEnemyTurn(state));
   return state.turn;
 };
 
