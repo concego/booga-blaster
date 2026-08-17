@@ -1,4 +1,4 @@
-import { getDirection } from "./directions.js?v=svg-test-03";
+import { getDirection } from "./directions.js?v=svg-test-16";
 
 export const isInsideGrid = (state, x, y) => (
   x >= 0 && x < state.grid.width && y >= 0 && y < state.grid.height
@@ -16,6 +16,9 @@ export const tryMovePlayer = (state, directionName) => {
   const y = state.player.y + direction.dy;
   if (isBlocked(state, x, y)) {
     return { ok: false, message: `Bloqueado ao ${direction.label}.` };
+  }
+  if (state.enemies.some((enemy) => enemy.x === x && enemy.y === y)) {
+    return { ok: false, message: `Inimigo bloqueia o caminho ao ${direction.label}.` };
   }
 
   state.player.x = x;
