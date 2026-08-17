@@ -1,8 +1,9 @@
-import { tryMovePlayer } from "../core/grid.js?v=svg-test-16";
-import { advanceTurn, getTurnEvents } from "../core/turn-engine.js?v=svg-test-16";
-import { scanState } from "./scan/scan-state.js?v=svg-test-16";
-import { castSpell } from "./spells/spell-engine.js?v=svg-test-16";
-import { getSpell } from "./spells/spell-catalog.js?v=svg-test-16";
+import { tryMovePlayer } from "../core/grid.js?v=svg-test-18";
+import { advanceTurn, getTurnEvents } from "../core/turn-engine.js?v=svg-test-18";
+import { scanState } from "./scan/scan-state.js?v=svg-test-18";
+import { castSpell } from "./spells/spell-engine.js?v=svg-test-18";
+import { getSpell } from "./spells/spell-catalog.js?v=svg-test-18";
+import { collectAtCell } from "./powerups/powerup-system.js?v=svg-test-18";
 
 const appendTurnEvents = (state, message) => {
   const events = getTurnEvents(state);
@@ -39,7 +40,9 @@ export const dispatchDirection = (state, directionName) => {
   const result = tryMovePlayer(state, directionName);
   if (!result.ok) return result.message;
   advanceTurn(state);
-  return appendTurnEvents(state, result.message);
+  const pickupMessages = collectAtCell(state, state.player);
+  const pickupText = pickupMessages.length ? ` ${pickupMessages.join(" ")}` : "";
+  return appendTurnEvents(state, `${result.message}${pickupText}`);
 };
 
 export { scanState };
