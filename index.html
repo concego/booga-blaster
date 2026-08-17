@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Booga Blaster — Protótipo da tela de jogo</title>
-  <link rel="stylesheet" href="styles.css?v=svg-test-10">
+  <link rel="stylesheet" href="styles.css?v=svg-test-11">
 </head>
 <body>
   <main id="game" class="game-shell" aria-labelledby="phase-name">
@@ -15,9 +15,10 @@
       </div>
       <div class="run-status" aria-label="Estado da partida">
         <p class="status-line"><span class="status-label">Vidas</span> <strong id="lives">3</strong></p>
-        <div id="effects" class="effects" aria-live="polite">
+        <div id="effects" class="effects">
           <span class="muted-effect">Nenhum efeito ativo</span>
         </div>
+        <div id="effects-announcer" class="sr-only" aria-live="polite" aria-atomic="true"></div>
       </div>
     </header>
 
@@ -119,6 +120,6 @@
       </ol>
     </section>
   </main>
-  <script type="module" src="app.js?v=svg-test-10"></script>
+  <script type="module" src="app.js?v=svg-test-11"></script>
 </body>
 </html>
