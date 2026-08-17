@@ -1,3 +1,5 @@
+import { POWERUP_SOURCES, createPowerupItem } from "../powerups/powerup-sources.js?v=svg-test-18";
+
 export const CONTACT_DAMAGE = 1;
 export const STONE_DAMAGE = 1;
 
@@ -10,6 +12,16 @@ export const damageEnemyAt = (state, cell, amount) => {
   const enemy = state.enemies.find((item) => item.x === cell.x && item.y === cell.y);
   if (!enemy) return { hit: false, defeated: false };
   const defeated = damageEnemy(enemy, amount);
-  if (defeated) state.enemies = state.enemies.filter((item) => item !== enemy);
+  if (defeated) {
+    state.enemies = state.enemies.filter((item) => item !== enemy);
+    if (enemy.drop) {
+      state.powerups.push(createPowerupItem(
+        enemy.drop,
+        POWERUP_SOURCES.ENEMY_DROP,
+        { x: enemy.x, y: enemy.y },
+        `drop-${enemy.id}-${state.turn}`
+      ));
+    }
+  }
   return { hit: true, defeated, enemy };
 };
