@@ -1,5 +1,5 @@
-import { getDirection } from "../../core/directions.js";
-import { isInsideGrid } from "../../core/grid.js";
+import { getDirection } from "../../core/directions.js?v=svg-test-03";
+import { isInsideGrid } from "../../core/grid.js?v=svg-test-03";
 
 const findEnemy = (state, x, y) => state.enemies.find((enemy) => enemy.x === x && enemy.y === y);
 
