@@ -12,7 +12,7 @@ export const createDemoEnemies = () => [
   {
     id: "enemy-area-test",
     name: "Aprendiz de teste",
-    x: 2,
+    x: 1,
     y: 3,
     hp: 1,
     maxHp: 1,
