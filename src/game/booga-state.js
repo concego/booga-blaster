@@ -1,3 +1,5 @@
+import { createDemoEnemies } from "./demo-fixtures.js";
+
 const createCells = () => [
   ["#", ".", ".", ".", "#", ".", ".", ".", "#"],
   [".", ".", "#", ".", ".", ".", "#", ".", "."],
@@ -16,7 +18,7 @@ export const createBoogaState = () => ({
   launchArmed: false,
   effects: [],
   zones: [],
-  enemies: [],
+  enemies: createDemoEnemies(),
   orbs: [],
   powerups: [],
   grid: { width: 9, height: 5, cells: createCells() },
