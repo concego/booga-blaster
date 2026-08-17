@@ -1,8 +1,8 @@
-import { tryMovePlayer } from "../core/grid.js?v=svg-test-11";
-import { advanceTurn } from "../core/turn-engine.js?v=svg-test-11";
-import { scanState } from "./scan/scan-state.js?v=svg-test-11";
-import { castSpell } from "./spells/spell-engine.js?v=svg-test-11";
-import { getSpell } from "./spells/spell-catalog.js?v=svg-test-11";
+import { tryMovePlayer } from "../core/grid.js?v=svg-test-13";
+import { advanceTurn } from "../core/turn-engine.js?v=svg-test-13";
+import { scanState } from "./scan/scan-state.js?v=svg-test-13";
+import { castSpell } from "./spells/spell-engine.js?v=svg-test-13";
+import { getSpell } from "./spells/spell-catalog.js?v=svg-test-13";
 
 export const selectElement = (state, element) => {
   const spell = getSpell(element);
