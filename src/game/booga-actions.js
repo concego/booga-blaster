@@ -1,7 +1,8 @@
-import { scanNearby, tryMovePlayer } from "../core/grid.js?v=svg-test-03";
-import { advanceTurn } from "../core/turn-engine.js?v=svg-test-03";
-import { castSpell } from "./spells/spell-engine.js?v=svg-test-03";
-import { getSpell } from "./spells/spell-catalog.js?v=svg-test-03";
+import { tryMovePlayer } from "../core/grid.js?v=svg-test-10";
+import { advanceTurn } from "../core/turn-engine.js?v=svg-test-10";
+import { scanState } from "./scan/scan-state.js?v=svg-test-10";
+import { castSpell } from "./spells/spell-engine.js?v=svg-test-10";
+import { getSpell } from "./spells/spell-catalog.js?v=svg-test-10";
 
 export const selectElement = (state, element) => {
   const spell = getSpell(element);
@@ -32,4 +33,4 @@ export const dispatchDirection = (state, directionName) => {
   return result.message;
 };
 
-export const scanState = (state) => scanNearby(state).join("; ");
+export { scanState };
