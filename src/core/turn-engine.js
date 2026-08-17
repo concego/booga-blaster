@@ -5,9 +5,9 @@ export const advanceTurn = (state) => {
     .map((effect) => ({ ...effect, turns: effect.turns - 1 }))
     .filter((effect) => effect.turns > 0);
 
-  state.orbs = state.orbs
-    .map((orb) => ({ ...orb, fuse: orb.fuse - 1 }))
-    .filter((orb) => orb.fuse > 0);
+  state.zones = state.zones
+    .map((zone) => ({ ...zone, turns: zone.turns - 1 }))
+    .filter((zone) => zone.turns > 0);
 
   return state.turn;
 };
