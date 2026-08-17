@@ -1,8 +1,8 @@
-import { advanceTurn } from "../../core/turn-engine.js?v=svg-test-21";
-import { getDirection } from "../../core/directions.js?v=svg-test-21";
-import { getSpell } from "./spell-catalog.js?v=svg-test-21";
-import { destroyContactBlock, findContactCell } from "./contact.js?v=svg-test-21";
-import { revealBlockContents } from "../powerups/powerup-reveal.js?v=svg-test-21";
+import { advanceTurn } from "../../core/turn-engine.js?v=svg-test-22";
+import { getDirection } from "../../core/directions.js?v=svg-test-22";
+import { getSpell } from "./spell-catalog.js?v=svg-test-22";
+import { destroyContactBlock, findContactCell } from "./contact.js?v=svg-test-22";
+import { revealBlockContents } from "../powerups/powerup-reveal.js?v=svg-test-22";
 
 const hasEffect = (state, effect) => state.effects.some((item) => item.effect === effect);
 const getRange = (state, baseRange) => (hasEffect(state, "throw-range") ? baseRange + 1 : baseRange);
