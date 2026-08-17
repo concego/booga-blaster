@@ -23,19 +23,15 @@ const addZone = (group, cell, type) => {
   group.append(createSvg("text", { x: point.x, y: point.y, class: "dynamic-symbol" })).textContent = symbol;
 };
 
-const addPlayer = (group, player) => {
+const addPlayer = (player) => {
   const point = center(player);
-  group.append(createSvg("rect", {
-    x: point.x - 30, y: point.y - 30, width: 60, height: 60, rx: 20,
-    class: "dynamic-player", fill: "#a77bd4", stroke: "#f0d8ff", "stroke-width": 4
-  }));
-  group.append(createSvg("path", {
-    d: `M ${point.x - 22} ${point.y - 18} L ${point.x - 5} ${point.y - 48} L ${point.x + 5} ${point.y - 20} L ${point.x + 25} ${point.y - 44} L ${point.x + 18} ${point.y - 10}`,
-    fill: "#5f3b87", stroke: "#f0d8ff", "stroke-width": 4
-  }));
-  group.append(createSvg("text", {
-    x: point.x, y: point.y + 8, class: "dynamic-symbol", fill: "#10241d", "font-size": 26
-  })).textContent = "@";
+  const body = document.querySelector("#player-body");
+  const marker = document.querySelector("#player-marker");
+  if (!body || !marker) return;
+  body.setAttribute("cx", point.x);
+  body.setAttribute("cy", point.y);
+  marker.setAttribute("x", point.x);
+  marker.setAttribute("y", point.y + 8);
 };
 
 const addEnemy = (group, enemy) => {
@@ -55,7 +51,6 @@ export const renderArena = (state) => {
   const playerLayer = document.querySelector("#player-layer");
   if (!group || !playerLayer) return;
   group.replaceChildren();
-  playerLayer.replaceChildren();
 
   state.zones.forEach((zone) => zone.cells.forEach((cell) => addZone(group, cell, zone.type)));
   state.grid.cells.forEach((row, y) => row.forEach((value, x) => {
@@ -67,5 +62,5 @@ export const renderArena = (state) => {
   }));
   state.powerups.filter((item) => item.revealed && !item.collected).forEach((item) => addPowerup(group, item));
   state.enemies.forEach((enemy) => addEnemy(group, enemy));
-  addPlayer(playerLayer, state.player);
+  addPlayer(state.player);
 };
