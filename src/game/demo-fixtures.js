@@ -4,8 +4,8 @@ export const createDemoEnemies = () => [
     name: "Troll de teste",
     x: 1,
     y: 2,
-    hp: 3,
-    maxHp: 3,
+    hp: 1,
+    maxHp: 1,
     stunned: 0,
     drop: "ghost-potion"
   },
@@ -14,8 +14,8 @@ export const createDemoEnemies = () => [
     name: "Aprendiz de teste",
     x: 3,
     y: 2,
-    hp: 3,
-    maxHp: 3,
+    hp: 1,
+    maxHp: 1,
     stunned: 0
   }
 ];
