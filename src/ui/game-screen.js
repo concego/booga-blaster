@@ -3,6 +3,7 @@ import { createBoogaState } from "../game/booga-state.js";
 import { dispatchDirection, prepareLaunch, launchSpell, scanState, selectElement } from "../game/booga-actions.js";
 import { addLogMessage } from "../game/demo-state.js";
 import { createLogView } from "./log.js";
+import { renderArena } from "./arena-svg.js";
 
 const elementLabels = { fire: "Fogo", water: "Água", earth: "Terra", air: "Ar" };
 
@@ -22,6 +23,7 @@ export const bindGameScreen = () => {
     effects.innerHTML = state.effects.length
       ? state.effects.map((effect) => `<span>${effect.name}: ${effect.turns} turnos</span>`).join("; ")
       : '<span class="muted-effect">Nenhum efeito ativo</span>';
+    renderArena(state);
   };
 
   const updateElementButtons = () => {
