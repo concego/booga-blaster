@@ -30,6 +30,9 @@ export const scanState = (state) => {
     const name = zone.type === "flame" ? "Chama" : "Barreira de ar";
     addFinding(findings, name, player, cell.x, cell.y);
   }));
+  state.chests.filter((chest) => !chest.opened).forEach((chest) => {
+    addFinding(findings, "Baú", player, chest.x, chest.y);
+  });
   state.powerups.filter((item) => item.revealed && !item.collected).forEach((item) => {
     const powerup = getPowerup(item.type);
     if (powerup) addFinding(findings, powerup.name, player, item.x, item.y);
