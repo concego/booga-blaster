@@ -4,6 +4,7 @@ import { dispatchDirection, prepareLaunch, launchSpell, scanState, selectElement
 import { addLogMessage } from "../game/demo-state.js";
 import { createLogView } from "./log.js";
 import { renderArena } from "./arena-svg.js";
+import { bindKeyboardControls } from "./keyboard-controls.js";
 
 const elementLabels = { fire: "Fogo", water: "Água", earth: "Terra", air: "Ar" };
 
@@ -34,8 +35,8 @@ export const bindGameScreen = () => {
     });
   };
 
-  const handleElement = (button) => {
-    const result = selectElement(state, button.dataset.element);
+  const handleElement = (element) => {
+    const result = selectElement(state, element);
     setStatus(result.message);
     if (result.ok) {
       updateElementButtons();
@@ -43,34 +44,49 @@ export const bindGameScreen = () => {
     }
   };
 
-  const handleDirection = (button) => {
-    const message = dispatchDirection(state, button.dataset.direction);
+  const handleDirection = (direction) => {
+    const message = dispatchDirection(state, direction);
     setStatus(message);
     addLog(message);
     renderState();
+  };
+
+  const handleLaunch = () => {
+    const message = state.launchArmed ? launchSpell(state) : prepareLaunch(state);
+    setStatus(message);
+    addLog(message);
+    renderState();
+  };
+
+  const handleScan = () => {
+    const message = `Scan: ${scanState(state)}`;
+    setStatus("Scan concluído.");
+    addLog(message);
+  };
+
+  const handleLives = () => {
+    const message = `Vidas: ${state.lives}.`;
+    setStatus(message);
+    addLog(message);
   };
 
   document.querySelectorAll("button[data-sound]").forEach((button) => {
     button.addEventListener("click", () => playUiSound(button.dataset.sound));
   });
   document.querySelectorAll(".element-button:not(:disabled)").forEach((button) => {
-    button.addEventListener("click", () => handleElement(button));
+    button.addEventListener("click", () => handleElement(button.dataset.element));
   });
   document.querySelectorAll(".direction-button").forEach((button) => {
-    button.addEventListener("click", () => handleDirection(button));
+    button.addEventListener("click", () => handleDirection(button.dataset.direction));
   });
-
-  document.querySelector("#launch-button").addEventListener("click", () => {
-    const message = state.launchArmed ? launchSpell(state) : prepareLaunch(state);
-    setStatus(message);
-    addLog(message);
-    renderState();
-  });
-
-  document.querySelector("#scan-button").addEventListener("click", () => {
-    const message = `Scan: ${scanState(state)}`;
-    setStatus("Scan concluído.");
-    addLog(message);
+  document.querySelector("#launch-button").addEventListener("click", handleLaunch);
+  document.querySelector("#scan-button").addEventListener("click", handleScan);
+  bindKeyboardControls({
+    onDirection: handleDirection,
+    onElement: handleElement,
+    onLaunch: handleLaunch,
+    onScan: handleScan,
+    onLives: handleLives
   });
 
   updateElementButtons();
