@@ -1,10 +1,16 @@
-import { tryMovePlayer } from "../core/grid.js?v=svg-test-13";
-import { advanceTurn } from "../core/turn-engine.js?v=svg-test-13";
-import { scanState } from "./scan/scan-state.js?v=svg-test-13";
-import { castSpell } from "./spells/spell-engine.js?v=svg-test-13";
-import { getSpell } from "./spells/spell-catalog.js?v=svg-test-13";
+import { tryMovePlayer } from "../core/grid.js?v=svg-test-16";
+import { advanceTurn, getTurnEvents } from "../core/turn-engine.js?v=svg-test-16";
+import { scanState } from "./scan/scan-state.js?v=svg-test-16";
+import { castSpell } from "./spells/spell-engine.js?v=svg-test-16";
+import { getSpell } from "./spells/spell-catalog.js?v=svg-test-16";
+
+const appendTurnEvents = (state, message) => {
+  const events = getTurnEvents(state);
+  return events.length ? `${message} ${events.join(" ")}` : message;
+};
 
 export const selectElement = (state, element) => {
+  if (state.gameOver) return { ok: false, message: "Fim de jogo." };
   const spell = getSpell(element);
   const name = spell ? spell.name : element;
   if (!state.unlockedElements.includes(element)) {
@@ -16,6 +22,7 @@ export const selectElement = (state, element) => {
 };
 
 export const prepareLaunch = (state) => {
+  if (state.gameOver) return "Fim de jogo.";
   state.launchArmed = true;
   return "Lançar preparado. Escolha uma direção ou pressione Lançar novamente.";
 };
@@ -27,10 +34,12 @@ export const launchSpell = (state, directionName = null) => {
 };
 
 export const dispatchDirection = (state, directionName) => {
+  if (state.gameOver) return "Fim de jogo.";
   if (state.launchArmed) return launchSpell(state, directionName);
   const result = tryMovePlayer(state, directionName);
-  if (result.ok) advanceTurn(state);
-  return result.message;
+  if (!result.ok) return result.message;
+  advanceTurn(state);
+  return appendTurnEvents(state, result.message);
 };
 
 export { scanState };
