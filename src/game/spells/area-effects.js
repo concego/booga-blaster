@@ -1,13 +1,13 @@
-import { isInsideGrid } from "../../core/grid.js?v=svg-test-03";
+import { isInsideGrid } from "../../core/grid.js";
 
-export const adjacentCells = (state, center) => {
-  const candidates = [
-    { x: center.x, y: center.y - 1 },
-    { x: center.x, y: center.y + 1 },
-    { x: center.x - 1, y: center.y },
-    { x: center.x + 1, y: center.y }
-  ];
-  return candidates.filter(({ x, y }) => isInsideGrid(state, x, y));
+export const coneCells = (state, contact, direction) => {
+  if (!direction) return [];
+  const front = { x: contact.x + direction.dx, y: contact.y + direction.dy };
+  const left = { x: front.x - direction.dy, y: front.y + direction.dx };
+  const right = { x: front.x + direction.dy, y: front.y - direction.dx };
+  return [left, front, right].filter(({ x, y }) => (
+    isInsideGrid(state, x, y) && state.grid.cells[y][x] !== "#"
+  ));
 };
 
 const sameZone = (zone, type, cells) => (
@@ -15,6 +15,7 @@ const sameZone = (zone, type, cells) => (
 );
 
 export const upsertZone = (state, type, cells, turns) => {
+  if (!cells.length) return null;
   const existing = state.zones.find((zone) => sameZone(zone, type, cells));
   if (existing) {
     existing.turns = turns;
