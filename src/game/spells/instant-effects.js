@@ -1,5 +1,6 @@
 import { adjacentCells } from "./area-effects.js";
 import { isBlocked } from "../../core/grid.js";
+import { STONE_DAMAGE, damageEnemyAt } from "../combat/damage.js";
 
 const enemyAt = (state, cell) => state.enemies.find((enemy) => enemy.x === cell.x && enemy.y === cell.y);
 
@@ -16,7 +17,7 @@ export const pushEnemies = (state, contact, direction) => {
 
 export const throwStones = (state, contact) => {
   adjacentCells(state, contact).forEach((cell) => {
-    const enemy = enemyAt(state, cell);
-    if (enemy) enemy.stunned = Math.max(enemy.stunned || 0, 1);
+    const result = damageEnemyAt(state, cell, STONE_DAMAGE);
+    if (result.hit && result.enemy) result.enemy.stunned = Math.max(result.enemy.stunned || 0, 1);
   });
 };
