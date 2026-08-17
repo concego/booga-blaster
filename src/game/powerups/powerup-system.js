@@ -23,6 +23,7 @@ export const activatePowerup = (state, type, durationTurns) => {
   } else {
     state.effects.push({ name: powerup.name, effect: powerup.effect, turns: durationTurns });
   }
+  state.effectsRevision += 1;
 
   return { ok: true, message: `${powerup.name} ativada: ${durationTurns} turnos.` };
 };
