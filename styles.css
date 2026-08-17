@@ -76,7 +76,15 @@ h2 { margin-bottom: .8rem; font-size: 1.1rem; }
   background: #0d1a15;
 }
 .arena-svg { display: block; width: 100%; height: auto; }
+#static-blocks, #static-orb, #static-player { display: none; }
 .visual-caption { fill: #d9f59c; font-size: 1rem; font-weight: 800; letter-spacing: .18em; }
+.dynamic-wall { fill: #6e4937; stroke: #d49b65; stroke-width: 4; }
+.dynamic-flame { fill: #ec6338; fill-opacity: .85; stroke: #ffd278; stroke-width: 3; }
+.dynamic-wind { fill: #8fdcff; fill-opacity: .28; stroke: #b8efff; stroke-width: 3; stroke-dasharray: 8 5; }
+.dynamic-player { fill: #a77bd4; stroke: #f0d8ff; stroke-width: 4; }
+.dynamic-enemy { fill: #d95f63; stroke: #ffd1a8; stroke-width: 4; }
+.dynamic-powerup { fill: #f6c65b; stroke: #fff0a8; stroke-width: 4; }
+.dynamic-symbol { fill: #10241d; font-size: 1.7rem; font-weight: 900; text-anchor: middle; dominant-baseline: central; }
 
 .element-controls, .command-controls, .game-log {
   margin-top: 1rem;
