@@ -1,10 +1,10 @@
-import { playUiSound } from "../audio/ui-audio.js?v=svg-test-15";
-import { createBoogaState } from "../game/booga-state.js?v=svg-test-15";
-import { dispatchDirection, prepareLaunch, launchSpell, scanState, selectElement } from "../game/booga-actions.js?v=svg-test-15";
-import { addLogMessage } from "../game/demo-state.js?v=svg-test-15";
-import { createLogView } from "./log.js?v=svg-test-15";
-import { renderArena } from "./arena-svg.js?v=svg-test-15";
-import { bindKeyboardControls } from "./keyboard-controls.js?v=svg-test-15";
+import { playUiSound } from "../audio/ui-audio.js?v=svg-test-16";
+import { createBoogaState } from "../game/booga-state.js?v=svg-test-16";
+import { dispatchDirection, prepareLaunch, launchSpell, scanState, selectElement } from "../game/booga-actions.js?v=svg-test-16";
+import { addLogMessage } from "../game/demo-state.js?v=svg-test-16";
+import { createLogView } from "./log.js?v=svg-test-16";
+import { renderArena } from "./arena-svg.js?v=svg-test-16";
+import { bindKeyboardControls } from "./keyboard-controls.js?v=svg-test-16";
 import { createEffectsStatus } from "./effects-status.js?v=effects-02";
 
 const elementLabels = { fire: "Fogo", water: "Água", earth: "Terra", air: "Ar" };
@@ -17,6 +17,7 @@ export const bindGameScreen = () => {
   const effectsAnnouncer = document.querySelector("#effects-announcer");
   const effectsStatus = createEffectsStatus(effects, effectsAnnouncer);
   const lives = document.querySelector("#lives");
+  const hearts = document.querySelector("#hearts");
 
   const labelElement = () => elementLabels[state.selectedElement];
   const setStatus = (message) => { actionStatus.textContent = message; };
@@ -24,6 +25,7 @@ export const bindGameScreen = () => {
   const addLog = (message) => { addLogMessage(state, message); renderLog(); };
   const renderState = () => {
     lives.textContent = String(state.lives);
+    hearts.textContent = `${state.hearts}/3`;
     effectsStatus.render(state.effects, state.effectsRevision);
     renderArena(state);
   };
@@ -68,7 +70,7 @@ export const bindGameScreen = () => {
   };
 
   const handleLives = () => {
-    const message = `Vidas: ${state.lives}.`;
+    const message = `Vidas: ${state.lives}. Corações: ${state.hearts}/3.`;
     setStatus(message);
     addLog(message);
   };
