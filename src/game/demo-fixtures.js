@@ -6,7 +6,8 @@ export const createDemoEnemies = () => [
     y: 2,
     hp: 3,
     maxHp: 3,
-    stunned: 0
+    stunned: 0,
+    drop: "ghost-potion"
   },
   {
     id: "enemy-area-test",
