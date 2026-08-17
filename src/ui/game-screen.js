@@ -1,10 +1,11 @@
-import { playUiSound } from "../audio/ui-audio.js?v=svg-test-10";
-import { createBoogaState } from "../game/booga-state.js?v=svg-test-10";
-import { dispatchDirection, prepareLaunch, launchSpell, scanState, selectElement } from "../game/booga-actions.js?v=svg-test-10";
-import { addLogMessage } from "../game/demo-state.js?v=svg-test-10";
-import { createLogView } from "./log.js?v=svg-test-10";
-import { renderArena } from "./arena-svg.js?v=svg-test-10";
-import { bindKeyboardControls } from "./keyboard-controls.js?v=svg-test-10";
+import { playUiSound } from "../audio/ui-audio.js?v=svg-test-11";
+import { createBoogaState } from "../game/booga-state.js?v=svg-test-11";
+import { dispatchDirection, prepareLaunch, launchSpell, scanState, selectElement } from "../game/booga-actions.js?v=svg-test-11";
+import { addLogMessage } from "../game/demo-state.js?v=svg-test-11";
+import { createLogView } from "./log.js?v=svg-test-11";
+import { renderArena } from "./arena-svg.js?v=svg-test-11";
+import { bindKeyboardControls } from "./keyboard-controls.js?v=svg-test-11";
+import { createEffectsStatus } from "./effects-status.js?v=effects-01";
 
 const elementLabels = { fire: "Fogo", water: "Água", earth: "Terra", air: "Ar" };
 
@@ -13,6 +14,8 @@ export const bindGameScreen = () => {
   const logView = createLogView(document.querySelector("#log-list"));
   const actionStatus = document.querySelector("#action-status");
   const effects = document.querySelector("#effects");
+  const effectsAnnouncer = document.querySelector("#effects-announcer");
+  const effectsStatus = createEffectsStatus(effects, effectsAnnouncer);
   const lives = document.querySelector("#lives");
 
   const labelElement = () => elementLabels[state.selectedElement];
@@ -21,9 +24,7 @@ export const bindGameScreen = () => {
   const addLog = (message) => { addLogMessage(state, message); renderLog(); };
   const renderState = () => {
     lives.textContent = String(state.lives);
-    effects.innerHTML = state.effects.length
-      ? state.effects.map((effect) => `<span>${effect.name}: ${effect.turns} turnos</span>`).join("; ")
-      : '<span class="muted-effect">Nenhum efeito ativo</span>';
+    effectsStatus.render(state.effects, state.effectsRevision);
     renderArena(state);
   };
 
