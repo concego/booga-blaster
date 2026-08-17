@@ -16,12 +16,16 @@ O ponto de contato pode ser a célula do próprio jogador quando Lançar é acio
 
 | Elemento | Alcance | Efeito |
 |---|---:|---|
-| Fogo | 2 | Causa dano a inimigos no contato; cria chamas nas quatro células ortogonais ao redor por 3 turnos. |
-| Água | 2 | Causa dano a inimigos no contato e empurra-os 1 célula para trás. |
-| Terra | 1 | Causa dano a inimigos no contato; arremessa pedras que também podem causar dano nas quatro células ortogonais ao redor. |
-| Ar | 3 | Causa dano a inimigos no contato; cria uma barreira que impede o avanço de inimigos nas quatro células ortogonais ao redor por 2 turnos. |
+| Fogo | 2 | Causa dano a inimigos no contato; cria chamas no cone frontal por 3 turnos. |
+| Água | 2 | Causa dano a inimigos no contato; empurra inimigos no cone 1 célula para trás. |
+| Terra | 1 | Causa dano a inimigos no contato; arremessa pedras que podem causar dano no cone frontal. |
+| Ar | 3 | Causa dano a inimigos no contato; cria uma barreira no cone que impede o avanço por 2 turnos. |
 
-As quatro células ao redor são inicialmente as direções Norte, Sul, Oeste e Leste. Diagonais podem ser adicionadas por uma melhoria futura.
+O efeito secundário usa um cone frontal de três células, orientado pela direção do lançamento. Para um disparo para leste, são afetadas as células acima, à frente e abaixo do contato. A célula atrás do contato, onde normalmente está o jogador, fica fora do cone.
+
+- Células fora do mapa são ignoradas.
+- Paredes no cone não são destruídas nem recebem efeito secundário.
+- Lançar na própria célula não cria cone; apenas resolve o efeito direto no contato.
 
 O protótipo usa 1 ponto de dano no contato e 1 ponto de dano por pedra. Os valores são de balanceamento inicial.
 
