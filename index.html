@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Booga Blaster — Protótipo da tela de jogo</title>
-  <link rel="stylesheet" href="styles.css?v=svg-test-13">
+  <link rel="stylesheet" href="styles.css?v=svg-test-14">
 </head>
 <body>
   <main id="game" class="game-shell" aria-labelledby="phase-name">
@@ -24,7 +24,7 @@
 
     <!-- O mapa é apenas apresentação visual. O fluxo do TalkBack continua no DOM abaixo. -->
     <section class="arena-visual" aria-hidden="true">
-      <svg class="arena-svg" viewBox="0 0 900 540" role="presentation" aria-hidden="true">
+      <svg class="arena-svg" viewBox="0 0 900 540" role="none" aria-hidden="true" focusable="false">
         <defs>
           <linearGradient id="forest-floor" x1="0" y1="0" x2="0" y2="1">
             <stop offset="0" stop-color="#244b39"/>
@@ -62,7 +62,7 @@
         <g id="dynamic-arena" aria-hidden="true"></g>
         <g id="player-layer" aria-hidden="true">
           <circle id="player-body" cx="180" cy="180" r="30" fill="#a77bd4" stroke="#f0d8ff" stroke-width="4"/>
-          <text id="player-marker" x="180" y="188" fill="#10241d" font-size="26" font-weight="900" text-anchor="middle">@</text>
+          <path id="player-hat" d="M158 162L175 132L185 160L205 136L198 170Z" fill="#5f3b87" stroke="#f0d8ff" stroke-width="4"/>
         </g>
       </svg>
     </section>
@@ -120,6 +120,6 @@
       </ol>
     </section>
   </main>
-  <script type="module" src="app.js?v=svg-test-13"></script>
+  <script type="module" src="app.js?v=svg-test-14"></script>
 </body>
 </html>
