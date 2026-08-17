@@ -1,9 +1,11 @@
 export const advanceTurn = (state) => {
   state.turn += 1;
 
-  state.effects = state.effects
+  const activeEffects = state.effects
     .map((effect) => ({ ...effect, turns: effect.turns - 1 }))
     .filter((effect) => effect.turns > 0);
+  if (activeEffects.length !== state.effects.length) state.effectsRevision += 1;
+  state.effects = activeEffects;
 
   state.zones = state.zones
     .map((zone) => ({ ...zone, turns: zone.turns - 1 }))
