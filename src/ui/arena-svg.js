@@ -19,16 +19,33 @@ const addZone = (group, cell, type) => {
   group.append(createSvg("rect", {
     x: point.x - 35, y: point.y - 35, width: 70, height: 70, rx: 16, class: className
   }));
+  if (type === "flame") {
+    group.append(createSvg("path", {
+      d: `M ${point.x} ${point.y + 27} C ${point.x - 25} ${point.y + 8}, ${point.x - 8} ${point.y - 4}, ${point.x} ${point.y - 28} C ${point.x + 8} ${point.y - 6}, ${point.x + 25} ${point.y + 8}, ${point.x} ${point.y + 27}Z`,
+      class: "flame-core"
+    }));
+  } else {
+    group.append(createSvg("path", {
+      d: `M ${point.x - 26} ${point.y - 12} C ${point.x - 8} ${point.y - 28}, ${point.x + 8} ${point.y + 5}, ${point.x + 27} ${point.y - 12} M ${point.x - 27} ${point.y + 12} C ${point.x - 8} ${point.y - 4}, ${point.x + 8} ${point.y + 24}, ${point.x + 26} ${point.y + 8}`,
+      class: "wind-streak"
+    }));
+  }
 };
 
 const addPlayer = (player) => {
   const point = center(player);
   const body = document.querySelector("#player-body");
   const hat = document.querySelector("#player-hat");
-  if (!body || !hat) return;
+  const eyeLeft = document.querySelector("#player-eye-left");
+  const eyeRight = document.querySelector("#player-eye-right");
+  if (!body || !hat || !eyeLeft || !eyeRight) return;
   body.setAttribute("cx", point.x);
   body.setAttribute("cy", point.y);
   hat.setAttribute("d", `M ${point.x - 22} ${point.y - 18} L ${point.x - 5} ${point.y - 48} L ${point.x + 5} ${point.y - 20} L ${point.x + 25} ${point.y - 44} L ${point.x + 18} ${point.y - 10}Z`);
+  eyeLeft.setAttribute("cx", point.x - 10);
+  eyeLeft.setAttribute("cy", point.y - 3);
+  eyeRight.setAttribute("cx", point.x + 10);
+  eyeRight.setAttribute("cy", point.y - 3);
 };
 
 const addEnemy = (group, enemy) => {
@@ -44,6 +61,18 @@ const addPowerup = (group, item) => {
     x: point.x - 18, y: point.y - 18, width: 36, height: 36, rx: 8,
     class: "dynamic-powerup", transform: `rotate(45 ${point.x} ${point.y})`
   }));
+  group.append(createSvg("circle", { cx: point.x, cy: point.y, r: 7, class: "powerup-core" }));
+};
+
+const addWall = (group, cell) => {
+  const point = center(cell);
+  group.append(createSvg("rect", {
+    x: point.x - 35, y: point.y - 35, width: 70, height: 70, rx: 12, class: "dynamic-wall"
+  }));
+  group.append(createSvg("path", {
+    d: `M ${point.x - 23} ${point.y - 18}L ${point.x - 7} ${point.y - 5}L ${point.x - 19} ${point.y + 19} M ${point.x + 4} ${point.y - 27}L ${point.x + 18} ${point.y - 7}L ${point.x + 8} ${point.y + 23}`,
+    class: "wall-crack"
+  }));
 };
 
 export const renderArena = (state) => {
@@ -54,11 +83,7 @@ export const renderArena = (state) => {
 
   state.zones.forEach((zone) => zone.cells.forEach((cell) => addZone(group, cell, zone.type)));
   state.grid.cells.forEach((row, y) => row.forEach((value, x) => {
-    if (value !== "#") return;
-    const point = center({ x, y });
-    group.append(createSvg("rect", {
-      x: point.x - 35, y: point.y - 35, width: 70, height: 70, rx: 12, class: "dynamic-wall"
-    }));
+    if (value === "#") addWall(group, { x, y });
   }));
   state.powerups.filter((item) => item.revealed && !item.collected).forEach((item) => addPowerup(group, item));
   state.enemies.forEach((enemy) => addEnemy(group, enemy));
