@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Booga Blaster — Protótipo da tela de jogo</title>
-  <link rel="stylesheet" href="styles.css?v=svg-test-11">
+  <link rel="stylesheet" href="styles.css?v=svg-test-12">
 </head>
 <body>
   <main id="game" class="game-shell" aria-labelledby="phase-name">
@@ -24,7 +24,7 @@
 
     <!-- O mapa é apenas apresentação visual. O fluxo do TalkBack continua no DOM abaixo. -->
     <section class="arena-visual" aria-hidden="true">
-      <svg class="arena-svg" viewBox="0 0 900 540" role="presentation">
+      <svg class="arena-svg" viewBox="0 0 900 540" role="presentation" aria-hidden="true">
         <defs>
           <linearGradient id="forest-floor" x1="0" y1="0" x2="0" y2="1">
             <stop offset="0" stop-color="#244b39"/>
@@ -112,7 +112,7 @@
         <h2 id="log-heading">Log</h2>
         <span class="log-count">4 mensagens</span>
       </div>
-      <ol id="log-list" class="log-list" aria-live="polite" aria-relevant="additions">
+      <ol id="log-list" class="log-list" aria-live="off">
         <li>Supimpus entrou no Bosque Espinhoso.</li>
         <li>Fogo selecionado.</li>
         <li>Há caminhos livres ao norte e a leste.</li>
@@ -120,6 +120,6 @@
       </ol>
     </section>
   </main>
-  <script type="module" src="app.js?v=svg-test-11"></script>
+  <script type="module" src="app.js?v=svg-test-12"></script>
 </body>
 </html>
