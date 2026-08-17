@@ -1,48 +1,35 @@
 # Magias elementais
 
-## Alcance e contato
+Cada lançamento cria um **projétil** na célula de contato. O projétil permanece visível até o próximo turno; então explode e resolve o efeito da magia.
 
-Cada lançamento percorre a direção escolhida até o alcance do elemento.
+## Ciclo do lançamento
 
-- Se encontra uma parede/bloco destrutível, essa é a célula de contato.
-- O bloco é destruído.
-- A explosão resolve na célula de contato.
-- O lançamento não atravessa o obstáculo.
-- Se não encontra obstáculo dentro do alcance, a explosão resolve na última célula alcançada.
+1. Supimpus escolhe a direção.
+2. O projétil percorre a direção até o alcance ou o primeiro obstáculo.
+3. A célula de contato é definida.
+4. Um bloco na célula de contato é destruído imediatamente.
+5. Se houver conteúdo no bloco, o power-up é revelado.
+6. O projétil fica parado na célula de contato.
+7. No próximo turno, o projétil explode.
+8. O dano direto, o efeito instantâneo e o cone secundário são resolvidos na explosão.
 
-O ponto de contato pode ser a célula do próprio jogador quando Lançar é acionado duas vezes.
+O inimigo pode sair da célula antes da explosão. Isso cria uma decisão: esperar a explosão, movimentar-se ou preparar outro lançamento.
 
-## Efeitos
+## Cone secundário
 
-| Elemento | Alcance | Efeito |
-|---|---:|---|
-| Fogo | 2 | Causa dano a inimigos no contato; cria chamas no cone frontal por 3 turnos. |
-| Água | 2 | Causa dano a inimigos no contato; empurra inimigos no cone 1 célula para trás. |
-| Terra | 1 | Causa dano a inimigos no contato; arremessa pedras que podem causar dano no cone frontal. |
-| Ar | 3 | Causa dano a inimigos no contato; cria uma barreira no cone que impede o avanço por 2 turnos. |
-
-O efeito secundário usa um cone frontal de três células, orientado pela direção do lançamento. Para um disparo para leste, são afetadas as células acima, à frente e abaixo do contato. A célula atrás do contato, onde normalmente está o jogador, fica fora do cone.
+O efeito secundário usa um cone frontal de três células, orientado pela direção do lançamento. A célula atrás do contato fica fora do cone.
 
 - Células fora do mapa são ignoradas.
 - Paredes no cone não são destruídas nem recebem efeito secundário.
-- Lançar na própria célula não cria cone; apenas resolve o efeito direto no contato.
+- Lançar na própria célula não cria cone.
 
-O protótipo usa 1 ponto de dano no contato e 1 ponto de dano por pedra. Os valores são de balanceamento inicial.
+## Catálogo atual
 
-## Turnos persistentes
+| Elemento | Alcance | Explosão |
+|---|---:|---|
+| Fogo | 2 | Dano no contato e chamas no cone por 3 turnos. |
+| Água | 2 | Dano no contato e empurrão no cone. |
+| Terra | 1 | Dano no contato e pedras no cone. |
+| Ar | 3 | Dano no contato e barreira no cone por 2 turnos. |
 
-- Uma zona persistente recebe sua duração completa depois que o lançamento é processado.
-- A cada turno seguinte, a duração diminui em 1.
-- Ao chegar a zero, a zona é removida.
-- Um novo efeito do mesmo tipo em área sobreposta recarrega a duração para o valor-base.
-- Efeitos diferentes podem coexistir em áreas sobrepostas.
-
-Água e Terra têm efeitos instantâneos no modelo inicial. Fogo e Ar criam zonas persistentes.
-
-## Implementação
-
-- `spell-catalog.js`: alcance e efeito-base de cada elemento.
-- `contact.js`: célula de contato e destruição de blocos.
-- `area-effects.js`: células adjacentes e zonas persistentes.
-- `instant-effects.js`: empurrão e pedras.
-- `spell-engine.js`: coordenação do lançamento.
+O dano dos inimigos comuns está configurado provisoriamente em 1 HP: uma explosão derrota um inimigo comum. Inimigos especiais poderão usar HP maior.
