@@ -35,6 +35,11 @@ export const scanNearby = (state, radius = 5) => {
     }
   }
 
+  state.enemies.forEach((enemy) => {
+    const distance = Math.abs(enemy.x - playerX) + Math.abs(enemy.y - playerY);
+    if (distance <= radius) found.push(`${enemy.name}: ${distance} casas`);
+  });
+
   state.orbs.forEach((orb) => {
     const distance = Math.abs(orb.x - playerX) + Math.abs(orb.y - playerY);
     if (distance <= radius) found.push(`${orb.element}: ${distance} casas`);
