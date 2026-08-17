@@ -1,4 +1,4 @@
-import { createDemoEnemies } from "./demo-fixtures.js?v=svg-test-03";
+import { createDemoEnemies } from "./demo-fixtures.js?v=svg-test-16";
 
 const createCells = () => [
   ["#", ".", ".", ".", "#", ".", ".", ".", "#"],
@@ -13,6 +13,7 @@ export const createBoogaState = () => ({
   player: { x: 1, y: 1 },
   lives: 3,
   hearts: 3,
+  gameOver: false,
   selectedElement: "fire",
   unlockedElements: ["fire"],
   launchArmed: false,
