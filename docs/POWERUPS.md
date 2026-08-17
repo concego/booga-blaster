@@ -30,6 +30,14 @@ Um item escondido não pode ser coletado antes de ser revelado. Depois de revela
 - `powerup-catalog.js`: tipos e nomes.
 - `powerup-sources.js`: origens e criação de itens.
 - `powerup-reveal.js`: revelação de conteúdos escondidos.
-- `powerup-system.js`: ativação, recarga e coleta.
+- `powerup-system.js`: ativação, recarga e coleta automática.
+- `booga-state.js`: fixtures de teste para item visível, baú e conteúdo de bloco.
 
-As durações ainda não são fixadas no catálogo até que o balanceamento de cada efeito seja decidido.
+## Fixtures atuais
+
+- Um item de **Super Força** fica visível em uma célula livre.
+- Um baú contém uma **Salamandra**; ao entrar na célula, o baú abre e o efeito é ativado automaticamente.
+- Um bloco destrutível contém uma **Vida extra**; ao ser destruído, o item é revelado para coleta posterior.
+- O Troll de teste derruba uma **Poção Fantasma** ao ser derrotado.
+
+A duração de teste dos efeitos temporários é de 8 turnos. Ela continua sendo provisória para o balanceamento final.
