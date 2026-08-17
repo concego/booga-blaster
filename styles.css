@@ -89,6 +89,11 @@ h2 { margin-bottom: .8rem; font-size: 1.1rem; }
 .dynamic-chest { fill: #8c5a37; stroke: #f0c078; stroke-width: 4; }
 .chest-lid { fill: none; stroke: #f0c078; stroke-width: 5; stroke-linecap: round; }
 .chest-lock { fill: #ffe39a; stroke: #543522; stroke-width: 2; }
+.projectile-fire { fill: #f56b36; stroke: #fff0a8; stroke-width: 4; }
+.projectile-water { fill: #5dbce8; stroke: #d9f5ff; stroke-width: 4; }
+.projectile-earth { fill: #a16c45; stroke: #f4ce9d; stroke-width: 4; }
+.projectile-air { fill: #a5e8ff; stroke: #effcff; stroke-width: 4; }
+.projectile-ring { fill: none; stroke: #fff0a8; stroke-width: 3; stroke-dasharray: 5 7; opacity: .9; }
 #dynamic-arena { display: block; visibility: visible; opacity: 1; }
 .dynamic-player { display: block; visibility: visible; opacity: 1; fill: #a77bd4; stroke: #f0d8ff; stroke-width: 4; }
 .dynamic-enemy { fill: #d95f63; stroke: #ffd1a8; stroke-width: 4; }
