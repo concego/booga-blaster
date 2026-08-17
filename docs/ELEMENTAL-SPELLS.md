@@ -27,7 +27,7 @@ O efeito secundário usa um cone frontal de três células, orientado pela dire�
 
 | Elemento | Alcance | Explosão |
 |---|---:|---|
-| Fogo | 2 | Dano no contato e chamas no cone por 3 turnos. |
+| Fogo | 2 | Dano no contato e chamas no cone por 3 turnos. As chamas causam 1 dano na explosão e a cada turno em que um inimigo permanece na zona. |
 | Água | 2 | Dano no contato e empurrão no cone. |
 | Terra | 1 | Dano no contato e pedras no cone. |
 | Ar | 3 | Dano no contato e barreira no cone por 2 turnos. |
