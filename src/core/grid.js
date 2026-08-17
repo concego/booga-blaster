@@ -1,4 +1,4 @@
-import { getDirection } from "./directions.js";
+import { getDirection } from "./directions.js?v=svg-test-03";
 
 export const isInsideGrid = (state, x, y) => (
   x >= 0 && x < state.grid.width && y >= 0 && y < state.grid.height
