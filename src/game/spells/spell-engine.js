@@ -28,5 +28,5 @@ export const castSpell = (state, element, directionName = null) => {
 
   const target = direction ? `para ${direction.label}` : "na própria célula";
   const obstacleText = destroyed ? " Obstáculo destruído." : "";
-  return { ok: true, message: `${element} lançado ${target}.${obstacleText}`, contact: contact.contact };
+  return { ok: true, message: `${spell.name} lançado ${target}.${obstacleText}`, contact: contact.contact };
 };
