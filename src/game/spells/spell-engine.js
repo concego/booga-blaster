@@ -1,15 +1,16 @@
-import { advanceTurn } from "../../core/turn-engine.js?v=svg-test-13";
-import { getDirection } from "../../core/directions.js?v=svg-test-13";
-import { getSpell } from "./spell-catalog.js?v=svg-test-13";
-import { coneCells, upsertZone } from "./area-effects.js?v=svg-test-13";
-import { destroyContactBlock, findContactCell } from "./contact.js?v=svg-test-13";
-import { pushEnemies, throwStones } from "./instant-effects.js?v=svg-test-13";
-import { CONTACT_DAMAGE, damageEnemyAt } from "../combat/damage.js?v=svg-test-13";
+import { advanceTurn } from "../../core/turn-engine.js?v=svg-test-16";
+import { getDirection } from "../../core/directions.js?v=svg-test-16";
+import { getSpell } from "./spell-catalog.js?v=svg-test-16";
+import { coneCells, upsertZone } from "./area-effects.js?v=svg-test-16";
+import { destroyContactBlock, findContactCell } from "./contact.js?v=svg-test-16";
+import { pushEnemies, throwStones } from "./instant-effects.js?v=svg-test-16";
+import { CONTACT_DAMAGE, damageEnemyAt } from "../combat/damage.js?v=svg-test-16";
 
 const hasEffect = (state, effect) => state.effects.some((item) => item.effect === effect);
 const getRange = (state, baseRange) => (hasEffect(state, "throw-range") ? baseRange + 1 : baseRange);
 
 export const castSpell = (state, element, directionName = null) => {
+  if (state.gameOver) return { ok: false, message: "Fim de jogo." };
   const spell = getSpell(element);
   const direction = directionName ? getDirection(directionName) : null;
   if (!spell) return { ok: false, message: "Elemento sem magia configurada." };
@@ -31,6 +32,9 @@ export const castSpell = (state, element, directionName = null) => {
 
   const target = direction ? `para ${direction.label}` : "na própria célula";
   const obstacleText = destroyed ? " Obstáculo destruído." : "";
-  const hitText = contactHit.hit ? " Inimigo atingido." : "";
-  return { ok: true, message: `${spell.name} lançado ${target}.${obstacleText}${hitText}`, contact: contact.contact };
+  const hitText = contactHit.defeated
+    ? " Inimigo derrotado."
+    : contactHit.hit ? " Inimigo atingido." : "";
+  const turnText = state.turnEvents?.length ? ` ${state.turnEvents.join(" ")}` : "";
+  return { ok: true, message: `${spell.name} lançado ${target}.${obstacleText}${hitText}${turnText}`, contact: contact.contact };
 };
