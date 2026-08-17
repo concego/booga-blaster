@@ -19,9 +19,10 @@ Cada ação que consome turno também permite uma ação dos inimigos.
 
 ## Dano e derrota
 
-- O dano de contato atual é 1 ponto.
-- Cada inimigo de teste possui 3 pontos de vida.
-- Ao chegar a zero, é removido do estado e deixa de agir.
+- O dano direto da explosão atual é 1 ponto.
+- Inimigos comuns de teste possuem 1 ponto de vida e são derrotados por uma explosão.
+- Inimigos especiais poderão possuir mais HP.
+- Ao chegar a zero, o inimigo é removido do estado e deixa de agir.
 - A barra de vida é exibida apenas no SVG decorativo; a informação acessível continua no status e no log.
 
 ## Sobrevivência
