@@ -1,4 +1,4 @@
-import { getPowerup, POWERUP_TYPES } from "./powerup-catalog.js";
+import { getPowerup, POWERUP_TYPES } from "./powerup-catalog.js?v=svg-test-03";
 
 const findActiveEffect = (state, effectName) => (
   state.effects.find((effect) => effect.effect === effectName)
