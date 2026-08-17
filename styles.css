@@ -80,8 +80,12 @@ h2 { margin-bottom: .8rem; font-size: 1.1rem; }
 #static-blocks, #static-orb, #static-player { display: none; }
 .visual-caption { fill: #d9f59c; font-size: 1rem; font-weight: 800; letter-spacing: .18em; }
 .dynamic-wall { fill: #6e4937; stroke: #d49b65; stroke-width: 4; }
+.wall-crack { fill: none; stroke: #3d281f; stroke-width: 5; stroke-linecap: round; stroke-linejoin: round; opacity: .85; }
 .dynamic-flame { fill: #ec6338; fill-opacity: .85; stroke: #ffd278; stroke-width: 3; }
+.flame-core { fill: #ffd278; stroke: #fff0a8; stroke-width: 2; opacity: .95; }
 .dynamic-wind { fill: #8fdcff; fill-opacity: .28; stroke: #b8efff; stroke-width: 3; stroke-dasharray: 8 5; }
+.wind-streak { fill: none; stroke: #e0fbff; stroke-width: 4; stroke-linecap: round; opacity: .9; }
+.powerup-core { fill: #fff0a8; stroke: #fff; stroke-width: 2; }
 #dynamic-arena { display: block; visibility: visible; opacity: 1; }
 .dynamic-player { display: block; visibility: visible; opacity: 1; fill: #a77bd4; stroke: #f0d8ff; stroke-width: 4; }
 .dynamic-enemy { fill: #d95f63; stroke: #ffd1a8; stroke-width: 4; }
