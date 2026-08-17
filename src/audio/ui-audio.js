@@ -1,29 +1,29 @@
 let audioContext = null;
 
 const profiles = {
-  confirm: [{ start: 420, end: 680, duration: 0.13, type: "triangle", volume: 0.08 }],
-  select: [{ start: 460, end: 520, duration: 0.08, type: "sine", volume: 0.06 }],
-  move: [{ start: 180, end: 220, duration: 0.06, type: "sine", volume: 0.05 }],
-  enemyMove: [{ start: 130, end: 105, duration: 0.08, type: "sine", volume: 0.035 }],
-  scan: [{ start: 300, end: 520, duration: 0.2, type: "sine", volume: 0.06 }],
-  cast: [{ start: 260, end: 760, duration: 0.28, type: "triangle", volume: 0.09 }],
-  hit: [{ start: 120, end: 70, duration: 0.12, type: "square", volume: 0.08 }],
+  confirm: [{ start: 420, end: 680, duration: 0.13, type: "triangle", volume: 0.12 }],
+  select: [{ start: 460, end: 520, duration: 0.08, type: "sine", volume: 0.1 }],
+  move: [{ start: 180, end: 220, duration: 0.06, type: "sine", volume: 0.08 }],
+  enemyMove: [{ start: 130, end: 105, duration: 0.08, type: "sine", volume: 0.06 }],
+  scan: [{ start: 300, end: 520, duration: 0.2, type: "sine", volume: 0.1 }],
+  cast: [{ start: 260, end: 760, duration: 0.28, type: "triangle", volume: 0.14 }],
+  hit: [{ start: 120, end: 70, duration: 0.12, type: "square", volume: 0.12 }],
   defeat: [
-    { start: 440, end: 700, duration: 0.12, type: "triangle", volume: 0.08 },
-    { start: 700, end: 980, duration: 0.16, type: "sine", volume: 0.07, delay: 0.11 }
+    { start: 440, end: 700, duration: 0.12, type: "triangle", volume: 0.12 },
+    { start: 700, end: 980, duration: 0.16, type: "sine", volume: 0.11, delay: 0.11 }
   ],
   enemyAttack: [
-    { start: 180, end: 90, duration: 0.15, type: "sawtooth", volume: 0.07 },
-    { start: 110, end: 55, duration: 0.12, type: "square", volume: 0.05, delay: 0.1 }
+    { start: 180, end: 90, duration: 0.15, type: "sawtooth", volume: 0.12 },
+    { start: 110, end: 55, duration: 0.12, type: "square", volume: 0.08, delay: 0.1 }
   ],
-  damage: [{ start: 100, end: 45, duration: 0.2, type: "sawtooth", volume: 0.08 }],
-  blocked: [{ start: 180, end: 110, duration: 0.14, type: "square", volume: 0.055 }],
-  pickup: [{ start: 420, end: 880, duration: 0.24, type: "triangle", volume: 0.08 }],
+  damage: [{ start: 100, end: 45, duration: 0.2, type: "sawtooth", volume: 0.14 }],
+  blocked: [{ start: 180, end: 110, duration: 0.14, type: "square", volume: 0.09 }],
+  pickup: [{ start: 420, end: 880, duration: 0.24, type: "triangle", volume: 0.13 }],
   gameOver: [
-    { start: 260, end: 130, duration: 0.22, type: "sawtooth", volume: 0.08 },
-    { start: 130, end: 55, duration: 0.3, type: "triangle", volume: 0.07, delay: 0.18 }
+    { start: 260, end: 130, duration: 0.22, type: "sawtooth", volume: 0.13 },
+    { start: 130, end: 55, duration: 0.3, type: "triangle", volume: 0.12, delay: 0.18 }
   ],
-  error: [{ start: 150, end: 110, duration: 0.16, type: "square", volume: 0.06 }]
+  error: [{ start: 150, end: 110, duration: 0.16, type: "square", volume: 0.1 }]
 };
 
 const getAudioContext = () => {
@@ -68,6 +68,7 @@ export const playGameplaySounds = (message) => {
     playUiSound("gameOver");
     return;
   }
+  if (message.includes("Power-up") || message.includes("Vida extra") || message.includes("ativada") || message.includes("Baú aberto")) playUiSound("pickup");
   if (message.includes("Inimigo derrotado")) playUiSound("defeat");
   else if (message.includes("Inimigo atingido")) playUiSound("hit");
   if (message.includes("atacou Supimpus")) playUiSound("enemyAttack");
