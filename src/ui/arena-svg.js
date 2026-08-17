@@ -71,6 +71,20 @@ const addPowerup = (group, item) => {
   group.append(createSvg("circle", { cx: point.x, cy: point.y, r: 7, class: "powerup-core" }));
 };
 
+const addChest = (group, chest) => {
+  const point = center(chest);
+  group.append(createSvg("rect", {
+    x: point.x - 27, y: point.y - 20, width: 54, height: 40, rx: 7, class: "dynamic-chest"
+  }));
+  group.append(createSvg("path", {
+    d: `M ${point.x - 27} ${point.y - 8} Q ${point.x} ${point.y - 38} ${point.x + 27} ${point.y - 8}`,
+    class: "chest-lid"
+  }));
+  group.append(createSvg("rect", {
+    x: point.x - 5, y: point.y - 4, width: 10, height: 13, rx: 2, class: "chest-lock"
+  }));
+};
+
 const addWall = (group, cell) => {
   const point = center(cell);
   group.append(createSvg("rect", {
@@ -92,6 +106,7 @@ export const renderArena = (state) => {
   state.grid.cells.forEach((row, y) => row.forEach((value, x) => {
     if (value === "#") addWall(group, { x, y });
   }));
+  state.chests.filter((chest) => !chest.opened).forEach((chest) => addChest(group, chest));
   state.powerups.filter((item) => item.revealed && !item.collected).forEach((item) => addPowerup(group, item));
   state.enemies.forEach((enemy) => addEnemy(group, enemy));
   addPlayer(state.player);
