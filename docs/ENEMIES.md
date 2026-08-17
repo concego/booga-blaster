@@ -20,7 +20,8 @@ Cada ação que consome turno também permite uma ação dos inimigos.
 ## Dano e derrota
 
 - O dano direto da explosão atual é 1 ponto.
-- Inimigos comuns de teste possuem 1 ponto de vida e são derrotados por uma explosão.
+- As chamas causam 1 ponto de dano na explosão e enquanto o inimigo permanece na zona.
+- Inimigos comuns de teste possuem 1 ponto de vida e são derrotados por uma explosão ou por uma chama.
 - Inimigos especiais poderão possuir mais HP.
 - Ao chegar a zero, o inimigo é removido do estado e deixa de agir.
 - A barra de vida é exibida apenas no SVG decorativo; a informação acessível continua no status e no log.
