@@ -1,10 +1,10 @@
-import { playUiSound } from "../audio/ui-audio.js?v=svg-test-03";
-import { createBoogaState } from "../game/booga-state.js?v=svg-test-03";
-import { dispatchDirection, prepareLaunch, launchSpell, scanState, selectElement } from "../game/booga-actions.js?v=svg-test-03";
-import { addLogMessage } from "../game/demo-state.js?v=svg-test-03";
-import { createLogView } from "./log.js?v=svg-test-03";
-import { renderArena } from "./arena-svg.js?v=svg-test-07";
-import { bindKeyboardControls } from "./keyboard-controls.js?v=svg-test-03";
+import { playUiSound } from "../audio/ui-audio.js?v=svg-test-10";
+import { createBoogaState } from "../game/booga-state.js?v=svg-test-10";
+import { dispatchDirection, prepareLaunch, launchSpell, scanState, selectElement } from "../game/booga-actions.js?v=svg-test-10";
+import { addLogMessage } from "../game/demo-state.js?v=svg-test-10";
+import { createLogView } from "./log.js?v=svg-test-10";
+import { renderArena } from "./arena-svg.js?v=svg-test-10";
+import { bindKeyboardControls } from "./keyboard-controls.js?v=svg-test-10";
 
 const elementLabels = { fire: "Fogo", water: "Água", earth: "Terra", air: "Ar" };
 
@@ -59,9 +59,11 @@ export const bindGameScreen = () => {
   };
 
   const handleScan = () => {
-    const message = `Scan: ${scanState(state)}`;
-    setStatus("Scan concluído.");
-    addLog(message);
+    const result = scanState(state);
+    addLog(result.intro);
+    if (result.findings.length) result.findings.forEach(addLog);
+    else addLog(result.announcement);
+    setStatus(result.announcement);
   };
 
   const handleLives = () => {
