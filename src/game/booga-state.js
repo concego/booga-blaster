@@ -1,4 +1,4 @@
-import { createDemoEnemies } from "./demo-fixtures.js";
+import { createDemoEnemies } from "./demo-fixtures.js?v=svg-test-03";
 
 const createCells = () => [
   ["#", ".", ".", ".", "#", ".", ".", ".", "#"],
