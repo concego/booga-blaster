@@ -26,13 +26,16 @@ const addZone = (group, cell, type) => {
 const addPlayer = (group, player) => {
   const point = center(player);
   group.append(createSvg("rect", {
-    x: point.x - 30, y: point.y - 30, width: 60, height: 60, rx: 20, class: "dynamic-player"
+    x: point.x - 30, y: point.y - 30, width: 60, height: 60, rx: 20,
+    class: "dynamic-player", fill: "#a77bd4", stroke: "#f0d8ff", "stroke-width": 4
   }));
   group.append(createSvg("path", {
     d: `M ${point.x - 22} ${point.y - 18} L ${point.x - 5} ${point.y - 48} L ${point.x + 5} ${point.y - 20} L ${point.x + 25} ${point.y - 44} L ${point.x + 18} ${point.y - 10}`,
     fill: "#5f3b87", stroke: "#f0d8ff", "stroke-width": 4
   }));
-  group.append(createSvg("text", { x: point.x, y: point.y + 8, class: "dynamic-symbol" })).textContent = "@";
+  group.append(createSvg("text", {
+    x: point.x, y: point.y + 8, class: "dynamic-symbol", fill: "#10241d", "font-size": 26
+  })).textContent = "@";
 };
 
 const addEnemy = (group, enemy) => {
