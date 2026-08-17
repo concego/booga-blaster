@@ -43,6 +43,16 @@ A ordem e a estrutura abaixo são o contrato da tela para o TalkBack. A composi�
    - Ordem do mais recente para o mais antigo.
    - Mensagens de partida devem ser curtas; explicações completas ficam no menu de ajuda.
 
+## Teclado
+
+- Setas: movimentam o jogador.
+- `C`: prepara o lançamento; pressionar `C` novamente atinge a própria célula.
+- Depois de `C`, uma seta escolhe a direção do disparo sem movimentar o jogador.
+- `L`: informa o número de vidas.
+- `1`, `2`, `3`, `4`: selecionam Fogo, Água, Terra e Ar.
+- `S`: executa o Scan.
+- Elementos bloqueados continuam sem seleção até serem desbloqueados.
+
 ## Princípios de texto
 
 Durante a partida, o texto deve ser mínimo e objetivo. Exemplos:
