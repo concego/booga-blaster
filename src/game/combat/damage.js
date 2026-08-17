@@ -1,4 +1,4 @@
-import { POWERUP_SOURCES, createPowerupItem } from "../powerups/powerup-sources.js?v=svg-test-18";
+import { POWERUP_SOURCES, createPowerupItem } from "../powerups/powerup-sources.js?v=svg-test-21";
 
 export const CONTACT_DAMAGE = 1;
 export const STONE_DAMAGE = 1;
