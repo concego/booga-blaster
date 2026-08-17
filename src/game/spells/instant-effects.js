@@ -8,7 +8,8 @@ export const pushEnemies = (state, cells, direction) => {
     state.enemies.forEach((enemy) => {
       if (enemy.x !== cell.x || enemy.y !== cell.y) return;
       const destination = { x: enemy.x + direction.dx, y: enemy.y + direction.dy };
-      if (!isBlocked(state, destination.x, destination.y) && !enemyAt(state, destination)) {
+      const occupiedByPlayer = state.player.x === destination.x && state.player.y === destination.y;
+      if (!isBlocked(state, destination.x, destination.y) && !enemyAt(state, destination) && !occupiedByPlayer) {
         enemy.x = destination.x;
         enemy.y = destination.y;
       }
