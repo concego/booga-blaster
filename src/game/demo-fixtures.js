@@ -5,6 +5,7 @@ export const createDemoEnemies = () => [
     x: 1,
     y: 2,
     hp: 3,
+    maxHp: 3,
     stunned: 0
   },
   {
@@ -13,6 +14,7 @@ export const createDemoEnemies = () => [
     x: 3,
     y: 2,
     hp: 3,
+    maxHp: 3,
     stunned: 0
   }
 ];
