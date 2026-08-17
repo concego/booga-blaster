@@ -14,6 +14,8 @@ A ordem e a estrutura abaixo são o contrato da tela para o TalkBack. A composi�
 3. **Efeitos ativos e duração**
    - Cada efeito informa o número de turnos restantes.
    - Se não houver efeito, informar que não há efeito ativo.
+   - O contador visual pode atualizar a cada turno.
+   - O anúncio para o TalkBack só ocorre quando um efeito é adicionado, recarregado ou removido.
 
 4. **Elementos**
    - Fogo.
