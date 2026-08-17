@@ -71,6 +71,13 @@ const addPowerup = (group, item) => {
   group.append(createSvg("circle", { cx: point.x, cy: point.y, r: 7, class: "powerup-core" }));
 };
 
+const addProjectile = (group, projectile) => {
+  const point = center(projectile.cell);
+  const className = `projectile-${projectile.element}`;
+  group.append(createSvg("circle", { cx: point.x, cy: point.y, r: 20, class: className }));
+  group.append(createSvg("circle", { cx: point.x, cy: point.y, r: 30, class: "projectile-ring" }));
+};
+
 const addChest = (group, chest) => {
   const point = center(chest);
   group.append(createSvg("rect", {
@@ -106,6 +113,7 @@ export const renderArena = (state) => {
   state.grid.cells.forEach((row, y) => row.forEach((value, x) => {
     if (value === "#") addWall(group, { x, y });
   }));
+  state.projectiles.forEach((projectile) => addProjectile(group, projectile));
   state.chests.filter((chest) => !chest.opened).forEach((chest) => addChest(group, chest));
   state.powerups.filter((item) => item.revealed && !item.collected).forEach((item) => addPowerup(group, item));
   state.enemies.forEach((enemy) => addEnemy(group, enemy));
