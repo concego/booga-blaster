@@ -1,10 +1,10 @@
-import { advanceTurn } from "../../core/turn-engine.js";
-import { getDirection } from "../../core/directions.js";
-import { getSpell } from "./spell-catalog.js";
-import { adjacentCells, upsertZone } from "./area-effects.js";
-import { destroyContactBlock, findContactCell } from "./contact.js";
-import { pushEnemies, throwStones } from "./instant-effects.js";
-import { CONTACT_DAMAGE, damageEnemyAt } from "../combat/damage.js";
+import { advanceTurn } from "../../core/turn-engine.js?v=svg-test-03";
+import { getDirection } from "../../core/directions.js?v=svg-test-03";
+import { getSpell } from "./spell-catalog.js?v=svg-test-03";
+import { adjacentCells, upsertZone } from "./area-effects.js?v=svg-test-03";
+import { destroyContactBlock, findContactCell } from "./contact.js?v=svg-test-03";
+import { pushEnemies, throwStones } from "./instant-effects.js?v=svg-test-03";
+import { CONTACT_DAMAGE, damageEnemyAt } from "../combat/damage.js?v=svg-test-03";
 
 const hasEffect = (state, effect) => state.effects.some((item) => item.effect === effect);
 const getRange = (state, baseRange) => (hasEffect(state, "throw-range") ? baseRange + 1 : baseRange);
