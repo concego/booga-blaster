@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Booga Blaster — Protótipo da tela de jogo</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main id="game" class="game-shell" aria-labelledby="phase-name">
+    <header class="game-header">
+      <div class="phase-block">
+        <p class="eyebrow">Fase atual</p>
+        <h1 id="phase-name">Bosque Espinhoso</h1>
+      </div>
+      <div class="run-status" aria-label="Estado da partida">
+        <p class="status-line"><span class="status-label">Vidas</span> <strong id="lives">3</strong></p>
+        <div id="effects" class="effects" aria-live="polite">
+          <span class="muted-effect">Nenhum efeito ativo</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- O mapa é apenas apresentação visual. O fluxo do TalkBack continua no DOM abaixo. -->
+    <section class="arena-visual" aria-hidden="true">
+      <svg class="arena-svg" viewBox="0 0 900 540" role="presentation">
+        <defs>
+          <linearGradient id="forest-floor" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#244b39"/>
+            <stop offset="1" stop-color="#10241d"/>
+          </linearGradient>
+          <pattern id="grid-lines" width="90" height="90" patternUnits="userSpaceOnUse">
+            <path d="M90 0H0V90" fill="none" stroke="#5a9273" stroke-opacity=".22" stroke-width="2"/>
+          </pattern>
+          <filter id="soft-glow" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="8" result="blur"/>
+            <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+        </defs>
+        <rect x="30" y="30" width="840" height="480" rx="28" fill="url(#forest-floor)" stroke="#8dcc9b" stroke-width="5"/>
+        <rect x="30" y="30" width="840" height="480" rx="28" fill="url(#grid-lines)"/>
+        <g class="visual-blocks" fill="#6e4937" stroke="#b77c53" stroke-width="4">
+          <rect x="120" y="120" width="90" height="90" rx="14"/><rect x="300" y="120" width="90" height="90" rx="14"/>
+          <rect x="570" y="120" width="90" height="90" rx="14"/><rect x="750" y="210" width="90" height="90" rx="14"/>
+          <rect x="210" y="300" width="90" height="90" rx="14"/><rect x="480" y="390" width="90" height="90" rx="14"/>
+          <rect x="660" y="390" width="90" height="90" rx="14"/>
+        </g>
+        <g class="thorn" fill="none" stroke="#d9f59c" stroke-width="7" stroke-linecap="round">
+          <path d="M78 90l24 24m0-24L78 114M708 84l24 24m0-24-24 24M384 300l24 24m0-24-24 24"/>
+        </g>
+        <g class="orb orb-fire" filter="url(#soft-glow)">
+          <circle cx="480" cy="270" r="28" fill="#f56b36" stroke="#ffd278" stroke-width="7"/>
+          <path d="M480 248c16 16 4 24 12 33-15-1-25-8-25-20 0-7 5-12 13-13z" fill="#fff0a8"/>
+        </g>
+        <g class="player" transform="translate(390 220)">
+          <path d="M35 20c-20-20-45-5-43 17 2 18 18 25 30 20l10 14 10-14c13 5 29-2 31-20C75 15 51 0 35 20z" fill="#a77bd4" stroke="#f0d8ff" stroke-width="5"/>
+          <path d="M18 25h10m15 0h10" stroke="#241c35" stroke-width="6" stroke-linecap="round"/>
+          <path d="M21 47c9 6 19 6 28 0" fill="none" stroke="#241c35" stroke-width="5" stroke-linecap="round"/>
+          <path d="M15 10L4-10l28 15L59 0 51 15" fill="#5f3b87" stroke="#f0d8ff" stroke-width="4"/>
+        </g>
+        <g class="visual-caption">
+          <text x="60" y="480">SUPIMPUS</text>
+        </g>
+      </svg>
+    </section>
+
+    <section class="element-controls" aria-labelledby="elements-heading">
+      <h2 id="elements-heading">Elementos</h2>
+      <div class="element-grid">
+        <button class="element-button is-selected" type="button" data-element="fire" data-sound="select" aria-pressed="true">
+          <span class="element-icon fire-icon" aria-hidden="true">✦</span>
+          <span>Fogo</span>
+        </button>
+        <button class="element-button" type="button" data-element="water" data-sound="select" disabled>
+          <span class="element-icon water-icon" aria-hidden="true">≈</span>
+          <span>Água</span>
+          <span class="locked-label">Bloqueado</span>
+        </button>
+        <button class="element-button" type="button" data-element="earth" data-sound="select" disabled>
+          <span class="element-icon earth-icon" aria-hidden="true">◆</span>
+          <span>Terra</span>
+          <span class="locked-label">Bloqueado</span>
+        </button>
+        <button class="element-button" type="button" data-element="air" data-sound="select" disabled>
+          <span class="element-icon air-icon" aria-hidden="true">〰</span>
+          <span>Ar</span>
+          <span class="locked-label">Bloqueado</span>
+        </button>
+      </div>
+    </section>
+
+    <section class="command-controls" aria-labelledby="commands-heading">
+      <h2 id="commands-heading">Comandos</h2>
+      <div class="direction-grid" aria-label="Movimentação e direção do lançamento">
+        <button class="direction-button north" type="button" data-direction="north" data-sound="move">Norte</button>
+        <button class="direction-button south" type="button" data-direction="south" data-sound="move">Sul</button>
+        <button class="direction-button west" type="button" data-direction="west" data-sound="move">Oeste</button>
+        <button class="direction-button east" type="button" data-direction="east" data-sound="move">Leste</button>
+      </div>
+      <div class="action-row">
+        <button id="launch-button" class="primary-action" type="button" data-sound="confirm">Lançar</button>
+        <button id="scan-button" class="secondary-action" type="button" data-sound="scan">Scan</button>
+      </div>
+      <p id="action-status" class="action-status" aria-live="polite">Fogo selecionado.</p>
+    </section>
+
+    <section class="game-log" aria-labelledby="log-heading">
+      <div class="log-heading-row">
+        <h2 id="log-heading">Log</h2>
+        <span class="log-count">4 mensagens</span>
+      </div>
+      <ol id="log-list" class="log-list" aria-live="polite" aria-relevant="additions">
+        <li>Supimpus entrou no Bosque Espinhoso.</li>
+        <li>Fogo selecionado.</li>
+        <li>Há caminhos livres ao norte e a leste.</li>
+        <li>O objetivo é alcançar o Boss da fase.</li>
+      </ol>
+    </section>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>
