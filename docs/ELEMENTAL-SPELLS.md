@@ -16,12 +16,14 @@ O ponto de contato pode ser a célula do próprio jogador quando Lançar é acio
 
 | Elemento | Alcance | Efeito |
 |---|---:|---|
-| Fogo | 2 | Explosão no contato; cria chamas nas quatro células ortogonais ao redor por 3 turnos. |
-| Água | 2 | Explosão no contato; empurra inimigos atingidos 1 célula para trás. |
-| Terra | 1 | Explosão no contato; arremessa pedras nas quatro células ortogonais ao redor. |
-| Ar | 3 | Explosão no contato; cria uma barreira que impede o avanço de inimigos nas quatro células ortogonais ao redor por 2 turnos. |
+| Fogo | 2 | Causa dano a inimigos no contato; cria chamas nas quatro células ortogonais ao redor por 3 turnos. |
+| Água | 2 | Causa dano a inimigos no contato e empurra-os 1 célula para trás. |
+| Terra | 1 | Causa dano a inimigos no contato; arremessa pedras que também podem causar dano nas quatro células ortogonais ao redor. |
+| Ar | 3 | Causa dano a inimigos no contato; cria uma barreira que impede o avanço de inimigos nas quatro células ortogonais ao redor por 2 turnos. |
 
 As quatro células ao redor são inicialmente as direções Norte, Sul, Oeste e Leste. Diagonais podem ser adicionadas por uma melhoria futura.
+
+O protótipo usa 1 ponto de dano no contato e 1 ponto de dano por pedra. Os valores são de balanceamento inicial.
 
 ## Turnos persistentes
 
