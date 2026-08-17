@@ -1,3 +1,3 @@
-import { bindGameScreen } from "./src/ui/game-screen.js?v=svg-test-11";
+import { bindGameScreen } from "./src/ui/game-screen.js?v=svg-test-12";
 
 bindGameScreen();
