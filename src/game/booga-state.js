@@ -16,6 +16,7 @@ export const createBoogaState = () => ({
   launchArmed: false,
   effects: [],
   orbs: [],
+  powerups: [],
   grid: { width: 9, height: 5, cells: createCells() },
   log: [
     "Supimpus entrou no Bosque Espinhoso.",
