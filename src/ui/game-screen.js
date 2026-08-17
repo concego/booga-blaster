@@ -1,10 +1,10 @@
-import { playUiSound } from "../audio/ui-audio.js";
-import { createBoogaState } from "../game/booga-state.js";
-import { dispatchDirection, prepareLaunch, launchSpell, scanState, selectElement } from "../game/booga-actions.js";
-import { addLogMessage } from "../game/demo-state.js";
-import { createLogView } from "./log.js";
-import { renderArena } from "./arena-svg.js";
-import { bindKeyboardControls } from "./keyboard-controls.js";
+import { playUiSound } from "../audio/ui-audio.js?v=svg-test-03";
+import { createBoogaState } from "../game/booga-state.js?v=svg-test-03";
+import { dispatchDirection, prepareLaunch, launchSpell, scanState, selectElement } from "../game/booga-actions.js?v=svg-test-03";
+import { addLogMessage } from "../game/demo-state.js?v=svg-test-03";
+import { createLogView } from "./log.js?v=svg-test-03";
+import { renderArena } from "./arena-svg.js?v=svg-test-03";
+import { bindKeyboardControls } from "./keyboard-controls.js?v=svg-test-03";
 
 const elementLabels = { fire: "Fogo", water: "Água", earth: "Terra", air: "Ar" };
 
