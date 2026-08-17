@@ -50,9 +50,16 @@ const addPlayer = (player) => {
 
 const addEnemy = (group, enemy) => {
   const point = center(enemy);
+  const maxHp = enemy.maxHp ?? 3;
+  const hpRatio = Math.max(0, Math.min(1, enemy.hp / maxHp));
+  group.append(createSvg("rect", { x: point.x - 29, y: point.y - 42, width: 58, height: 7, rx: 3, class: "enemy-hp-back" }));
+  group.append(createSvg("rect", { x: point.x - 29, y: point.y - 42, width: 58 * hpRatio, height: 7, rx: 3, class: "enemy-hp" }));
   group.append(createSvg("circle", { cx: point.x, cy: point.y, r: 26, class: "dynamic-enemy" }));
   group.append(createSvg("circle", { cx: point.x - 9, cy: point.y - 5, r: 4, fill: "#241c35" }));
   group.append(createSvg("circle", { cx: point.x + 9, cy: point.y - 5, r: 4, fill: "#241c35" }));
+  if (enemy.stunned > 0) {
+    group.append(createSvg("circle", { cx: point.x, cy: point.y, r: 34, class: "enemy-stun-ring" }));
+  }
 };
 
 const addPowerup = (group, item) => {
