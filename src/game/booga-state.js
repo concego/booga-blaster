@@ -17,6 +17,7 @@ export const createBoogaState = () => ({
   unlockedElements: ["fire"],
   launchArmed: false,
   effects: [],
+  effectsRevision: 0,
   zones: [],
   enemies: createDemoEnemies(),
   orbs: [],
