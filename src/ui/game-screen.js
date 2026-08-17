@@ -1,71 +1,78 @@
 import { playUiSound } from "../audio/ui-audio.js";
-import { addLogMessage, createDemoState } from "../game/demo-state.js";
+import { createBoogaState } from "../game/booga-state.js";
+import { dispatchDirection, prepareLaunch, launchSpell, scanState, selectElement } from "../game/booga-actions.js";
+import { addLogMessage } from "../game/demo-state.js";
 import { createLogView } from "./log.js";
 
+const elementLabels = { fire: "Fogo", water: "Água", earth: "Terra", air: "Ar" };
+
 export const bindGameScreen = () => {
-  const state = createDemoState();
+  const state = createBoogaState();
   const logView = createLogView(document.querySelector("#log-list"));
   const actionStatus = document.querySelector("#action-status");
   const effects = document.querySelector("#effects");
+  const lives = document.querySelector("#lives");
 
+  const labelElement = () => elementLabels[state.selectedElement];
   const setStatus = (message) => { actionStatus.textContent = message; };
   const renderLog = () => logView.render(state.log);
   const addLog = (message) => { addLogMessage(state, message); renderLog(); };
-
-  const setElement = (button) => {
-    document.querySelectorAll(".element-button").forEach((item) => {
-      const selected = item === button;
-      item.classList.toggle("is-selected", selected);
-      item.setAttribute("aria-pressed", String(selected));
-    });
-    state.selectedElement = button.querySelector("span:nth-child(2)").textContent;
-    state.launchArmed = false;
-    setStatus(`${state.selectedElement} selecionado.`);
-    addLog(`${state.selectedElement} selecionado.`);
+  const renderState = () => {
+    lives.textContent = String(state.lives);
+    effects.innerHTML = state.effects.length
+      ? state.effects.map((effect) => `<span>${effect.name}: ${effect.turns} turnos</span>`).join("; ")
+      : '<span class="muted-effect">Nenhum efeito ativo</span>';
   };
 
-  const fire = (direction) => {
-    const target = direction ? `para ${direction}` : "na própria célula";
-    addLog(`${state.selectedElement} lançado ${target}.`);
-    setStatus(`${state.selectedElement} lançado ${target}.`);
-    state.launchArmed = false;
+  const updateElementButtons = () => {
+    document.querySelectorAll(".element-button").forEach((button) => {
+      const selected = button.dataset.element === state.selectedElement;
+      button.classList.toggle("is-selected", selected);
+      button.setAttribute("aria-pressed", String(selected));
+    });
+  };
+
+  const handleElement = (button) => {
+    const result = selectElement(state, button.dataset.element);
+    setStatus(result.message);
+    if (result.ok) {
+      updateElementButtons();
+      addLog(result.message);
+    }
   };
 
   const handleDirection = (button) => {
-    const direction = button.dataset.direction;
-    if (state.launchArmed) {
-      fire(direction);
-      return;
-    }
-    addLog(`Supimpus avançou para ${direction}.`);
-    setStatus(`Movimento para ${direction}.`);
+    const message = dispatchDirection(state, button.dataset.direction);
+    setStatus(message);
+    addLog(message);
+    renderState();
   };
 
   document.querySelectorAll("button[data-sound]").forEach((button) => {
     button.addEventListener("click", () => playUiSound(button.dataset.sound));
   });
   document.querySelectorAll(".element-button:not(:disabled)").forEach((button) => {
-    button.addEventListener("click", () => setElement(button));
+    button.addEventListener("click", () => handleElement(button));
   });
   document.querySelectorAll(".direction-button").forEach((button) => {
     button.addEventListener("click", () => handleDirection(button));
   });
 
   document.querySelector("#launch-button").addEventListener("click", () => {
-    if (state.launchArmed) {
-      fire(null);
-      return;
-    }
-    state.launchArmed = true;
-    setStatus("Lançar preparado. Escolha uma direção ou pressione Lançar novamente para atingir sua célula.");
-    addLog("Lançar preparado.");
+    const message = state.launchArmed ? launchSpell(state) : prepareLaunch(state);
+    setStatus(message);
+    addLog(message);
+    renderState();
   });
 
   document.querySelector("#scan-button").addEventListener("click", () => {
+    const message = `Scan: ${scanState(state)}`;
     setStatus("Scan concluído.");
-    addLog("Ao norte há um caminho livre; ao sul há blocos; a leste há uma esfera de fogo; a oeste há um caminho livre.");
+    addLog(message);
   });
 
-  effects.innerHTML = '<span class="muted-effect">Nenhum efeito ativo</span>';
+  updateElementButtons();
+  renderState();
   renderLog();
+  setStatus(`${labelElement()} selecionado.`);
 };
