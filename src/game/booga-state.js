@@ -15,6 +15,8 @@ export const createBoogaState = () => ({
   unlockedElements: ["fogo"],
   launchArmed: false,
   effects: [],
+  zones: [],
+  enemies: [],
   orbs: [],
   powerups: [],
   grid: { width: 9, height: 5, cells: createCells() },
