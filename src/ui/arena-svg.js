@@ -52,8 +52,10 @@ const addPowerup = (group, item) => {
 
 export const renderArena = (state) => {
   const group = document.querySelector("#dynamic-arena");
-  if (!group) return;
+  const playerLayer = document.querySelector("#player-layer");
+  if (!group || !playerLayer) return;
   group.replaceChildren();
+  playerLayer.replaceChildren();
 
   state.zones.forEach((zone) => zone.cells.forEach((cell) => addZone(group, cell, zone.type)));
   state.grid.cells.forEach((row, y) => row.forEach((value, x) => {
@@ -65,5 +67,5 @@ export const renderArena = (state) => {
   }));
   state.powerups.filter((item) => item.revealed && !item.collected).forEach((item) => addPowerup(group, item));
   state.enemies.forEach((enemy) => addEnemy(group, enemy));
-  addPlayer(group, state.player);
+  addPlayer(playerLayer, state.player);
 };
