@@ -1,5 +1,6 @@
-import { processEnemyTurn } from "../game/combat/enemy-engine.js?v=svg-test-21";
-import { resolveProjectiles } from "../game/spells/projectile-engine.js?v=svg-test-21";
+import { processEnemyTurn } from "../game/combat/enemy-engine.js?v=svg-test-22";
+import { resolveProjectiles } from "../game/spells/projectile-engine.js?v=svg-test-22";
+import { processFlameZones } from "../game/spells/zone-engine.js?v=svg-test-22";
 
 export const advanceTurn = (state) => {
   state.turn += 1;
@@ -15,6 +16,7 @@ export const advanceTurn = (state) => {
     .filter((zone) => zone.turns > 0);
 
   state.turnEvents = resolveProjectiles(state);
+  state.turnEvents.push(...processFlameZones(state));
   state.turnEvents.push(...processEnemyTurn(state));
   return state.turn;
 };
