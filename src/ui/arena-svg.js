@@ -25,13 +25,14 @@ const addZone = (group, cell, type) => {
 
 const addPlayer = (group, player) => {
   const point = center(player);
-  group.append(createSvg("circle", { cx: point.x, cy: point.y, r: 28, class: "dynamic-player" }));
+  group.append(createSvg("rect", {
+    x: point.x - 30, y: point.y - 30, width: 60, height: 60, rx: 20, class: "dynamic-player"
+  }));
   group.append(createSvg("path", {
-    d: `M ${point.x - 20} ${point.y - 20} L ${point.x - 5} ${point.y - 48} L ${point.x + 4} ${point.y - 22} L ${point.x + 25} ${point.y - 44} L ${point.x + 18} ${point.y - 12}`,
+    d: `M ${point.x - 22} ${point.y - 18} L ${point.x - 5} ${point.y - 48} L ${point.x + 5} ${point.y - 20} L ${point.x + 25} ${point.y - 44} L ${point.x + 18} ${point.y - 10}`,
     fill: "#5f3b87", stroke: "#f0d8ff", "stroke-width": 4
   }));
-  group.append(createSvg("circle", { cx: point.x - 10, cy: point.y - 3, r: 4, fill: "#241c35" }));
-  group.append(createSvg("circle", { cx: point.x + 10, cy: point.y - 3, r: 4, fill: "#241c35" }));
+  group.append(createSvg("text", { x: point.x, y: point.y + 8, class: "dynamic-symbol" })).textContent = "@";
 };
 
 const addEnemy = (group, enemy) => {
