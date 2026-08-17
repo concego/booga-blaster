@@ -1,4 +1,4 @@
-import { playUiSound } from "../audio/ui-audio.js?v=svg-test-16";
+import { playUiSound, playGameplaySounds } from "../audio/ui-audio.js?v=svg-test-17";
 import { createBoogaState } from "../game/booga-state.js?v=svg-test-16";
 import { dispatchDirection, prepareLaunch, launchSpell, scanState, selectElement } from "../game/booga-actions.js?v=svg-test-16";
 import { addLogMessage } from "../game/demo-state.js?v=svg-test-16";
@@ -40,6 +40,7 @@ export const bindGameScreen = () => {
 
   const handleElement = (element) => {
     const result = selectElement(state, element);
+    playUiSound(result.ok ? "select" : "error");
     setStatus(result.message);
     if (result.ok) {
       updateElementButtons();
@@ -49,6 +50,7 @@ export const bindGameScreen = () => {
 
   const handleDirection = (direction) => {
     const message = dispatchDirection(state, direction);
+    playGameplaySounds(message);
     setStatus(message);
     addLog(message);
     renderState();
@@ -56,6 +58,8 @@ export const bindGameScreen = () => {
 
   const handleLaunch = () => {
     const message = state.launchArmed ? launchSpell(state) : prepareLaunch(state);
+    if (state.launchArmed) playGameplaySounds(message);
+    else playUiSound("confirm");
     setStatus(message);
     addLog(message);
     renderState();
@@ -63,6 +67,7 @@ export const bindGameScreen = () => {
 
   const handleScan = () => {
     const result = scanState(state);
+    playUiSound("scan");
     addLog(result.intro);
     if (result.findings.length) result.findings.forEach(addLog);
     else addLog(result.announcement);
@@ -75,9 +80,6 @@ export const bindGameScreen = () => {
     addLog(message);
   };
 
-  document.querySelectorAll("button[data-sound]").forEach((button) => {
-    button.addEventListener("click", () => playUiSound(button.dataset.sound));
-  });
   document.querySelectorAll(".element-button:not(:disabled)").forEach((button) => {
     button.addEventListener("click", () => handleElement(button.dataset.element));
   });
