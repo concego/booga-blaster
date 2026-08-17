@@ -1,4 +1,4 @@
-import { POWERUP_SOURCES } from "./powerup-sources.js";
+import { POWERUP_SOURCES } from "./powerup-sources.js?v=svg-test-03";
 
 export const revealPowerup = (item, source) => {
   if (!item || item.collected) return false;
