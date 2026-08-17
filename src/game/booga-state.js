@@ -1,7 +1,7 @@
-import { createDemoEnemies } from "./demo-fixtures.js?v=svg-test-18";
-import { POWERUP_SOURCES } from "./powerups/powerup-sources.js?v=svg-test-18";
-import { POWERUP_TYPES } from "./powerups/powerup-catalog.js?v=svg-test-18";
-import { createPowerupItem } from "./powerups/powerup-sources.js?v=svg-test-18";
+import { createDemoEnemies } from "./demo-fixtures.js?v=svg-test-19";
+import { POWERUP_SOURCES } from "./powerups/powerup-sources.js?v=svg-test-19";
+import { POWERUP_TYPES } from "./powerups/powerup-catalog.js?v=svg-test-19";
+import { createPowerupItem } from "./powerups/powerup-sources.js?v=svg-test-19";
 
 const createCells = () => [
   ["#", ".", ".", ".", "#", ".", ".", ".", "#"],
@@ -40,7 +40,7 @@ export const createBoogaState = () => {
     enemies: createDemoEnemies(),
     orbs: [],
     powerups: [
-      createPowerupItem(POWERUP_TYPES.SUPER_STRENGTH, POWERUP_SOURCES.MAP, { x: 2, y: 1 }),
+      createPowerupItem(POWERUP_TYPES.SUPER_STRENGTH, POWERUP_SOURCES.MAP, { x: 1, y: 0 }),
       chestPowerup,
       blockPowerup
     ],
