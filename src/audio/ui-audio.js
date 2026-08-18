@@ -68,7 +68,7 @@ export const playGameplaySounds = (message) => {
     playUiSound("gameOver");
     return;
   }
-  if (message.includes("Power-up") || message.includes("Vida extra") || message.includes("ativada") || message.includes("Baú aberto")) playUiSound("pickup");
+  if (message.includes("Power-up") || message.includes("Vida extra") || message.includes("Coração encontrado") || message.includes("ativada") || message.includes("Baú aberto")) playUiSound("pickup");
   if (message.includes("Inimigo derrotado")) playUiSound("defeat");
   else if (message.includes("Inimigo atingido")) playUiSound("hit");
   if (message.includes("atacou Supimpus")) playUiSound("enemyAttack");
