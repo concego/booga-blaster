@@ -10,8 +10,11 @@ import { createEffectsStatus } from "./effects-status.js?v=effects-02";
 const elementLabels = { fire: "Fogo", water: "Água", earth: "Terra", air: "Ar" };
 
 export const bindGameScreen = () => {
-  const testElements = new URLSearchParams(window.location.search).get("test") === "elements";
-  const state = createBoogaState({ testElements });
+  const params = new URLSearchParams(window.location.search);
+  const testElements = params.get("test") === "elements";
+  const seed = params.get("seed") || Date.now();
+  const difficulty = Math.max(1, Number(params.get("level") || 1));
+  const state = createBoogaState({ testElements, seed, difficulty });
   const logView = createLogView(document.querySelector("#log-list"));
   const actionStatus = document.querySelector("#action-status");
   const effects = document.querySelector("#effects");
