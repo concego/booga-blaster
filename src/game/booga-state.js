@@ -1,7 +1,7 @@
-import { createDemoEnemies } from "./demo-fixtures.js?v=svg-test-24";
-import { POWERUP_SOURCES } from "./powerups/powerup-sources.js?v=svg-test-23";
-import { POWERUP_TYPES } from "./powerups/powerup-catalog.js?v=svg-test-23";
-import { createPowerupItem } from "./powerups/powerup-sources.js?v=svg-test-23";
+import { createDemoEnemies } from "./demo-fixtures.js?v=svg-test-25";
+import { POWERUP_SOURCES } from "./powerups/powerup-sources.js?v=svg-test-25";
+import { POWERUP_TYPES } from "./powerups/powerup-catalog.js?v=svg-test-25";
+import { createPowerupItem } from "./powerups/powerup-sources.js?v=svg-test-25";
 
 const createCells = () => [
   ["#", ".", ".", ".", "#", ".", ".", ".", "#"],
