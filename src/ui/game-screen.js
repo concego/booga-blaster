@@ -1,10 +1,10 @@
-import { playUiSound, playGameplaySounds } from "../audio/ui-audio.js?v=svg-test-28";
-import { createBoogaState } from "../game/booga-state.js?v=svg-test-28";
-import { dispatchDirection, prepareLaunch, launchSpell, scanState, selectElement } from "../game/booga-actions.js?v=svg-test-28";
-import { addLogMessage } from "../game/demo-state.js?v=svg-test-28";
-import { createLogView } from "./log.js?v=svg-test-28";
-import { renderArena } from "./arena-svg.js?v=svg-test-28";
-import { bindKeyboardControls } from "./keyboard-controls.js?v=svg-test-28";
+import { playUiSound, playGameplaySounds } from "../audio/ui-audio.js?v=svg-test-29";
+import { createBoogaState } from "../game/booga-state.js?v=svg-test-29";
+import { dispatchDirection, prepareLaunch, launchSpell, scanState, selectElement } from "../game/booga-actions.js?v=svg-test-29";
+import { addLogMessage } from "../game/demo-state.js?v=svg-test-29";
+import { createLogView } from "./log.js?v=svg-test-29";
+import { renderArena } from "./arena-svg.js?v=svg-test-29";
+import { bindKeyboardControls } from "./keyboard-controls.js?v=svg-test-29";
 import { createEffectsStatus } from "./effects-status.js?v=effects-02";
 
 const elementLabels = { fire: "Fogo", water: "Água", earth: "Terra", air: "Ar" };
@@ -35,7 +35,11 @@ export const bindGameScreen = () => {
     document.querySelectorAll(".element-button").forEach((button) => {
       const selected = button.dataset.element === state.selectedElement;
       button.classList.toggle("is-selected", selected);
-      button.disabled = !state.unlockedElements.includes(button.dataset.element);
+      const unlocked = state.unlockedElements.includes(button.dataset.element);
+      button.disabled = !unlocked;
+      button.classList.toggle("is-test-unlocked", testElements && unlocked);
+      const lockedLabel = button.querySelector(".locked-label");
+      if (lockedLabel) lockedLabel.hidden = testElements && unlocked;
       button.setAttribute("aria-pressed", String(selected));
     });
   };
