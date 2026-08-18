@@ -1,6 +1,6 @@
-import { getPowerup, POWERUP_TYPES } from "./powerup-catalog.js?v=svg-test-31";
-import { openChestContents, revealPowerup } from "./powerup-reveal.js?v=svg-test-31";
-import { collectHeartAtCell } from "../collectibles/heart-items.js?v=svg-test-31";
+import { getPowerup, POWERUP_TYPES } from "./powerup-catalog.js?v=svg-test-32";
+import { openChestContents, revealPowerup } from "./powerup-reveal.js?v=svg-test-32";
+import { collectHeartAtCell } from "../collectibles/heart-items.js?v=svg-test-32";
 
 const DEFAULT_DURATION = 8;
 
@@ -44,7 +44,9 @@ export const collectAtCell = (state, cell) => {
   if (chest) {
     chest.opened = true;
     const contents = state.powerups.find((item) => item.id === chest.contents);
+    const heartContents = state.heartItems.find((item) => item.id === chest.contents);
     if (contents) openChestContents(contents);
+    if (heartContents) heartContents.revealed = true;
     messages.push("Baú aberto.");
   }
 
