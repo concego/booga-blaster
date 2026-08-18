@@ -1,5 +1,5 @@
 import { playUiSound, playGameplaySounds } from "../audio/ui-audio.js?v=svg-test-32";
-import { createBoogaState } from "../game/booga-state.js?v=svg-test-34";
+import { createBoogaState } from "../game/booga-state.js?v=svg-test-36";
 import { dispatchDirection, prepareLaunch, launchSpell, scanState, selectElement } from "../game/booga-actions.js?v=svg-test-32";
 import { addLogMessage } from "../game/demo-state.js?v=svg-test-32";
 import { createLogView } from "./log.js?v=svg-test-32";
@@ -13,8 +13,9 @@ export const bindGameScreen = () => {
   const params = new URLSearchParams(window.location.search);
   const testElements = params.get("test") === "elements";
   const seed = params.get("seed") || Date.now();
-  const difficulty = Math.max(1, Number(params.get("level") || 1));
-  const state = createBoogaState({ testElements, seed, difficulty });
+  const difficulty = Math.max(1, Number(params.get("level") || 1) || 1);
+  const biome = params.get("biome") || "floresta-espinhosa";
+  const state = createBoogaState({ testElements, seed, difficulty, biome });
   const logView = createLogView(document.querySelector("#log-list"));
   const actionStatus = document.querySelector("#action-status");
   const effects = document.querySelector("#effects");
