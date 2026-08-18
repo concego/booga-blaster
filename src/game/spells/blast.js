@@ -1,12 +1,15 @@
-import { isInsideGrid } from "../../core/grid.js?v=svg-test-25";
+import { isInsideGrid } from "../../core/grid.js?v=svg-test-26";
 
-// Raio 1: a célula central e as oito células vizinhas.
+// Raio 1 em cruz: centro, Norte, Sul, Oeste e Leste.
 export const blastCells = (state, center) => {
-  const cells = [];
-  for (let y = center.y - 1; y <= center.y + 1; y += 1) {
-    for (let x = center.x - 1; x <= center.x + 1; x += 1) {
-      if (isInsideGrid(state, x, y)) cells.push({ x, y });
-    }
-  }
-  return cells;
+  const offsets = [
+    { x: 0, y: 0 },
+    { x: 0, y: -1 },
+    { x: 0, y: 1 },
+    { x: -1, y: 0 },
+    { x: 1, y: 0 }
+  ];
+  return offsets
+    .map((offset) => ({ x: center.x + offset.x, y: center.y + offset.y }))
+    .filter(({ x, y }) => isInsideGrid(state, x, y));
 };
