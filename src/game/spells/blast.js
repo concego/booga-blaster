@@ -1,4 +1,4 @@
-import { isInsideGrid } from "../../core/grid.js?v=svg-test-26";
+import { isInsideGrid } from "../../core/grid.js?v=svg-test-28";
 
 // Raio 1 em cruz: centro, Norte, Sul, Oeste e Leste.
 export const blastCells = (state, center) => {
