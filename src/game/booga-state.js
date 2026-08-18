@@ -1,8 +1,10 @@
-import { POWERUP_SOURCES } from "./powerups/powerup-sources.js?v=svg-test-33";
-import { POWERUP_TYPES } from "./powerups/powerup-catalog.js?v=svg-test-33";
-import { createPowerupItem } from "./powerups/powerup-sources.js?v=svg-test-33";
-import { createHeartItem } from "./collectibles/heart-items.js?v=svg-test-33";
-import { generateLevel } from "./level-generator.js?v=svg-test-33";
+import { POWERUP_SOURCES } from "./powerups/powerup-sources.js?v=svg-test-34";
+import { POWERUP_TYPES } from "./powerups/powerup-catalog.js?v=svg-test-34";
+import { createPowerupItem } from "./powerups/powerup-sources.js?v=svg-test-34";
+import { createHeartItem } from "./collectibles/heart-items.js?v=svg-test-34";
+import { generateLevel, getElementsForLevel } from "./level-generator.js?v=svg-test-34";
+
+const ELEMENT_NAMES = { fire: "Fogo", water: "Água", earth: "Terra", air: "Ar" };
 
 export const createBoogaState = ({ testElements = false, seed = Date.now(), difficulty = 1 } = {}) => {
   const level = generateLevel({ seed, difficulty, testElements });
@@ -28,7 +30,7 @@ export const createBoogaState = ({ testElements = false, seed = Date.now(), diff
     hearts: 3,
     gameOver: false,
     selectedElement: "fire",
-    unlockedElements: testElements ? ["fire", "water", "earth", "air"] : ["fire"],
+    unlockedElements: getElementsForLevel(difficulty, testElements),
     launchArmed: false,
     effects: [],
     effectsRevision: 0,
@@ -44,8 +46,8 @@ export const createBoogaState = ({ testElements = false, seed = Date.now(), diff
     log: [
       "Supimpus entrou no Bosque Espinhoso.",
       "Fogo selecionado.",
-      `Semente da fase: ${level.seed}.`,
-      "O objetivo é alcançar o Boss da fase."
+      `Fase ${difficulty} gerada. Semente: ${level.seed}.`,
+      `Objetivo: alcançar o Boss. Elementos disponíveis: ${level.availableElements.map((element) => ELEMENT_NAMES[element]).join(", ")}.`
     ]
   };
 };
