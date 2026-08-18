@@ -1,3 +1,5 @@
+import { COMMON_ENEMIES, BIOME_ENEMIES, getPhaseContent } from "./content-catalog.js?v=svg-test-36";
+
 const WIDTH = 9;
 const HEIGHT = 5;
 const START = Object.freeze({ x: 1, y: 1 });
@@ -124,16 +126,14 @@ const takeCell = (pool, reserved, predicate = () => true) => {
   return cell;
 };
 
-const createEnemies = (cells, rng, difficulty, testElements, reserved) => {
-  const count = testElements ? 5 : Math.min(2 + difficulty, 5);
+const createEnemies = (cells, rng, content, testElements, reserved) => {
+  const count = testElements ? 5 : content.enemyCount;
   const pool = shuffle(freeCells(cells), rng);
-  const templates = [
-    { id: "contact", name: "Troll", hp: 1, drop: "ghost-potion" },
-    { id: "apprentice", name: "Aprendiz", hp: 1, stunned: 1 },
-    { id: "scout", name: "Escoteiro", hp: 1, drop: "bad-news" },
-    { id: "brute", name: "Brutamontes", hp: 2, heartDrop: true },
-    { id: "ambush", name: "Emboscador", hp: 1 }
-  ];
+  const ids = shuffle([...content.biome.commonEnemies, ...content.biome.biomeEnemies], rng);
+  const templates = ids.map((id) => COMMON_ENEMIES[id] || BIOME_ENEMIES[id]).filter(Boolean);
+  while (templates.length < count && templates.length > 0) {
+    templates.push(templates[templates.length % ids.length]);
+  }
   const enemies = [];
 
   templates.slice(0, count).forEach((template, index) => {
@@ -142,15 +142,16 @@ const createEnemies = (cells, rng, difficulty, testElements, reserved) => {
       Math.abs(candidate.x - GOAL.x) + Math.abs(candidate.y - GOAL.y) >= 2
     ));
     if (!cell) return;
+    const hp = testElements && template.hp === 1 ? 2 : template.hp;
     enemies.push({
       id: `enemy-${template.id}-${index}`,
-      name: `${template.name} da fase`,
+      name: template.name,
       ...cell,
-      hp: testElements && template.hp === 1 ? 2 : template.hp,
-      maxHp: testElements && template.hp === 1 ? 2 : template.hp,
-      stunned: template.stunned ?? 0,
-      ...(template.drop ? { drop: template.drop } : {}),
-      ...(template.heartDrop ? { heartDrop: true } : {})
+      hp,
+      maxHp: hp,
+      stunned: 0,
+      ...(template.id === "goblin" ? { drop: "ghost-potion" } : {}),
+      ...(template.id === "wolf" ? { heartDrop: true } : {})
     });
   });
   return enemies;
@@ -173,7 +174,8 @@ export const validateGeneratedLevel = (level) => {
   };
 };
 
-export const generateLevel = ({ seed = Date.now(), difficulty = 1, testElements = false } = {}) => {
+export const generateLevel = ({ seed = Date.now(), difficulty = 1, biome = "floresta-espinhosa", testElements = false } = {}) => {
+  const content = getPhaseContent({ level: difficulty, biome });
   const rng = random(seed);
   let cells = null;
   for (let attempt = 0; attempt < 50; attempt += 1) {
@@ -196,14 +198,16 @@ export const generateLevel = ({ seed = Date.now(), difficulty = 1, testElements 
     [...cells.flatMap((row, y) => row.map((value, x) => value === "#" ? { x, y } : null).filter(Boolean))],
     rng
   )[0];
-  const enemies = createEnemies(cells, rng, difficulty, testElements, reserved);
-  const chestPowerupId = "chest-salamander";
+  const enemies = createEnemies(cells, rng, content, testElements, reserved);
+  const chestPowerupType = content.allowedPowerups.includes("salamander") ? "salamander" : "ghost-potion";
+  const chestPowerupId = `chest-${chestPowerupType}`;
   const chestHeartId = "chest-heart";
 
   const level = {
     seed,
-    phaseLevel: difficulty,
-    availableElements: getElementsForLevel(difficulty, testElements),
+    phaseLevel: content.level,
+    biome: content.biome.id,
+    availableElements: testElements ? ["fire", "water", "earth", "air"] : content.allowedElements,
     start: { ...START },
     goal: { ...GOAL },
     cells,
@@ -211,7 +215,7 @@ export const generateLevel = ({ seed = Date.now(), difficulty = 1, testElements 
     powerups: [
       { type: "super-strength", source: "map", position: mapSuperStrength },
       { type: "bad-news", source: "map", position: mapBadNews },
-      { type: "salamander", source: "chest", position: chestCell, id: chestPowerupId },
+      { type: chestPowerupType, source: "chest", position: chestCell, id: chestPowerupId },
       { type: "extra-life", source: "block-content", position: blockCell }
     ],
     heartItems: [
