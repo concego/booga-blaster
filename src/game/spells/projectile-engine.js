@@ -1,10 +1,10 @@
-import { getSpell } from "./spell-catalog.js?v=svg-test-26";
-import { blastCells } from "./blast.js?v=svg-test-26";
-import { coneCells, upsertZone } from "./area-effects.js?v=svg-test-26";
-import { pushEnemies, throwStones } from "./instant-effects.js?v=svg-test-26";
-import { revealBlockContents } from "../powerups/powerup-reveal.js?v=svg-test-26";
-import { damageEnemyAt, CONTACT_DAMAGE } from "../combat/damage.js?v=svg-test-26";
-import { damagePlayer } from "../combat/player-damage.js?v=svg-test-26";
+import { getSpell } from "./spell-catalog.js?v=svg-test-28";
+import { blastCells } from "./blast.js?v=svg-test-28";
+import { coneCells, upsertZone } from "./area-effects.js?v=svg-test-28";
+import { pushEnemies, throwStones } from "./instant-effects.js?v=svg-test-28";
+import { revealBlockContents } from "../powerups/powerup-reveal.js?v=svg-test-28";
+import { damageEnemyAt, CONTACT_DAMAGE } from "../combat/damage.js?v=svg-test-28";
+import { damagePlayer } from "../combat/player-damage.js?v=svg-test-28";
 
 const destroyBlocks = (state, cells) => {
   let destroyed = 0;
@@ -43,9 +43,16 @@ const explode = (state, projectile) => {
   const enemies = damageEnemies(state, blast);
   const events = [`${spell.name} explodiu.`];
 
-  if (spell.instantEffect === "push" && projectile.direction) pushEnemies(state, blast, projectile.direction);
-  if (spell.instantEffect === "stones") throwStones(state, cone);
-  if (spell.zone) upsertZone(state, spell.zone, cone, spell.durationTurns);
+  const pushed = spell.instantEffect === "push" && projectile.direction
+    ? pushEnemies(state, blast, projectile.direction)
+    : 0;
+  const stones = spell.instantEffect === "stones" ? throwStones(state, cone) : 0;
+  const zone = spell.zone ? upsertZone(state, spell.zone, cone, spell.durationTurns) : null;
+
+  if (pushed) events.push(`${pushed} inimigo${pushed > 1 ? "s" : ""} empurrado${pushed > 1 ? "s" : ""}.`);
+  if (stones) events.push(`${stones} inimigo${stones > 1 ? "s" : ""} atingido${stones > 1 ? "s" : ""} pelas pedras.`);
+  if (zone && spell.zone === "flame") events.push("Chamas criadas no cone.");
+  if (zone && spell.zone === "wind") events.push("Barreira de ar criada no cone.");
 
   if (blocks.destroyed) events.push(`${blocks.destroyed} bloco${blocks.destroyed > 1 ? "s" : ""} destruído${blocks.destroyed > 1 ? "s" : ""}.`);
   if (blocks.revealed) events.push("Um power-up foi revelado.");
