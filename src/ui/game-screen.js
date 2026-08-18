@@ -1,16 +1,17 @@
-import { playUiSound, playGameplaySounds } from "../audio/ui-audio.js?v=svg-test-26";
-import { createBoogaState } from "../game/booga-state.js?v=svg-test-26";
-import { dispatchDirection, prepareLaunch, launchSpell, scanState, selectElement } from "../game/booga-actions.js?v=svg-test-26";
-import { addLogMessage } from "../game/demo-state.js?v=svg-test-26";
-import { createLogView } from "./log.js?v=svg-test-26";
-import { renderArena } from "./arena-svg.js?v=svg-test-26";
-import { bindKeyboardControls } from "./keyboard-controls.js?v=svg-test-26";
+import { playUiSound, playGameplaySounds } from "../audio/ui-audio.js?v=svg-test-27";
+import { createBoogaState } from "../game/booga-state.js?v=svg-test-27";
+import { dispatchDirection, prepareLaunch, launchSpell, scanState, selectElement } from "../game/booga-actions.js?v=svg-test-27";
+import { addLogMessage } from "../game/demo-state.js?v=svg-test-27";
+import { createLogView } from "./log.js?v=svg-test-27";
+import { renderArena } from "./arena-svg.js?v=svg-test-27";
+import { bindKeyboardControls } from "./keyboard-controls.js?v=svg-test-27";
 import { createEffectsStatus } from "./effects-status.js?v=effects-02";
 
 const elementLabels = { fire: "Fogo", water: "Água", earth: "Terra", air: "Ar" };
 
 export const bindGameScreen = () => {
-  const state = createBoogaState();
+  const testElements = new URLSearchParams(window.location.search).get("test") === "elements";
+  const state = createBoogaState({ testElements });
   const logView = createLogView(document.querySelector("#log-list"));
   const actionStatus = document.querySelector("#action-status");
   const effects = document.querySelector("#effects");
@@ -34,6 +35,7 @@ export const bindGameScreen = () => {
     document.querySelectorAll(".element-button").forEach((button) => {
       const selected = button.dataset.element === state.selectedElement;
       button.classList.toggle("is-selected", selected);
+      button.disabled = !state.unlockedElements.includes(button.dataset.element);
       button.setAttribute("aria-pressed", String(selected));
     });
   };
@@ -80,7 +82,7 @@ export const bindGameScreen = () => {
     addLog(message);
   };
 
-  document.querySelectorAll(".element-button:not(:disabled)").forEach((button) => {
+  document.querySelectorAll(".element-button").forEach((button) => {
     button.addEventListener("click", () => handleElement(button.dataset.element));
   });
   document.querySelectorAll(".direction-button").forEach((button) => {
