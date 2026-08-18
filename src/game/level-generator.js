@@ -3,6 +3,14 @@ const HEIGHT = 5;
 const START = Object.freeze({ x: 1, y: 1 });
 const GOAL = Object.freeze({ x: 7, y: 3 });
 
+export const getElementsForLevel = (level = 1, testElements = false) => {
+  if (testElements) return ["fire", "water", "earth", "air"];
+  if (level >= 4) return ["fire", "water", "earth", "air"];
+  if (level === 3) return ["fire", "water", "earth"];
+  if (level === 2) return ["fire", "water"];
+  return ["fire"];
+};
+
 const sameCell = (a, b) => a.x === b.x && a.y === b.y;
 const keyOf = ({ x, y }) => `${x},${y}`;
 
@@ -194,6 +202,8 @@ export const generateLevel = ({ seed = Date.now(), difficulty = 1, testElements 
 
   const level = {
     seed,
+    phaseLevel: difficulty,
+    availableElements: getElementsForLevel(difficulty, testElements),
     start: { ...START },
     goal: { ...GOAL },
     cells,
