@@ -4,6 +4,7 @@ import { STONE_DAMAGE, damageEnemyAt } from "../combat/damage.js";
 const enemyAt = (state, cell) => state.enemies.find((enemy) => enemy.x === cell.x && enemy.y === cell.y);
 
 export const pushEnemies = (state, cells, direction) => {
+  let moved = 0;
   cells.forEach((cell) => {
     state.enemies.forEach((enemy) => {
       if (enemy.x !== cell.x || enemy.y !== cell.y) return;
@@ -12,14 +13,20 @@ export const pushEnemies = (state, cells, direction) => {
       if (!isBlocked(state, destination.x, destination.y) && !enemyAt(state, destination) && !occupiedByPlayer) {
         enemy.x = destination.x;
         enemy.y = destination.y;
+        moved += 1;
       }
     });
   });
+  return moved;
 };
 
 export const throwStones = (state, cells) => {
+  let hit = 0;
   cells.forEach((cell) => {
     const result = damageEnemyAt(state, cell, STONE_DAMAGE);
-    if (result.hit && result.enemy) result.enemy.stunned = Math.max(result.enemy.stunned || 0, 1);
+    if (!result.hit || !result.enemy) return;
+    hit += 1;
+    result.enemy.stunned = Math.max(result.enemy.stunned || 0, 1);
   });
+  return hit;
 };
