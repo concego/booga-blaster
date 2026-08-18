@@ -1,7 +1,7 @@
-import { createDemoEnemies } from "./demo-fixtures.js?v=svg-test-25";
-import { POWERUP_SOURCES } from "./powerups/powerup-sources.js?v=svg-test-25";
-import { POWERUP_TYPES } from "./powerups/powerup-catalog.js?v=svg-test-25";
-import { createPowerupItem } from "./powerups/powerup-sources.js?v=svg-test-25";
+import { createDemoEnemies } from "./demo-fixtures.js?v=svg-test-27";
+import { POWERUP_SOURCES } from "./powerups/powerup-sources.js?v=svg-test-27";
+import { POWERUP_TYPES } from "./powerups/powerup-catalog.js?v=svg-test-27";
+import { createPowerupItem } from "./powerups/powerup-sources.js?v=svg-test-27";
 
 const createCells = () => [
   ["#", ".", ".", ".", "#", ".", ".", ".", "#"],
@@ -11,7 +11,7 @@ const createCells = () => [
   ["#", ".", ".", ".", "#", ".", ".", ".", "#"]
 ];
 
-export const createBoogaState = () => {
+export const createBoogaState = ({ testElements = false } = {}) => {
   const chestPowerup = createPowerupItem(
     POWERUP_TYPES.SALAMANDER,
     POWERUP_SOURCES.CHEST,
@@ -32,13 +32,13 @@ export const createBoogaState = () => {
     hearts: 3,
     gameOver: false,
     selectedElement: "fire",
-    unlockedElements: ["fire"],
+    unlockedElements: testElements ? ["fire", "water", "earth", "air"] : ["fire"],
     launchArmed: false,
     effects: [],
     effectsRevision: 0,
     zones: [],
     projectiles: [],
-    enemies: createDemoEnemies(),
+    enemies: createDemoEnemies({ durable: testElements }),
     orbs: [],
     powerups: [
       createPowerupItem(POWERUP_TYPES.SUPER_STRENGTH, POWERUP_SOURCES.MAP, { x: 1, y: 0 }),
