@@ -113,6 +113,7 @@ h2 { margin-bottom: .8rem; font-size: 1.1rem; }
 .element-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: .7rem; }
 .element-button { position: relative; display: flex; align-items: center; justify-content: center; gap: .55rem; flex-wrap: wrap; }
 .element-button.is-selected { border-color: var(--accent); box-shadow: 0 0 0 2px rgba(246, 198, 91, .25) inset; }
+.element-button.is-test-unlocked { border-color: #8dcc9b; }
 .element-button[aria-pressed="true"] { background: #31543f; }
 .element-icon { display: inline-grid; place-items: center; width: 1.5rem; height: 1.5rem; border-radius: 50%; font-size: 1.2rem; }
 .fire-icon { color: #ffe29c; background: #a8402c; }
