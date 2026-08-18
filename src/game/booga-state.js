@@ -44,7 +44,7 @@ export const createBoogaState = ({ testElements = false, seed = Date.now(), diff
     log: [
       "Supimpus entrou no Bosque Espinhoso.",
       "Fogo selecionado.",
-      "A fase foi gerada com uma rota possível até o Boss.",
+      `Semente da fase: ${level.seed}.`,
       "O objetivo é alcançar o Boss da fase."
     ]
   };
