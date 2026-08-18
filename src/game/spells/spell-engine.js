@@ -1,8 +1,7 @@
-import { advanceTurn } from "../../core/turn-engine.js?v=svg-test-22";
-import { getDirection } from "../../core/directions.js?v=svg-test-22";
-import { getSpell } from "./spell-catalog.js?v=svg-test-22";
-import { destroyContactBlock, findContactCell } from "./contact.js?v=svg-test-22";
-import { revealBlockContents } from "../powerups/powerup-reveal.js?v=svg-test-22";
+import { advanceTurn } from "../../core/turn-engine.js?v=svg-test-25";
+import { getDirection } from "../../core/directions.js?v=svg-test-25";
+import { getSpell } from "./spell-catalog.js?v=svg-test-25";
+import { findContactCell } from "./contact.js?v=svg-test-25";
 
 const hasEffect = (state, effect) => state.effects.some((item) => item.effect === effect);
 const getRange = (state, baseRange) => (hasEffect(state, "throw-range") ? baseRange + 1 : baseRange);
@@ -16,33 +15,27 @@ export const castSpell = (state, element, directionName = null) => {
 
   const contact = direction
     ? findContactCell(state, directionName, getRange(state, spell.range))
-    : { ok: true, contact: { x: state.player.x, y: state.player.y }, blocked: false };
+    : { ok: true, contact: { x: state.player.x, y: state.player.y }, projectile: { x: state.player.x, y: state.player.y }, blocked: false };
   if (!contact.ok) return contact;
 
-  const destroyed = destroyContactBlock(state, contact.contact);
-  const revealedBlockContents = destroyed
-    ? state.powerups
-      .filter((item) => item.x === contact.contact.x && item.y === contact.contact.y && item.source === "block-content")
-      .map((item) => revealBlockContents(item))
-      .some(Boolean)
-    : false;
-
-  // O impacto chega à célula agora, mas a explosão só é resolvida no próximo turno.
+  // O lançamento cria o item. O próximo turno resolve toda a explosão.
   advanceTurn(state);
   state.projectiles.push({
     element,
-    cell: contact.contact,
+    cell: contact.projectile || contact.contact,
+    obstacle: contact.blocked ? contact.contact : null,
     direction: direction || null,
     turnsUntilExplosion: 1
   });
 
   const target = direction ? `para ${direction.label}` : "na própria célula";
-  const obstacleText = destroyed ? " Obstáculo destruído." : "";
-  const revealedText = revealedBlockContents ? " Um power-up foi revelado." : "";
+  const landingText = contact.blocked
+    ? " O projétil caiu antes do bloco e explodirá sobre ele no próximo turno."
+    : " O projétil ficou no chão e explodirá no próximo turno.";
   const turnText = state.turnEvents?.length ? ` ${state.turnEvents.join(" ")}` : "";
   return {
     ok: true,
-    message: `${spell.name} lançado ${target}. Projétil preparado para explodir no próximo turno.${obstacleText}${revealedText}${turnText}`,
-    contact: contact.contact
+    message: `${spell.name} lançado ${target}.${landingText}${turnText}`,
+    contact: contact.projectile || contact.contact
   };
 };
