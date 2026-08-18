@@ -1,4 +1,5 @@
-import { POWERUP_SOURCES, createPowerupItem } from "../powerups/powerup-sources.js?v=svg-test-21";
+import { POWERUP_SOURCES, createPowerupItem } from "../powerups/powerup-sources.js?v=svg-test-32";
+import { createHeartItem } from "../collectibles/heart-items.js?v=svg-test-32";
 
 export const CONTACT_DAMAGE = 1;
 export const STONE_DAMAGE = 1;
@@ -20,6 +21,13 @@ export const damageEnemyAt = (state, cell, amount) => {
         POWERUP_SOURCES.ENEMY_DROP,
         { x: enemy.x, y: enemy.y },
         `drop-${enemy.id}-${state.turn}`
+      ));
+    }
+    if (enemy.heartDrop) {
+      state.heartItems.push(createHeartItem(
+        POWERUP_SOURCES.ENEMY_DROP,
+        { x: enemy.x, y: enemy.y },
+        `heart-drop-${enemy.id}-${state.turn}`
       ));
     }
   }
