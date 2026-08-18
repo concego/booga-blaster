@@ -101,6 +101,7 @@ h2 { margin-bottom: .8rem; font-size: 1.1rem; }
 .enemy-hp { fill: #ff8b62; }
 .enemy-stun-ring { fill: none; stroke: #a9e8ff; stroke-width: 4; stroke-dasharray: 5 6; }
 .dynamic-powerup { fill: #f6c65b; stroke: #fff0a8; stroke-width: 4; }
+.dynamic-heart { fill: #f06b7a; stroke: #ffd1dc; stroke-width: 4; }
 .dynamic-symbol { fill: #10241d; font-size: 1.7rem; font-weight: 900; text-anchor: middle; dominant-baseline: central; }
 
 .element-controls, .command-controls, .game-log {
