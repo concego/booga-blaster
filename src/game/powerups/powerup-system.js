@@ -1,5 +1,6 @@
-import { getPowerup, POWERUP_TYPES } from "./powerup-catalog.js?v=svg-test-18";
-import { openChestContents, revealPowerup } from "./powerup-reveal.js?v=svg-test-18";
+import { getPowerup, POWERUP_TYPES } from "./powerup-catalog.js?v=svg-test-30";
+import { openChestContents, revealPowerup } from "./powerup-reveal.js?v=svg-test-30";
+import { collectHeartAtCell } from "../collectibles/heart-items.js?v=svg-test-30";
 
 const DEFAULT_DURATION = 8;
 
@@ -7,7 +8,7 @@ const findActiveEffect = (state, effectName) => (
   state.effects.find((effect) => effect.effect === effectName)
 );
 
-export const activatePowerup = (state, type, durationTurns = DEFAULT_DURATION) => {
+export const activatePowerup = (state, type, durationTurns = null) => {
   const powerup = getPowerup(type);
   if (!powerup) return { ok: false, message: "Power-up desconhecido." };
 
@@ -16,11 +17,13 @@ export const activatePowerup = (state, type, durationTurns = DEFAULT_DURATION) =
     return { ok: true, message: "Vida extra encontrada. +1 vida." };
   }
 
+  const turns = durationTurns || powerup.duration || DEFAULT_DURATION;
   const current = findActiveEffect(state, powerup.effect);
-  if (current) current.turns = durationTurns;
-  else state.effects.push({ name: powerup.name, effect: powerup.effect, turns: durationTurns });
+  if (powerup.effect === "bad-news") state.badNewsPhase = 0;
+  if (current) current.turns = turns;
+  else state.effects.push({ name: powerup.name, effect: powerup.effect, turns });
   state.effectsRevision += 1;
-  return { ok: true, message: `${powerup.name} ativada: ${durationTurns} turnos.` };
+  return { ok: true, message: `${powerup.name} ativada: ${turns} turnos.` };
 };
 
 export const collectPowerup = (state, item, durationTurns = DEFAULT_DURATION) => {
@@ -51,6 +54,13 @@ export const collectAtCell = (state, cell) => {
       if (!item.revealed && item.source === "map") revealPowerup(item, item.source);
       const result = collectPowerup(state, item);
       if (result.ok) messages.push(result.message);
+    });
+
+  state.heartItems
+    .filter((item) => item.x === cell.x && item.y === cell.y && !item.collected)
+    .forEach((item) => {
+      const message = collectHeartAtCell(state, item);
+      if (message && !message.startsWith("Corações já")) messages.push(message);
     });
 
   return messages;
