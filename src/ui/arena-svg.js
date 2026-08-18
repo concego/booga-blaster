@@ -62,6 +62,14 @@ const addEnemy = (group, enemy) => {
   }
 };
 
+const addHeart = (group, item) => {
+  const point = center(item);
+  group.append(createSvg("path", {
+    d: `M ${point.x} ${point.y + 22} C ${point.x - 38} ${point.y - 2}, ${point.x - 22} ${point.y - 30}, ${point.x} ${point.y - 12} C ${point.x + 22} ${point.y - 30}, ${point.x + 38} ${point.y - 2}, ${point.x} ${point.y + 22}Z`,
+    class: "dynamic-heart"
+  }));
+};
+
 const addPowerup = (group, item) => {
   const point = center(item);
   group.append(createSvg("rect", {
@@ -115,6 +123,7 @@ export const renderArena = (state) => {
   }));
   state.projectiles.forEach((projectile) => addProjectile(group, projectile));
   state.chests.filter((chest) => !chest.opened).forEach((chest) => addChest(group, chest));
+  state.heartItems.filter((item) => item.revealed && !item.collected).forEach((item) => addHeart(group, item));
   state.powerups.filter((item) => item.revealed && !item.collected).forEach((item) => addPowerup(group, item));
   state.enemies.forEach((enemy) => addEnemy(group, enemy));
   addPlayer(state.player);
