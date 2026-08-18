@@ -37,6 +37,9 @@ export const scanState = (state) => {
     const powerup = getPowerup(item.type);
     if (powerup) addFinding(findings, powerup.name, player, item.x, item.y);
   });
+  state.heartItems.filter((item) => item.revealed && !item.collected).forEach((item) => {
+    addFinding(findings, "Coração", player, item.x, item.y);
+  });
 
   const intro = `Escaneando de ${player.x}, ${player.y}...`;
   return {
