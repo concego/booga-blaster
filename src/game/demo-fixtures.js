@@ -35,7 +35,8 @@ export const createDemoEnemies = ({ durable = false } = {}) => [
     y: 3,
     hp: 2,
     maxHp: 2,
-    stunned: 0
+    stunned: 0,
+    heartDrop: true
   },
   {
     id: "enemy-ambush-test",
