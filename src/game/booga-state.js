@@ -1,13 +1,18 @@
-import { POWERUP_SOURCES } from "./powerups/powerup-sources.js?v=svg-test-34";
-import { POWERUP_TYPES } from "./powerups/powerup-catalog.js?v=svg-test-34";
-import { createPowerupItem } from "./powerups/powerup-sources.js?v=svg-test-34";
-import { createHeartItem } from "./collectibles/heart-items.js?v=svg-test-34";
-import { generateLevel, getElementsForLevel } from "./level-generator.js?v=svg-test-34";
+import { POWERUP_SOURCES } from "./powerups/powerup-sources.js?v=svg-test-36";
+import { POWERUP_TYPES } from "./powerups/powerup-catalog.js?v=svg-test-36";
+import { createPowerupItem } from "./powerups/powerup-sources.js?v=svg-test-36";
+import { createHeartItem } from "./collectibles/heart-items.js?v=svg-test-36";
+import { generateLevel } from "./level-generator.js?v=svg-test-36";
 
 const ELEMENT_NAMES = { fire: "Fogo", water: "Água", earth: "Terra", air: "Ar" };
 
-export const createBoogaState = ({ testElements = false, seed = Date.now(), difficulty = 1 } = {}) => {
-  const level = generateLevel({ seed, difficulty, testElements });
+export const createBoogaState = ({
+  testElements = false,
+  seed = Date.now(),
+  difficulty = 1,
+  biome = "floresta-espinhosa"
+} = {}) => {
+  const level = generateLevel({ seed, difficulty, biome, testElements });
   const powerups = level.powerups.map((item) => createPowerupItem(
     item.type,
     item.source,
@@ -24,6 +29,7 @@ export const createBoogaState = ({ testElements = false, seed = Date.now(), diff
     turn: 0,
     seed: level.seed,
     difficulty,
+    biome: level.biome,
     player: { ...level.start },
     goal: { ...level.goal },
     lives: 3,
@@ -46,7 +52,7 @@ export const createBoogaState = ({ testElements = false, seed = Date.now(), diff
     log: [
       "Supimpus entrou no Bosque Espinhoso.",
       "Fogo selecionado.",
-      `Fase ${difficulty} gerada. Semente: ${level.seed}.`,
+      `Fase ${difficulty} gerada no bioma ${level.biome}. Semente: ${level.seed}.`,
       `Objetivo: alcançar o Boss. Elementos disponíveis: ${level.availableElements.map((element) => ELEMENT_NAMES[element]).join(", ")}.`
     ]
   };
