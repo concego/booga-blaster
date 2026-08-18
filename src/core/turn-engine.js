@@ -1,6 +1,6 @@
-import { processEnemyTurn } from "../game/combat/enemy-engine.js?v=svg-test-22";
-import { resolveProjectiles } from "../game/spells/projectile-engine.js?v=svg-test-22";
-import { processFlameZones } from "../game/spells/zone-engine.js?v=svg-test-22";
+import { processEnemyTurn } from "../game/combat/enemy-engine.js?v=svg-test-25";
+import { resolveProjectiles } from "../game/spells/projectile-engine.js?v=svg-test-25";
+import { processFlameZones } from "../game/spells/zone-engine.js?v=svg-test-25";
 
 export const advanceTurn = (state) => {
   state.turn += 1;
@@ -15,8 +15,9 @@ export const advanceTurn = (state) => {
     .map((zone) => ({ ...zone, turns: zone.turns - 1 }))
     .filter((zone) => zone.turns > 0);
 
-  state.turnEvents = resolveProjectiles(state);
-  state.turnEvents.push(...processFlameZones(state));
+  // Zonas antigas causam dano antes da nova explosão; a zona criada agora começa cheia.
+  state.turnEvents = processFlameZones(state);
+  state.turnEvents.push(...resolveProjectiles(state));
   state.turnEvents.push(...processEnemyTurn(state));
   return state.turn;
 };
