@@ -1,4 +1,4 @@
-# Power-ups
+# Power-ups e coletáveis
 
 ## Regra geral
 
@@ -6,14 +6,7 @@ Power-ups ativam imediatamente quando são encontrados. Não existe inventário 
 
 Power-ups temporários recebem uma duração em turnos. Um power-up repetido recarrega o efeito para a duração definida; não soma o tempo restante.
 
-## Fontes
-
-- `map`: visível desde a criação da fase.
-- `enemy-drop`: aparece ao derrotar um inimigo.
-- `block-content`: revelado quando o bloco destrutível é quebrado.
-- `chest`: revelado quando o baú é aberto.
-
-Um item escondido não pode ser coletado antes de ser revelado. Depois de revelado, a coleta pode ativar o efeito imediatamente.
+Corações são itens coletáveis separados dos power-ups. Um coração recupera 1 coração perdido, até o limite de 3.
 
 ## Catálogo inicial
 
@@ -24,20 +17,25 @@ Um item escondido não pode ser coletado antes de ser revelado. Depois de revela
 | Salamandra | Permite atravessar chamas sem dano | A definir; exemplo discutido: 8 turnos |
 | Toupeira | Permite ocupar células afetadas por Terra sem dano | A definir |
 | Super Força | Aumenta a distância de lançamento | A definir |
+| Notícia ruim | Supimpus realiza 2 avanços enquanto os inimigos realizam 1 | 2 turnos |
 
-## Implementação
+## Fontes
 
-- `powerup-catalog.js`: tipos e nomes.
-- `powerup-sources.js`: origens e criação de itens.
-- `powerup-reveal.js`: revelação de conteúdos escondidos.
-- `powerup-system.js`: ativação, recarga e coleta automática.
-- `booga-state.js`: fixtures de teste para item visível, baú e conteúdo de bloco.
+- `map`: visível desde a criação da fase.
+- `enemy-drop`: aparece ao derrotar um inimigo.
+- `block-content`: revelado quando o bloco destrutível é quebrado.
+- `chest`: revelado quando o baú é aberto.
+
+Um item escondido não pode ser coletado antes de ser revelado. Depois de revelado, a coleta pode ativar o efeito imediatamente.
 
 ## Fixtures atuais
 
-- Um item de **Super Força** fica visível em uma célula livre.
-- Um baú contém uma **Salamandra**; ao entrar na célula, o baú abre e o efeito é ativado automaticamente.
-- Um bloco destrutível contém uma **Vida extra**; ao ser destruído, o item é revelado para coleta posterior.
-- O Troll de teste derruba uma **Poção Fantasma** ao ser derrotado.
+- Super Força visível no mapa.
+- Notícia ruim visível no mapa, perto da posição inicial.
+- Um coração visível no mapa.
+- Um baú contém uma Salamandra.
+- Um bloco destrutível contém uma Vida extra.
+- O Troll de teste derruba uma Poção Fantasma.
+- O Escoteiro de teste derruba Notícia ruim.
 
-A duração de teste dos efeitos temporários é de 8 turnos. Ela continua sendo provisória para o balanceamento final.
+O modo temporário `?test=elements` mantém esses itens e libera os quatro elementos para validação.
