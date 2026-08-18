@@ -59,6 +59,7 @@ const explode = (state, projectile) => {
   if (enemies.hit.length) events.push(`${enemies.hit.length} inimigo${enemies.hit.length > 1 ? "s" : ""} atingido${enemies.hit.length > 1 ? "s" : ""}.`);
   if (enemies.defeated.length) events.push(`${enemies.defeated.length} inimigo${enemies.defeated.length > 1 ? "s" : ""} derrotado${enemies.defeated.length > 1 ? "s" : ""}.`);
   if (enemies.defeated.some((enemy) => enemy.drop)) events.push("Um power-up caiu.");
+  if (enemies.defeated.some((enemy) => enemy.heartDrop)) events.push("Um coração caiu.");
 
   const playerHit = blast.some((cell) => cell.x === state.player.x && cell.y === state.player.y);
   if (playerHit) {
