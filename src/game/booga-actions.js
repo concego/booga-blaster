@@ -1,9 +1,9 @@
-import { tryMovePlayer } from "../core/grid.js?v=svg-test-18";
-import { advanceTurn, getTurnEvents } from "../core/turn-engine.js?v=svg-test-18";
-import { scanState } from "./scan/scan-state.js?v=svg-test-18";
-import { castSpell } from "./spells/spell-engine.js?v=svg-test-18";
-import { getSpell } from "./spells/spell-catalog.js?v=svg-test-18";
-import { collectAtCell } from "./powerups/powerup-system.js?v=svg-test-18";
+import { tryMovePlayer } from "../core/grid.js?v=svg-test-25";
+import { advanceTurn, getTurnEvents } from "../core/turn-engine.js?v=svg-test-25";
+import { scanState } from "./scan/scan-state.js?v=svg-test-25";
+import { castSpell } from "./spells/spell-engine.js?v=svg-test-25";
+import { getSpell } from "./spells/spell-catalog.js?v=svg-test-25";
+import { collectAtCell } from "./powerups/powerup-system.js?v=svg-test-25";
 
 const appendTurnEvents = (state, message) => {
   const events = getTurnEvents(state);
