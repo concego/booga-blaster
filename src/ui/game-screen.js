@@ -1,5 +1,5 @@
 import { playUiSound, playGameplaySounds } from "../audio/ui-audio.js?v=svg-test-32";
-import { createBoogaState } from "../game/booga-state.js?v=svg-test-32";
+import { createBoogaState } from "../game/booga-state.js?v=svg-test-34";
 import { dispatchDirection, prepareLaunch, launchSpell, scanState, selectElement } from "../game/booga-actions.js?v=svg-test-32";
 import { addLogMessage } from "../game/demo-state.js?v=svg-test-32";
 import { createLogView } from "./log.js?v=svg-test-32";
