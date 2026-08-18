@@ -34,8 +34,10 @@ Um item escondido não pode ser coletado antes de ser revelado. Depois de revela
 - Notícia ruim visível no mapa, perto da posição inicial.
 - Um coração visível no mapa.
 - Um baú contém uma Salamandra.
+- Um segundo baú contém um coração.
 - Um bloco destrutível contém uma Vida extra.
 - O Troll de teste derruba uma Poção Fantasma.
 - O Escoteiro de teste derruba Notícia ruim.
+- O Brutamontes de teste derruba um coração.
 
 O modo temporário `?test=elements` mantém esses itens e libera os quatro elementos para validação.
