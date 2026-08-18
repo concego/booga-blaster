@@ -1,6 +1,6 @@
-import { getPowerup, POWERUP_TYPES } from "./powerup-catalog.js?v=svg-test-30";
-import { openChestContents, revealPowerup } from "./powerup-reveal.js?v=svg-test-30";
-import { collectHeartAtCell } from "../collectibles/heart-items.js?v=svg-test-30";
+import { getPowerup, POWERUP_TYPES } from "./powerup-catalog.js?v=svg-test-31";
+import { openChestContents, revealPowerup } from "./powerup-reveal.js?v=svg-test-31";
+import { collectHeartAtCell } from "../collectibles/heart-items.js?v=svg-test-31";
 
 const DEFAULT_DURATION = 8;
 
@@ -26,7 +26,7 @@ export const activatePowerup = (state, type, durationTurns = null) => {
   return { ok: true, message: `${powerup.name} ativada: ${turns} turnos.` };
 };
 
-export const collectPowerup = (state, item, durationTurns = DEFAULT_DURATION) => {
+export const collectPowerup = (state, item, durationTurns = null) => {
   if (!item || item.collected || !item.revealed) {
     return { ok: false, message: "Power-up ainda não pode ser coletado." };
   }
