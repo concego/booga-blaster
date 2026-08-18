@@ -1,7 +1,8 @@
-import { createDemoEnemies } from "./demo-fixtures.js?v=svg-test-27";
-import { POWERUP_SOURCES } from "./powerups/powerup-sources.js?v=svg-test-27";
-import { POWERUP_TYPES } from "./powerups/powerup-catalog.js?v=svg-test-27";
-import { createPowerupItem } from "./powerups/powerup-sources.js?v=svg-test-27";
+import { createDemoEnemies } from "./demo-fixtures.js?v=svg-test-30";
+import { POWERUP_SOURCES } from "./powerups/powerup-sources.js?v=svg-test-30";
+import { POWERUP_TYPES } from "./powerups/powerup-catalog.js?v=svg-test-30";
+import { createPowerupItem } from "./powerups/powerup-sources.js?v=svg-test-30";
+import { createHeartItem } from "./collectibles/heart-items.js?v=svg-test-30";
 
 const createCells = () => [
   ["#", ".", ".", ".", "#", ".", ".", ".", "#"],
@@ -24,6 +25,12 @@ export const createBoogaState = ({ testElements = false } = {}) => {
     { x: 4, y: 0 },
     "block-extra-life"
   );
+  const badNewsPowerup = createPowerupItem(
+    POWERUP_TYPES.BAD_NEWS,
+    POWERUP_SOURCES.MAP,
+    { x: 0, y: 1 },
+    "map-bad-news"
+  );
 
   return {
     turn: 0,
@@ -36,15 +43,18 @@ export const createBoogaState = ({ testElements = false } = {}) => {
     launchArmed: false,
     effects: [],
     effectsRevision: 0,
+    badNewsPhase: 0,
     zones: [],
     projectiles: [],
     enemies: createDemoEnemies({ durable: testElements }),
     orbs: [],
     powerups: [
       createPowerupItem(POWERUP_TYPES.SUPER_STRENGTH, POWERUP_SOURCES.MAP, { x: 1, y: 0 }),
+      badNewsPowerup,
       chestPowerup,
       blockPowerup
     ],
+    heartItems: [createHeartItem("map", { x: 0, y: 2 }, "map-heart-0-2")],
     chests: [{ id: "forest-chest", x: 2, y: 0, contents: chestPowerup.id, opened: false }],
     grid: { width: 9, height: 5, cells: createCells() },
     log: [
