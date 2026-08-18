@@ -6,7 +6,7 @@ Cada lançamento cria um **projétil** que fica no chão até o próximo turno. 
 
 Quando o projétil encontra um bloco, ele não ocupa a célula do bloco: cai na célula imediatamente anterior. No próximo turno, a explosão atinge o bloco a partir dessa posição.
 
-A explosão usa raio de 1 célula, formando uma área de 3×3 ao redor do projétil. Ela pode atingir Supimpus, inimigos e vários blocos ao mesmo tempo. Isso evita que o jogo tenha de escolher apenas um bloco quando há obstáculos próximos.
+A explosão usa raio de 1 célula em **cruz**, ocupando até cinco células: centro, Norte, Sul, Oeste e Leste. Ela pode atingir Supimpus, inimigos e blocos alinhados diretamente com o projétil, mas não atinge diagonais. Isso reduz a força da explosão circular e deixa a área de risco mais legível.
 
 O personagem tem um turno para sair da área. Se continuar dentro da explosão, recebe dano.
 
@@ -16,9 +16,9 @@ O personagem tem um turno para sair da área. Se continuar dentro da explosão, 
 2. O projétil percorre a direção até o alcance ou o primeiro obstáculo.
 3. Se encontrar um bloco, cai na célula anterior ao bloco.
 4. O projétil permanece visível no chão.
-5. No próximo turno, a área de raio 1 explode.
-6. A explosão destrói os blocos da área e revela conteúdos escondidos.
-7. Inimigos dentro da área recebem dano.
+5. No próximo turno, a área de raio 1 em cruz explode.
+6. A explosão destrói os blocos da cruz e revela conteúdos escondidos.
+7. Inimigos dentro da cruz recebem dano.
 8. O efeito elemental secundário é aplicado no cone frontal.
 
 Se não houver obstáculo, o projétil cai na última célula dentro do alcance.
