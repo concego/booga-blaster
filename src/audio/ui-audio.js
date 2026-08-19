@@ -31,7 +31,11 @@ const fileProfiles = Object.freeze({
   confirm: { file: "ui-confirm.ogg", volume: 0.42 },
   select: { file: "ui-select.ogg", volume: 0.38 },
   "cast-fire": { file: "spell-fire-launch.ogg", volume: 0.5 },
-  "cast-earth": { file: "spell-earth-launch.mp3", volume: 0.42 }
+  "cast-water": { file: "spell-water-launch.ogg", volume: 0.42 },
+  "cast-earth": { file: "spell-earth-launch.mp3", volume: 0.42 },
+  "cast-air": { file: "spell-air-launch.mp3", volume: 0.42 },
+  explosion: { file: "spell-explosion.ogg", volume: 0.42 },
+  pickup: { file: "item-pickup.wav", volume: 0.48 }
 });
 
 const fileAudioCache = new Map();
