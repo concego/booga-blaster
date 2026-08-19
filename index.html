@@ -4,10 +4,54 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Booga Blaster — Protótipo da tela de jogo</title>
-  <link rel="stylesheet" href="styles.css?v=svg-test-32">
+  <link rel="stylesheet" href="styles.css?v=svg-test-50">
 </head>
 <body>
-  <main id="game" class="game-shell" aria-labelledby="phase-name">
+  <main id="menu" class="menu-shell" aria-labelledby="menu-title">
+    <section id="language-screen" class="menu-screen" aria-labelledby="language-title">
+      <p class="menu-kicker">Eu Concego Jogar</p>
+      <h1 id="language-title">Booga Blaster</h1>
+      <p id="language-prompt">Escolha o idioma</p>
+      <div class="menu-actions">
+        <button id="language-pt" type="button">Português (Brasil)</button>
+        <button id="language-en" type="button">English</button>
+      </div>
+    </section>
+
+    <section id="main-menu-screen" class="menu-screen" aria-labelledby="menu-title" hidden>
+      <p class="menu-kicker">Eu Concego Jogar</p>
+      <h1 id="menu-title">Booga Blaster</h1>
+      <p id="menu-subtitle">Arcade estratégico de elementos</p>
+      <div class="menu-actions">
+        <button id="new-game-button" class="primary-action" type="button">Novo jogo</button>
+        <button id="how-to-button" type="button">Como jogar</button>
+        <button id="credits-button" type="button">Créditos</button>
+        <button id="change-language-button" type="button">Mudar idioma</button>
+      </div>
+    </section>
+
+    <section id="how-to-screen" class="menu-screen menu-content-screen" aria-labelledby="how-to-title" hidden>
+      <h1 id="how-to-title">Como jogar</h1>
+      <div id="how-to-content">
+        <p>Escolha um elemento, movimente Supimpus e planeje as explosões.</p>
+        <p>Cada ação importante consome um turno e permite que os inimigos avancem.</p>
+        <p>Use Scan para detectar objetos próximos sem consumir turno.</p>
+      </div>
+      <button id="how-to-back-button" type="button">Voltar</button>
+    </section>
+
+    <section id="credits-screen" class="menu-screen menu-content-screen" aria-labelledby="credits-title" hidden>
+      <h1 id="credits-title">Créditos</h1>
+      <div id="credits-content">
+        <p><strong>Booga Blaster</strong></p>
+        <p>Desenvolvimento: Eu Concego Jogar</p>
+        <p>Programação e design: Anderson Carvalho</p>
+      </div>
+      <button id="credits-back-button" type="button">Voltar</button>
+    </section>
+  </main>
+
+  <main id="game" class="game-shell" aria-labelledby="phase-name" hidden>
     <header class="game-header">
       <div class="phase-block">
         <p class="eyebrow">Fase atual</p>
@@ -122,6 +166,6 @@
       </ol>
     </section>
   </main>
-  <script type="module" src="app.js?v=svg-test-49"></script>
+  <script type="module" src="app.js?v=svg-test-50"></script>
 </body>
 </html>
