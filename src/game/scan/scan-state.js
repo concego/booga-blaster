@@ -1,5 +1,5 @@
-import { getPowerup } from "../powerups/powerup-catalog.js?v=svg-test-39";
-import { getBlockAt } from "../../core/grid.js?v=svg-test-39";
+import { getPowerup } from "../powerups/powerup-catalog.js?v=svg-test-43";
+import { getBlockAt } from "../../core/grid.js?v=svg-test-43";
 
 const elementNames = { fire: "Fogo", water: "Água", earth: "Terra", air: "Ar" };
 
