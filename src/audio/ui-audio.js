@@ -51,7 +51,14 @@ const playTone = (context, tone) => {
   gain.gain.exponentialRampToValueAtTime(tone.volume || 0.06, now + 0.012);
   gain.gain.exponentialRampToValueAtTime(0.0001, now + tone.duration);
 
-  oscillator.connect(filter).connect(gain).connect(context.destination);
+  const output = tone.pan === undefined ? context.destination : context.createStereoPanner();
+  if (tone.pan !== undefined) {
+    output.pan.setValueAtTime(tone.pan, now);
+    gain.connect(output).connect(context.destination);
+  } else {
+    gain.connect(output);
+  }
+  oscillator.connect(filter).connect(gain);
   oscillator.start(now);
   oscillator.stop(now + tone.duration + 0.02);
 };
@@ -60,6 +67,43 @@ export const playUiSound = (kind) => {
   const context = getAudioContext();
   if (!context) return;
   (profiles[kind] || profiles.select).forEach((tone) => playTone(context, tone));
+};
+
+const proximityTone = (state, dx, dy, distance) => {
+  const x = state.player.x + dx;
+  const y = state.player.y + dy;
+  if (x < 0 || y < 0 || x >= state.grid.width || y >= state.grid.height) return null;
+  const block = state.grid.cells[y][x] === "#";
+  const enemy = state.enemies.find((item) => item.x === x && item.y === y);
+  const chest = state.chests.some((item) => !item.opened && item.x === x && item.y === y);
+  const powerup = state.powerups.some((item) => item.revealed && !item.collected && item.x === x && item.y === y);
+  const heart = state.heartItems.some((item) => item.revealed && !item.collected && item.x === x && item.y === y);
+  const goal = state.goal?.x === x && state.goal?.y === y;
+  let tone = null;
+  if (enemy) tone = enemy.maxHp > 1 ? { start: 90, end: 65, type: "sawtooth", maxDistance: 3 } : { start: 180, end: 130, type: "sawtooth", maxDistance: 3 };
+  else if (powerup) tone = { start: 880, end: 700, type: "triangle", maxDistance: 1 };
+  else if (heart) tone = { start: 600, end: 480, type: "triangle", maxDistance: 1 };
+  else if (block) tone = { start: 150, end: 110, type: "square", maxDistance: 1 };
+  else if (chest) tone = { start: 523, end: 440, type: "sine", maxDistance: 2 };
+  else if (goal) tone = { start: 80, end: 55, type: "sawtooth", maxDistance: 3 };
+  if (!tone || distance > tone.maxDistance) return null;
+  return { ...tone, volume: Math.max(0.04, 0.22 - (distance - 1) * 0.06), pan: Math.max(-1, Math.min(1, dx / 3)) };
+};
+
+export const playEnvironmentSonar = (state) => {
+  const context = getAudioContext();
+  if (!context) return;
+  playUiSound("move");
+  const items = [];
+  for (let dy = -3; dy <= 3; dy += 1) {
+    for (let dx = -3; dx <= 3; dx += 1) {
+      if (dx === 0 && dy === 0) continue;
+      const distance = Math.abs(dx) + Math.abs(dy);
+      const tone = proximityTone(state, dx, dy, distance);
+      if (tone) items.push(tone);
+    }
+  }
+  items.forEach((tone, index) => playTone(context, { ...tone, delay: index * 0.12 }));
 };
 
 export const playGameplaySounds = (message) => {
