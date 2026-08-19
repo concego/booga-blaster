@@ -1,4 +1,4 @@
-import { getDirection } from "./directions.js?v=svg-test-38";
+import { getDirection } from "./directions.js?v=svg-test-39";
 
 export const getBlockAt = (state, x, y) => {
   if (!state.grid.blocks) return null;
