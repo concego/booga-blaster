@@ -7,6 +7,7 @@ const profiles = {
   enemyMove: [{ start: 130, end: 105, duration: 0.08, type: "sine", volume: 0.06 }],
   scan: [{ start: 300, end: 520, duration: 0.2, type: "sine", volume: 0.1 }],
   cast: [{ start: 260, end: 760, duration: 0.28, type: "triangle", volume: 0.14 }],
+  explosion: [{ start: 170, end: 55, duration: 0.18, type: "sine", volume: 0.08 }],
   hit: [{ start: 120, end: 70, duration: 0.12, type: "square", volume: 0.12 }],
   defeat: [
     { start: 440, end: 700, duration: 0.12, type: "triangle", volume: 0.12 },
@@ -30,15 +31,7 @@ const fileProfiles = Object.freeze({
   confirm: { file: "ui-confirm.ogg", volume: 0.42 },
   select: { file: "ui-select.ogg", volume: 0.38 },
   "cast-fire": { file: "spell-fire-launch.ogg", volume: 0.5 },
-  "cast-water": { file: "spell-water-launch.ogg", volume: 0.42 },
-  "cast-earth": { file: "spell-earth-launch.mp3", volume: 0.42 },
-  "cast-air": { file: "spell-air-launch.mp3", volume: 0.42 },
-  explosion: { file: "spell-explosion.mp3", volume: 0.42 },
-  hit: { file: "enemy-hit.ogg", volume: 0.5 },
-  defeat: { file: "enemy-defeat.ogg", volume: 0.52 },
-  pickup: { file: "item-pickup.ogg", volume: 0.48 },
-  blocked: { file: "block-stone.ogg", volume: 0.42 },
-  damage: { file: "enemy-hurt.ogg", volume: 0.5 }
+  "cast-earth": { file: "spell-earth-launch.mp3", volume: 0.42 }
 });
 
 const fileAudioCache = new Map();
