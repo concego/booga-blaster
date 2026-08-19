@@ -1,4 +1,11 @@
-import { getDirection } from "./directions.js?v=svg-test-16";
+import { getDirection } from "./directions.js?v=svg-test-38";
+
+export const getBlockAt = (state, x, y) => {
+  if (!state.grid.blocks) return null;
+  return state.grid.blocks.find((block) => (
+    block.x === x && block.y === y && state.grid.cells[y][x] === "#"
+  )) || null;
+};
 
 export const isInsideGrid = (state, x, y) => (
   x >= 0 && x < state.grid.width && y >= 0 && y < state.grid.height
