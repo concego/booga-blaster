@@ -1,10 +1,10 @@
-import { playUiSound, playGameplaySounds } from "../audio/ui-audio.js?v=svg-test-47";
-import { createBoogaState } from "../game/booga-state.js?v=svg-test-47";
-import { dispatchDirection, prepareLaunch, launchSpell, scanState, selectElement } from "../game/booga-actions.js?v=svg-test-47";
-import { addLogMessage } from "../game/demo-state.js?v=svg-test-47";
-import { createLogView } from "./log.js?v=svg-test-47";
-import { renderArena } from "./arena-svg.js?v=svg-test-47";
-import { bindKeyboardControls } from "./keyboard-controls.js?v=svg-test-47";
+import { playUiSound, playGameplaySounds, playEnvironmentSonar } from "../audio/ui-audio.js?v=svg-test-48";
+import { createBoogaState } from "../game/booga-state.js?v=svg-test-48";
+import { dispatchDirection, prepareLaunch, launchSpell, scanState, getAdjacentFindings, selectElement } from "../game/booga-actions.js?v=svg-test-48";
+import { addLogMessage } from "../game/demo-state.js?v=svg-test-48";
+import { createLogView } from "./log.js?v=svg-test-48";
+import { renderArena } from "./arena-svg.js?v=svg-test-48";
+import { bindKeyboardControls } from "./keyboard-controls.js?v=svg-test-48";
 import { createEffectsStatus } from "./effects-status.js?v=effects-02";
 
 const elementLabels = { fire: "Fogo", water: "Água", earth: "Terra", air: "Ar" };
@@ -59,12 +59,22 @@ export const bindGameScreen = () => {
   };
 
   const handleDirection = (direction) => {
+    const wasMoving = !state.launchArmed;
+    const previousPosition = { ...state.player };
     const message = dispatchDirection(state, direction);
+    const moved = wasMoving && (
+      previousPosition.x !== state.player.x || previousPosition.y !== state.player.y
+    );
     playGameplaySounds(message);
-    if (message) {
+    if (moved) {
+      playEnvironmentSonar(state);
+      const adjacent = getAdjacentFindings(state);
+      if (adjacent.length) setStatus(`${message ? `${message} ` : ""}Adjacente: ${adjacent.join(", ")}.`);
+      else if (message) setStatus(message);
+    } else if (message) {
       setStatus(message);
-      addLog(message);
     }
+    if (message) addLog(message);
     renderState();
   };
 
