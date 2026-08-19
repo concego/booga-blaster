@@ -7,6 +7,7 @@ import { collectAtCell } from "./powerups/powerup-system.js?v=svg-test-43";
 
 const appendTurnEvents = (state, message) => {
   const events = getTurnEvents(state);
+  if (!message) return events.join(" ");
   return events.length ? `${message} ${events.join(" ")}` : message;
 };
 
@@ -41,8 +42,8 @@ export const dispatchDirection = (state, directionName) => {
   if (!result.ok) return result.message;
   advanceTurn(state);
   const pickupMessages = collectAtCell(state, state.player);
-  const pickupText = pickupMessages.length ? ` ${pickupMessages.join(" ")}` : "";
-  return appendTurnEvents(state, `${result.message}${pickupText}`);
+  const pickupText = pickupMessages.join(" ");
+  return appendTurnEvents(state, pickupText);
 };
 
 export { scanState };
