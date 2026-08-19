@@ -1,10 +1,11 @@
-import { playUiSound, playGameplaySounds, playEnvironmentSonar } from "../audio/ui-audio.js?v=svg-test-48";
-import { createBoogaState } from "../game/booga-state.js?v=svg-test-48";
-import { dispatchDirection, prepareLaunch, launchSpell, scanState, getAdjacentFindings, selectElement } from "../game/booga-actions.js?v=svg-test-48";
-import { addLogMessage } from "../game/demo-state.js?v=svg-test-48";
-import { createLogView } from "./log.js?v=svg-test-48";
-import { renderArena } from "./arena-svg.js?v=svg-test-48";
-import { bindKeyboardControls } from "./keyboard-controls.js?v=svg-test-48";
+import { playUiSound, playGameplaySounds, playEnvironmentSonar } from "../audio/ui-audio.js?v=svg-test-49";
+import { startBiomeMusic } from "../audio/music-controller.js?v=svg-test-49";
+import { createBoogaState } from "../game/booga-state.js?v=svg-test-49";
+import { dispatchDirection, prepareLaunch, launchSpell, scanState, getAdjacentFindings, selectElement } from "../game/booga-actions.js?v=svg-test-49";
+import { addLogMessage } from "../game/demo-state.js?v=svg-test-49";
+import { createLogView } from "./log.js?v=svg-test-49";
+import { renderArena } from "./arena-svg.js?v=svg-test-49";
+import { bindKeyboardControls } from "./keyboard-controls.js?v=svg-test-49";
 import { createEffectsStatus } from "./effects-status.js?v=effects-02";
 
 const elementLabels = { fire: "Fogo", water: "Água", earth: "Terra", air: "Ar" };
@@ -49,6 +50,7 @@ export const bindGameScreen = () => {
   };
 
   const handleElement = (element) => {
+    startBiomeMusic(state.biome);
     const result = selectElement(state, element);
     playUiSound(result.ok ? "select" : "error");
     setStatus(result.message);
@@ -59,6 +61,7 @@ export const bindGameScreen = () => {
   };
 
   const handleDirection = (direction) => {
+    startBiomeMusic(state.biome);
     const wasMoving = !state.launchArmed;
     const previousPosition = { ...state.player };
     const message = dispatchDirection(state, direction);
@@ -79,6 +82,7 @@ export const bindGameScreen = () => {
   };
 
   const handleLaunch = () => {
+    startBiomeMusic(state.biome);
     const message = state.launchArmed ? launchSpell(state) : prepareLaunch(state);
     if (state.launchArmed) playGameplaySounds(message);
     else playUiSound("confirm");
@@ -88,6 +92,7 @@ export const bindGameScreen = () => {
   };
 
   const handleScan = () => {
+    startBiomeMusic(state.biome);
     const result = scanState(state);
     playUiSound("scan");
     addLog(result.intro);
