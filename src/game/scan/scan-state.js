@@ -1,5 +1,5 @@
-import { getPowerup } from "../powerups/powerup-catalog.js?v=svg-test-43";
-import { getBlockAt } from "../../core/grid.js?v=svg-test-43";
+import { getPowerup } from "../powerups/powerup-catalog.js?v=svg-test-48";
+import { getBlockAt } from "../../core/grid.js?v=svg-test-48";
 
 const elementNames = { fire: "Fogo", water: "Água", earth: "Terra", air: "Ar" };
 
@@ -19,6 +19,43 @@ const locationOf = (player, x, y) => {
 const addFinding = (findings, name, player, x, y) => {
   const distance = Math.abs(x - player.x) + Math.abs(y - player.y);
   if (distance < SCAN_RADIUS + 1) findings.push(`${name}: ${locationOf(player, x, y)}`);
+};
+
+const adjacentDirections = [
+  { dx: 0, dy: -1, label: "norte" },
+  { dx: 0, dy: 1, label: "sul" },
+  { dx: -1, dy: 0, label: "oeste" },
+  { dx: 1, dy: 0, label: "leste" }
+];
+
+const adjacentNameAt = (state, x, y) => {
+  const enemy = state.enemies.find((item) => item.x === x && item.y === y);
+  if (enemy) return enemy.name;
+  if (state.chests.some((item) => !item.opened && item.x === x && item.y === y)) return "baú";
+  const powerup = state.powerups.find((item) => item.revealed && !item.collected && item.x === x && item.y === y);
+  if (powerup) return getPowerup(powerup.type)?.name || "power-up";
+  if (state.heartItems.some((item) => item.revealed && !item.collected && item.x === x && item.y === y)) return "coração";
+  if (state.projectiles.some((item) => item.cell.x === x && item.cell.y === y)) return "projétil";
+  if (state.zones.some((zone) => zone.cells.some((cell) => cell.x === x && cell.y === y))) return "efeito elemental";
+  if (state.goal?.x === x && state.goal?.y === y) return "objetivo";
+  if (state.grid.cells[y]?.[x] === "#") {
+    const block = getBlockAt(state, x, y);
+    return block?.color ? `bloco de ${elementNames[block.color]}` : "bloco";
+  }
+  return null;
+};
+
+export const getAdjacentFindings = (state) => {
+  const { player } = state;
+  const findings = [];
+  adjacentDirections.forEach(({ dx, dy, label }) => {
+    const x = player.x + dx;
+    const y = player.y + dy;
+    if (x < 0 || y < 0 || x >= state.grid.width || y >= state.grid.height) return;
+    const name = adjacentNameAt(state, x, y);
+    if (name) findings.push(`${name} ao ${label}`);
+  });
+  return findings;
 };
 
 export const scanState = (state) => {
