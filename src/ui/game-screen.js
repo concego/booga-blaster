@@ -1,11 +1,11 @@
-import { playUiSound, playGameplaySounds, playEnvironmentSonar } from "../audio/ui-audio.js?v=svg-test-53";
-import { startBiomeMusic } from "../audio/music-controller.js?v=svg-test-53";
-import { createBoogaState } from "../game/booga-state.js?v=svg-test-53";
-import { dispatchDirection, prepareLaunch, launchSpell, scanState, getAdjacentFindings, selectElement } from "../game/booga-actions.js?v=svg-test-53";
-import { addLogMessage } from "../game/demo-state.js?v=svg-test-53";
-import { createLogView } from "./log.js?v=svg-test-53";
-import { renderArena } from "./arena-svg.js?v=svg-test-53";
-import { bindKeyboardControls } from "./keyboard-controls.js?v=svg-test-53";
+import { playUiSound, playGameplaySounds, playEnvironmentSonar } from "../audio/ui-audio.js?v=svg-test-54";
+import { startBiomeMusic } from "../audio/music-controller.js?v=svg-test-54";
+import { createBoogaState } from "../game/booga-state.js?v=svg-test-54";
+import { dispatchDirection, prepareLaunch, launchSpell, scanState, getAdjacentFindings, selectElement } from "../game/booga-actions.js?v=svg-test-54";
+import { addLogMessage } from "../game/demo-state.js?v=svg-test-54";
+import { createLogView } from "./log.js?v=svg-test-54";
+import { renderArena } from "./arena-svg.js?v=svg-test-54";
+import { bindKeyboardControls } from "./keyboard-controls.js?v=svg-test-54";
 import { createEffectsStatus } from "./effects-status.js?v=effects-02";
 
 const elementLabels = { fire: "Fogo", water: "Água", earth: "Terra", air: "Ar" };
@@ -15,7 +15,7 @@ export const bindGameScreen = () => {
   const testElements = params.get("test") === "elements";
   const seed = params.get("seed") || Date.now();
   const difficulty = Math.max(1, Number(params.get("level") || 1) || 1);
-  const biome = params.get("biome") || "floresta-espinhosa";
+  const biome = params.get("biome") || "bosque";
   const state = createBoogaState({ testElements, seed, difficulty, biome });
   const logView = createLogView(document.querySelector("#log-list"));
   const actionStatus = document.querySelector("#action-status");
@@ -44,6 +44,7 @@ export const bindGameScreen = () => {
   const renderLog = () => logView.render(state.log);
   const addLog = (message) => { addLogMessage(state, message); renderLog(); };
   const renderState = () => {
+    document.querySelector("#phase-name").textContent = state.phaseName;
     lives.textContent = String(state.lives);
     hearts.textContent = `${state.hearts}/3`;
     effectsStatus.render(state.effects, state.effectsRevision);
