@@ -1,11 +1,11 @@
-import { playUiSound, playGameplaySounds, playEnvironmentSonar } from "../audio/ui-audio.js?v=svg-test-54";
-import { startBiomeMusic } from "../audio/music-controller.js?v=svg-test-54";
-import { createBoogaState } from "../game/booga-state.js?v=svg-test-54";
-import { dispatchDirection, prepareLaunch, launchSpell, scanState, getAdjacentFindings, selectElement } from "../game/booga-actions.js?v=svg-test-54";
-import { addLogMessage } from "../game/demo-state.js?v=svg-test-54";
-import { createLogView } from "./log.js?v=svg-test-54";
-import { renderArena } from "./arena-svg.js?v=svg-test-54";
-import { bindKeyboardControls } from "./keyboard-controls.js?v=svg-test-54";
+import { playUiSound, playGameplaySounds, playEnvironmentSonar } from "../audio/ui-audio.js?v=svg-test-55";
+import { startBiomeMusic } from "../audio/music-controller.js?v=svg-test-55";
+import { createBoogaState } from "../game/booga-state.js?v=svg-test-55";
+import { dispatchDirection, prepareLaunch, launchSpell, scanState, getAdjacentFindings, selectElement } from "../game/booga-actions.js?v=svg-test-55";
+import { addLogMessage } from "../game/demo-state.js?v=svg-test-55";
+import { createLogView } from "./log.js?v=svg-test-55";
+import { renderArena } from "./arena-svg.js?v=svg-test-55";
+import { bindKeyboardControls } from "./keyboard-controls.js?v=svg-test-55";
 import { createEffectsStatus } from "./effects-status.js?v=effects-02";
 
 const elementLabels = { fire: "Fogo", water: "Água", earth: "Terra", air: "Ar" };
@@ -83,26 +83,32 @@ export const bindGameScreen = () => {
     const moved = wasMoving && (
       previousPosition.x !== state.player.x || previousPosition.y !== state.player.y
     );
-    playGameplaySounds(message);
+    let adjacent = [];
     if (moved) {
-      playEnvironmentSonar(state);
-      const adjacent = getAdjacentFindings(state);
-      if (adjacent.length) setStatus(`${message ? `${message} ` : ""}Adjacente: ${adjacent.join(", ")}.`);
-      else if (message) setStatus(message);
-    } else if (message) {
-      setStatus(message);
+      try { adjacent = getAdjacentFindings(state); } catch (error) { adjacent = []; }
     }
+    const feedback = [
+      message,
+      adjacent.length ? `Adjacente: ${adjacent.join(", ")}.` : ""
+    ].filter(Boolean).join(" ");
+    if (feedback) setStatus(feedback);
     if (message) addLog(message);
+    if (moved) {
+      try { playEnvironmentSonar(state); } catch (error) { /* áudio não pode bloquear o jogo */ }
+    }
+    try { playGameplaySounds(message); } catch (error) { /* feedback visual continua */ }
     renderState();
   };
 
   const handleLaunch = () => {
     startBiomeMusic(state.biome);
-    const message = state.launchArmed ? launchSpell(state) : prepareLaunch(state);
-    if (state.launchArmed) playGameplaySounds(message);
-    else playUiSound("confirm");
+    const wasArmed = state.launchArmed;
+    const message = wasArmed ? launchSpell(state) : prepareLaunch(state);
     setStatus(message);
     addLog(message);
+    if (wasArmed) {
+      try { playGameplaySounds(message); } catch (error) { /* feedback visual continua */ }
+    } else playUiSound("confirm");
     renderState();
   };
 
