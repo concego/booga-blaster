@@ -1,6 +1,6 @@
 # Matriz inicial de conteúdo
 
-## Bioma: Floresta Espinhosa
+## Bioma: Bosque
 
 | Fase | Inimigos comuns | Inimigos do bioma | Power-ups permitidos | Mecânicas |
 |---|---|---|---|---|
