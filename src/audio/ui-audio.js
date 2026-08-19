@@ -29,8 +29,12 @@ const profiles = {
 const fileProfiles = Object.freeze({
   confirm: { file: "ui-confirm.ogg", volume: 0.42 },
   select: { file: "ui-select.ogg", volume: 0.38 },
-  cast: { file: "spell-fire-launch.ogg", volume: 0.5 },
-  hit: { file: "spell-fire-impact.ogg", volume: 0.5 },
+  "cast-fire": { file: "spell-fire-launch.ogg", volume: 0.5 },
+  "cast-water": { file: "spell-water-launch.mp3", volume: 0.42 },
+  "cast-earth": { file: "spell-earth-launch.mp3", volume: 0.42 },
+  "cast-air": { file: "spell-air-launch.mp3", volume: 0.42 },
+  explosion: { file: "spell-explosion.mp3", volume: 0.42 },
+  hit: { file: "enemy-impact.mp3", volume: 0.4 },
   defeat: { file: "enemy-defeat.ogg", volume: 0.52 },
   pickup: { file: "item-pickup.ogg", volume: 0.48 },
   blocked: { file: "block-stone.ogg", volume: 0.42 },
@@ -136,13 +140,21 @@ export const playEnvironmentSonar = (state) => {
   items.forEach((tone, index) => playTone(context, { ...tone, delay: index * 0.12 }));
 };
 
-export const playGameplaySounds = (message) => {
+const elementCastKinds = {
+  fire: "cast-fire",
+  water: "cast-water",
+  earth: "cast-earth",
+  air: "cast-air"
+};
+
+export const playGameplaySounds = (message, selectedElement = "fire") => {
   if (!message) return;
   if (message.includes("Fim de jogo")) {
     playUiSound("gameOver");
     return;
   }
   if (message.includes("Power-up") || message.includes("Vida extra") || message.includes("Coração encontrado") || message.includes("coração caiu") || message.includes("ativada") || message.includes("Baú aberto")) playUiSound("pickup");
+  if (message.includes("explodiu")) playUiSound("explosion");
   if (message.includes("Inimigo derrotado")) playUiSound("defeat");
   else if (message.includes("Inimigo atingido")) playUiSound("hit");
   if (message.includes("atacou Supimpus")) playUiSound("enemyAttack");
@@ -150,5 +162,5 @@ export const playGameplaySounds = (message) => {
   if (message.includes("Supimpus avançou")) playUiSound("move");
   if (message.includes("avançou.") && !message.includes("Supimpus")) playUiSound("enemyMove");
   if (message.includes("Bloqueado") || message.includes("bloqueia o caminho")) playUiSound("blocked");
-  if (message.includes("lançado")) playUiSound("cast");
+  if (message.includes("lançado")) playUiSound(elementCastKinds[selectedElement] || "cast-fire");
 };
