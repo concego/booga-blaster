@@ -1,16 +1,23 @@
-import { getSpell } from "./spell-catalog.js?v=svg-test-28";
-import { blastCells } from "./blast.js?v=svg-test-28";
-import { coneCells, upsertZone } from "./area-effects.js?v=svg-test-28";
-import { pushEnemies, throwStones } from "./instant-effects.js?v=svg-test-28";
-import { revealBlockContents } from "../powerups/powerup-reveal.js?v=svg-test-28";
-import { damageEnemyAt, CONTACT_DAMAGE } from "../combat/damage.js?v=svg-test-28";
-import { damagePlayer } from "../combat/player-damage.js?v=svg-test-28";
+import { getSpell } from "./spell-catalog.js?v=svg-test-38";
+import { blastCells } from "./blast.js?v=svg-test-38";
+import { coneCells, upsertZone } from "./area-effects.js?v=svg-test-38";
+import { pushEnemies, throwStones } from "./instant-effects.js?v=svg-test-38";
+import { revealBlockContents } from "../powerups/powerup-reveal.js?v=svg-test-38";
+import { damageEnemyAt, CONTACT_DAMAGE } from "../combat/damage.js?v=svg-test-38";
+import { damagePlayer } from "../combat/player-damage.js?v=svg-test-38";
+import { getBlockAt } from "../../core/grid.js?v=svg-test-38";
 
-const destroyBlocks = (state, cells) => {
+const destroyBlocks = (state, cells, element) => {
   let destroyed = 0;
   let revealed = 0;
+  let resisted = 0;
   cells.forEach((cell) => {
-    if (state.grid.cells[cell.y][cell.x] !== "#") return;
+    const block = getBlockAt(state, cell.x, cell.y);
+    if (!block) return;
+    if (block.immuneTo?.includes(element)) {
+      resisted += 1;
+      return;
+    }
     state.grid.cells[cell.y][cell.x] = ".";
     destroyed += 1;
     revealed += state.powerups
@@ -18,7 +25,7 @@ const destroyBlocks = (state, cells) => {
       .map((item) => revealBlockContents(item))
       .filter(Boolean).length;
   });
-  return { destroyed, revealed };
+  return { destroyed, revealed, resisted };
 };
 
 const damageEnemies = (state, cells) => {
@@ -39,7 +46,7 @@ const explode = (state, projectile) => {
 
   const blast = blastCells(state, projectile.cell);
   const cone = projectile.direction ? coneCells(state, projectile.cell, projectile.direction) : [];
-  const blocks = destroyBlocks(state, blast);
+  const blocks = destroyBlocks(state, blast, projectile.element);
   const enemies = damageEnemies(state, blast);
   const events = [`${spell.name} explodiu.`];
 
@@ -55,6 +62,7 @@ const explode = (state, projectile) => {
   if (zone && spell.zone === "wind") events.push("Barreira de ar criada no cone.");
 
   if (blocks.destroyed) events.push(`${blocks.destroyed} bloco${blocks.destroyed > 1 ? "s" : ""} destruído${blocks.destroyed > 1 ? "s" : ""}.`);
+  if (blocks.resisted) events.push(`${blocks.resisted} bloco${blocks.resisted > 1 ? "s" : ""} ${blocks.resisted > 1 ? "resistiram" : "resistiu"} ao elemento ${spell.name}.`);
   if (blocks.revealed) events.push("Um power-up foi revelado.");
   if (enemies.hit.length) events.push(`${enemies.hit.length} inimigo${enemies.hit.length > 1 ? "s" : ""} atingido${enemies.hit.length > 1 ? "s" : ""}.`);
   if (enemies.defeated.length) events.push(`${enemies.defeated.length} inimigo${enemies.defeated.length > 1 ? "s" : ""} derrotado${enemies.defeated.length > 1 ? "s" : ""}.`);
