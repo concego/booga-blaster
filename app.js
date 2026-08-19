@@ -1,8 +1,8 @@
 try {
-  const { initMainMenu } = await import("./src/ui/main-menu.js?v=svg-test-50");
+  const { initMainMenu } = await import("./src/ui/main-menu.js?v=svg-test-51");
   initMainMenu({
     onStart: async ({ language }) => {
-      const { bindGameScreen } = await import(`./src/ui/game-screen.js?v=svg-test-50&lang=${language}`);
+      const { bindGameScreen } = await import(`./src/ui/game-screen.js?v=svg-test-51&lang=${language}`);
       bindGameScreen({ language });
     }
   });
