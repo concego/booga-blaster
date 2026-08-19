@@ -1,6 +1,11 @@
 try {
-  const { bindGameScreen } = await import("./src/ui/game-screen.js?v=svg-test-49");
-  bindGameScreen();
+  const { initMainMenu } = await import("./src/ui/main-menu.js?v=svg-test-50");
+  initMainMenu({
+    onStart: async ({ language }) => {
+      const { bindGameScreen } = await import(`./src/ui/game-screen.js?v=svg-test-50&lang=${language}`);
+      bindGameScreen({ language });
+    }
+  });
 } catch (error) {
   console.error("Falha ao iniciar Booga Blaster", error);
   const status = document.querySelector("#action-status");
