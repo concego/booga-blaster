@@ -1,11 +1,11 @@
-import { playUiSound, playGameplaySounds, playEnvironmentSonar } from "../audio/ui-audio.js?v=svg-test-49";
-import { startBiomeMusic } from "../audio/music-controller.js?v=svg-test-49";
-import { createBoogaState } from "../game/booga-state.js?v=svg-test-49";
-import { dispatchDirection, prepareLaunch, launchSpell, scanState, getAdjacentFindings, selectElement } from "../game/booga-actions.js?v=svg-test-49";
-import { addLogMessage } from "../game/demo-state.js?v=svg-test-49";
-import { createLogView } from "./log.js?v=svg-test-49";
-import { renderArena } from "./arena-svg.js?v=svg-test-49";
-import { bindKeyboardControls } from "./keyboard-controls.js?v=svg-test-49";
+import { playUiSound, playGameplaySounds, playEnvironmentSonar } from "../audio/ui-audio.js?v=svg-test-53";
+import { startBiomeMusic } from "../audio/music-controller.js?v=svg-test-53";
+import { createBoogaState } from "../game/booga-state.js?v=svg-test-53";
+import { dispatchDirection, prepareLaunch, launchSpell, scanState, getAdjacentFindings, selectElement } from "../game/booga-actions.js?v=svg-test-53";
+import { addLogMessage } from "../game/demo-state.js?v=svg-test-53";
+import { createLogView } from "./log.js?v=svg-test-53";
+import { renderArena } from "./arena-svg.js?v=svg-test-53";
+import { bindKeyboardControls } from "./keyboard-controls.js?v=svg-test-53";
 import { createEffectsStatus } from "./effects-status.js?v=effects-02";
 
 const elementLabels = { fire: "Fogo", water: "Água", earth: "Terra", air: "Ar" };
@@ -19,6 +19,11 @@ export const bindGameScreen = () => {
   const state = createBoogaState({ testElements, seed, difficulty, biome });
   const logView = createLogView(document.querySelector("#log-list"));
   const actionStatus = document.querySelector("#action-status");
+  const actionAnnouncers = [
+    document.querySelector("#action-announcer-a"),
+    document.querySelector("#action-announcer-b")
+  ];
+  let announcerIndex = 0;
   const effects = document.querySelector("#effects");
   const effectsAnnouncer = document.querySelector("#effects-announcer");
   const effectsStatus = createEffectsStatus(effects, effectsAnnouncer);
@@ -26,7 +31,16 @@ export const bindGameScreen = () => {
   const hearts = document.querySelector("#hearts");
 
   const labelElement = () => elementLabels[state.selectedElement];
-  const setStatus = (message) => { actionStatus.textContent = message; };
+  const setStatus = (message) => {
+    actionStatus.textContent = message;
+    if (!message) return;
+    const current = actionAnnouncers[announcerIndex];
+    const other = actionAnnouncers[1 - announcerIndex];
+    if (!current || !other) return;
+    other.textContent = "";
+    current.textContent = message;
+    announcerIndex = 1 - announcerIndex;
+  };
   const renderLog = () => logView.render(state.log);
   const addLog = (message) => { addLogMessage(state, message); renderLog(); };
   const renderState = () => {
