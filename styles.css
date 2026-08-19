@@ -80,6 +80,10 @@ h2 { margin-bottom: .8rem; font-size: 1.1rem; }
 #static-blocks, #static-orb, #static-player { display: none; }
 .visual-caption { fill: #d9f59c; font-size: 1rem; font-weight: 800; letter-spacing: .18em; }
 .dynamic-wall { fill: #6e4937; stroke: #d49b65; stroke-width: 4; }
+.dynamic-wall.wall-fire { fill: #8d3e2f; stroke: #ff9b54; }
+.dynamic-wall.wall-water { fill: #255f8f; stroke: #78d6ff; }
+.dynamic-wall.wall-earth { fill: #6b5135; stroke: #d3a86b; }
+.dynamic-wall.wall-air { fill: #66758f; stroke: #cde7ff; }
 .wall-crack { fill: none; stroke: #3d281f; stroke-width: 5; stroke-linecap: round; stroke-linejoin: round; opacity: .85; }
 .dynamic-flame { fill: #ec6338; fill-opacity: .85; stroke: #ffd278; stroke-width: 3; }
 .flame-core { fill: #ffd278; stroke: #fff0a8; stroke-width: 2; opacity: .95; }
