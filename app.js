@@ -1,5 +1,5 @@
 try {
-  const { bindGameScreen } = await import("./src/ui/game-screen.js?v=svg-test-46");
+  const { bindGameScreen } = await import("./src/ui/game-screen.js?v=svg-test-47");
   bindGameScreen();
 } catch (error) {
   console.error("Falha ao iniciar Booga Blaster", error);
