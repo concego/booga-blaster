@@ -1,8 +1,8 @@
 try {
-  const { bindGameScreen } = await import("./src/ui/game-screen.js?v=svg-test-41");
+  const { bindGameScreen } = await import("./src/ui/game-screen.js?v=svg-test-42");
   bindGameScreen();
 } catch (error) {
   console.error("Falha ao iniciar Booga Blaster", error);
   const status = document.querySelector("#action-status");
-  if (status) status.textContent = "Não foi possível iniciar a fase. Recarregue a página.";
+  if (status) status.textContent = `Erro ao iniciar: ${error?.message || "módulo indisponível"}`;
 }
