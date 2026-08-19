@@ -1,6 +1,6 @@
 # Geração de fases
 
-O gerador cria fases de grade `9 × 5` com uma semente. A URL aceita `?seed=...` para repetir uma fase e `?level=2` para aumentar a quantidade de inimigos.
+O gerador cria fases de grade `9 × 5` com uma semente. A URL aceita `?seed=...` para repetir uma fase, `?level=2` para aumentar a quantidade de inimigos e `?biome=bosque` para selecionar o perfil do bioma. Mesmo dentro do mesmo bioma, cada semente sorteia uma variação, layout, posição de itens e combinação de inimigos diferente.
 
 ## Critérios obrigatórios
 
