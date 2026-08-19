@@ -149,18 +149,19 @@ const elementCastKinds = {
 
 export const playGameplaySounds = (message, selectedElement = "fire") => {
   if (!message) return;
-  if (message.includes("Fim de jogo")) {
+  const text = message.toLowerCase();
+  if (text.includes("fim de jogo")) {
     playUiSound("gameOver");
     return;
   }
-  if (message.includes("Power-up") || message.includes("Vida extra") || message.includes("Coração encontrado") || message.includes("coração caiu") || message.includes("ativada") || message.includes("Baú aberto")) playUiSound("pickup");
-  if (message.includes("explodiu")) playUiSound("explosion");
-  if (message.includes("Inimigo derrotado")) playUiSound("defeat");
-  else if (message.includes("Inimigo atingido")) playUiSound("hit");
-  if (message.includes("atacou Supimpus")) playUiSound("enemyAttack");
-  if (message.includes("Uma vida foi perdida")) playUiSound("damage");
-  if (message.includes("Supimpus avançou")) playUiSound("move");
-  if (message.includes("avançou.") && !message.includes("Supimpus")) playUiSound("enemyMove");
-  if (message.includes("Bloqueado") || message.includes("bloqueia o caminho")) playUiSound("blocked");
-  if (message.includes("lançado")) playUiSound(elementCastKinds[selectedElement] || "cast-fire");
+  if (text.includes("power-up") || text.includes("vida extra") || text.includes("coração encontrado") || text.includes("coração caiu") || text.includes("ativada") || text.includes("baú aberto")) playUiSound("pickup");
+  if (text.includes("explodiu")) playUiSound("explosion");
+  if (text.includes("inimigo") && text.includes("derrotad")) playUiSound("defeat");
+  else if (text.includes("inimigo") && text.includes("atingid")) playUiSound("hit");
+  if (text.includes("atacou supimpus")) playUiSound("enemyAttack");
+  if (text.includes("uma vida foi perdida") || text.includes("corações:") && text.includes("supimpus foi atingido")) playUiSound("damage");
+  if (text.includes("supimpus avançou")) playUiSound("move");
+  if (text.includes("avançou.") && !text.includes("supimpus")) playUiSound("enemyMove");
+  if (text.includes("bloqueado") || text.includes("bloqueia o caminho")) playUiSound("blocked");
+  if (text.includes("lançado")) playUiSound(elementCastKinds[selectedElement] || "cast-fire");
 };
