@@ -1,4 +1,4 @@
-import { COMMON_ENEMIES, BIOME_ENEMIES, getPhaseContent } from "./content-catalog.js?v=svg-test-36";
+import { COMMON_ENEMIES, BIOME_ENEMIES, getPhaseContent } from "./content-catalog.js?v=svg-test-38";
 
 const WIDTH = 9;
 const HEIGHT = 5;
@@ -126,6 +126,27 @@ const takeCell = (pool, reserved, predicate = () => true) => {
   return cell;
 };
 
+const createBlocks = (cells, content, rng) => {
+  const positions = [];
+  cells.forEach((row, y) => row.forEach((value, x) => {
+    if (value === "#") positions.push({ x, y });
+  }));
+  const elemental = content.specialRules.includes("elemental-blocks");
+  const elements = ["fire", "water", "earth", "air"];
+  return shuffle(positions, rng).map((position, index) => {
+    if (!elemental || index < 2) {
+      return { ...position, theme: content.blockThemes[index % content.blockThemes.length], color: null, immuneTo: [] };
+    }
+    const element = elements[index % elements.length];
+    return {
+      ...position,
+      theme: "elemental",
+      color: element,
+      immuneTo: [element]
+    };
+  });
+};
+
 const createEnemies = (cells, rng, content, testElements, reserved) => {
   const count = testElements ? 5 : content.enemyCount;
   const pool = shuffle(freeCells(cells), rng);
@@ -187,6 +208,7 @@ export const generateLevel = ({ seed = Date.now(), difficulty = 1, biome = "flor
   }
   if (!cells) throw new Error("Não foi possível gerar uma fase válida.");
 
+  const contentBlocks = createBlocks(cells, content, rng);
   const reserved = new Set([keyOf(START), keyOf(GOAL)]);
   const pool = shuffle(freeCells(cells, reserved), rng);
   const mapSuperStrength = takeCell(pool, reserved);
@@ -194,10 +216,7 @@ export const generateLevel = ({ seed = Date.now(), difficulty = 1, biome = "flor
   const mapHeart = takeCell(pool, reserved);
   const chestCell = takeCell(pool, reserved);
   const heartChestCell = takeCell(pool, reserved);
-  const blockCell = shuffle(
-    [...cells.flatMap((row, y) => row.map((value, x) => value === "#" ? { x, y } : null).filter(Boolean))],
-    rng
-  )[0];
+  const blockCell = contentBlocks[0];
   const enemies = createEnemies(cells, rng, content, testElements, reserved);
   const chestPowerupType = content.allowedPowerups.includes("salamander") ? "salamander" : "ghost-potion";
   const chestPowerupId = `chest-${chestPowerupType}`;
@@ -211,6 +230,7 @@ export const generateLevel = ({ seed = Date.now(), difficulty = 1, biome = "flor
     start: { ...START },
     goal: { ...GOAL },
     cells,
+    blocks: contentBlocks,
     enemies,
     powerups: [
       { type: "super-strength", source: "map", position: mapSuperStrength },
