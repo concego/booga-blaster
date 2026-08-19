@@ -1,4 +1,7 @@
-import { getPowerup } from "../powerups/powerup-catalog.js";
+import { getPowerup } from "../powerups/powerup-catalog.js?v=svg-test-38";
+import { getBlockAt } from "../../core/grid.js?v=svg-test-38";
+
+const elementNames = { fire: "Fogo", water: "Água", earth: "Terra", air: "Ar" };
 
 const SCAN_RADIUS = 5;
 const locationOf = (player, x, y) => {
@@ -23,7 +26,13 @@ export const scanState = (state) => {
   const { player, grid } = state;
 
   grid.cells.forEach((row, y) => row.forEach((value, x) => {
-    if (value === "#") addFinding(findings, "Bloco", player, x, y);
+    if (value !== "#") return;
+    const block = getBlockAt(state, x, y);
+    const immunity = block?.immuneTo?.length
+      ? ` resistente a ${block.immuneTo.map((element) => elementNames[element]).join(" e ")}`
+      : "";
+    const color = block?.color ? ` ${elementNames[block.color] || block.color}` : "";
+    addFinding(findings, `Bloco${color}${immunity}`, player, x, y);
   }));
   state.enemies.forEach((enemy) => addFinding(findings, enemy.name, player, enemy.x, enemy.y));
   state.zones.forEach((zone) => zone.cells.forEach((cell) => {
