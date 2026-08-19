@@ -3,12 +3,12 @@ const TEXT = Object.freeze({
     prompt: "Escolha o idioma",
     subtitle: "Arcade estratégico de elementos",
     newGame: "Novo jogo",
-    howTo: "Como jogar",
+    howToButton: "Como jogar",
     credits: "Créditos",
     changeLanguage: "Mudar idioma",
     back: "Voltar",
     howToTitle: "Como jogar",
-    howTo: [
+    howToLines: [
       "Escolha um elemento, movimente Supimpus e planeje as explosões.",
       "Cada ação importante consome um turno e permite que os inimigos avancem.",
       "Use Scan para detectar objetos próximos sem consumir turno."
@@ -19,12 +19,12 @@ const TEXT = Object.freeze({
     prompt: "Choose your language",
     subtitle: "Strategic elemental arcade",
     newGame: "New game",
-    howTo: "How to play",
+    howToButton: "How to play",
     credits: "Credits",
     changeLanguage: "Change language",
     back: "Back",
     howToTitle: "How to play",
-    howTo: [
+    howToLines: [
       "Choose an element, move Supimpus and plan your explosions.",
       "Important actions consume a turn and let enemies advance.",
       "Use Scan to detect nearby objects without spending a turn."
@@ -59,11 +59,11 @@ export const initMainMenu = ({ onStart }) => {
     languagePrompt.textContent = text.prompt;
     document.querySelector("#menu-subtitle").textContent = text.subtitle;
     document.querySelector("#new-game-button").textContent = text.newGame;
-    document.querySelector("#how-to-button").textContent = text.howTo;
+    document.querySelector("#how-to-button").textContent = text.howToButton;
     document.querySelector("#credits-button").textContent = text.credits;
     document.querySelector("#change-language-button").textContent = text.changeLanguage;
     document.querySelector("#how-to-title").textContent = text.howToTitle;
-    document.querySelector("#how-to-content").innerHTML = text.howTo.map((line) => `<p>${line}</p>`).join("");
+    document.querySelector("#how-to-content").innerHTML = text.howToLines.map((line) => `<p>${line}</p>`).join("");
     document.querySelector("#how-to-back-button").textContent = text.back;
     document.querySelector("#credits-title").textContent = text.creditsTitle;
     document.querySelector("#credits-back-button").textContent = text.back;
