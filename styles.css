@@ -43,6 +43,38 @@ button:active:not(:disabled) { transform: translateY(2px); }
 button:focus-visible { outline: 4px solid var(--focus); outline-offset: 3px; }
 button:disabled { cursor: not-allowed; opacity: .42; filter: saturate(.45); }
 
+.menu-shell {
+  width: min(100% - 2rem, 42rem);
+  min-height: 100vh;
+  margin: 0 auto;
+  display: grid;
+  place-items: center;
+  padding: 1.5rem 0;
+}
+.menu-screen {
+  width: 100%;
+  padding: clamp(1.5rem, 5vw, 3rem);
+  border: 2px solid var(--line);
+  border-radius: 1.2rem;
+  background: rgba(19, 34, 29, .96);
+  box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, .28);
+  text-align: center;
+}
+.menu-kicker {
+  margin-bottom: .35rem;
+  color: var(--accent);
+  font-size: .8rem;
+  font-weight: 800;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+.menu-screen h1 { margin-bottom: .7rem; font-size: clamp(2rem, 8vw, 3.4rem); }
+.menu-screen > p:not(.menu-kicker) { color: var(--muted); }
+.menu-actions { display: grid; gap: .75rem; max-width: 22rem; margin: 1.5rem auto 0; }
+.menu-content-screen { text-align: left; }
+.menu-content-screen h1 { text-align: center; font-size: clamp(1.6rem, 6vw, 2.4rem); }
+.menu-content-screen button { display: block; width: min(100%, 16rem); margin: 1.5rem auto 0; }
+
 .game-shell {
   width: min(100% - 2rem, 1100px);
   margin: 0 auto;
