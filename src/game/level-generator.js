@@ -1,4 +1,4 @@
-import { COMMON_ENEMIES, BIOME_ENEMIES, getPhaseContent } from "./content-catalog.js?v=svg-test-43";
+import { COMMON_ENEMIES, BIOME_ENEMIES, getPhaseContent } from "./content-catalog.js?v=svg-test-54";
 
 const WIDTH = 9;
 const HEIGHT = 5;
@@ -195,9 +195,11 @@ export const validateGeneratedLevel = (level) => {
   };
 };
 
-export const generateLevel = ({ seed = Date.now(), difficulty = 1, biome = "floresta-espinhosa", testElements = false } = {}) => {
+export const generateLevel = ({ seed = Date.now(), difficulty = 1, biome = "bosque", testElements = false } = {}) => {
   const content = getPhaseContent({ level: difficulty, biome });
   const rng = random(seed);
+  const variants = content.biome.variants || ["padrão"];
+  const biomeVariant = variants[Math.floor(rng() * variants.length)];
   let cells = null;
   for (let attempt = 0; attempt < 50; attempt += 1) {
     const candidate = createCells(rng);
@@ -226,6 +228,8 @@ export const generateLevel = ({ seed = Date.now(), difficulty = 1, biome = "flor
     seed,
     phaseLevel: content.level,
     biome: content.biome.id,
+    biomeName: content.biome.name,
+    biomeVariant,
     availableElements: testElements ? ["fire", "water", "earth", "air"] : content.allowedElements,
     start: { ...START },
     goal: { ...GOAL },
