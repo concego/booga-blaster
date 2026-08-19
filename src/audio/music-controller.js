@@ -1,8 +1,6 @@
-const TRACKS = Object.freeze({
-  "floresta-espinhosa": Object.freeze({ src: "audio/jungle-music.ogg", volume: 0.22 }),
-  "floresta-ambiente": Object.freeze({ src: "audio/forest-ambience.mp3", volume: 0.18 }),
-  boss: Object.freeze({ src: "audio/rex-tension.ogg", volume: 0.28 })
-});
+// As faixas do Dino Crawler não são usadas aqui. Cada bioma e a Boss Battle
+// receberão arquivos próprios antes de serem ativados no jogo.
+const TRACKS = Object.freeze({});
 
 let ambientAudio = null;
 let activeTrack = null;
@@ -11,7 +9,6 @@ const startTrack = (trackId, loop = true) => {
   const track = TRACKS[trackId];
   if (!track) return;
   if (activeTrack === trackId && ambientAudio) return;
-
   if (ambientAudio) {
     ambientAudio.pause();
     ambientAudio.currentTime = 0;
@@ -25,10 +22,7 @@ const startTrack = (trackId, loop = true) => {
   if (promise?.catch) promise.catch(() => {});
 };
 
-export const startBiomeMusic = (biome) => {
-  startTrack(TRACKS[biome] ? biome : "floresta-espinhosa");
-};
-
+export const startBiomeMusic = (biome) => startTrack(biome);
 export const startBossMusic = () => startTrack("boss");
 
 export const stopMusic = () => {
