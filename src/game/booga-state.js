@@ -1,8 +1,8 @@
-import { POWERUP_SOURCES } from "./powerups/powerup-sources.js?v=svg-test-43";
-import { POWERUP_TYPES } from "./powerups/powerup-catalog.js?v=svg-test-43";
-import { createPowerupItem } from "./powerups/powerup-sources.js?v=svg-test-43";
-import { createHeartItem } from "./collectibles/heart-items.js?v=svg-test-43";
-import { generateLevel } from "./level-generator.js?v=svg-test-43";
+import { POWERUP_SOURCES } from "./powerups/powerup-sources.js?v=svg-test-44";
+import { POWERUP_TYPES } from "./powerups/powerup-catalog.js?v=svg-test-44";
+import { createPowerupItem } from "./powerups/powerup-sources.js?v=svg-test-44";
+import { createHeartItem } from "./collectibles/heart-items.js?v=svg-test-44";
+import { generateLevel } from "./level-generator.js?v=svg-test-44";
 
 const ELEMENT_NAMES = { fire: "Fogo", water: "Água", earth: "Terra", air: "Ar" };
 
@@ -36,7 +36,7 @@ export const createBoogaState = ({
     hearts: 3,
     gameOver: false,
     selectedElement: "fire",
-    unlockedElements: getElementsForLevel(difficulty, testElements),
+    unlockedElements: [...level.availableElements],
     launchArmed: false,
     effects: [],
     effectsRevision: 0,
