@@ -14,14 +14,26 @@ export const BIOME_ENEMIES = Object.freeze({
 });
 
 export const BIOME_CATALOG = Object.freeze({
-  "floresta-espinhosa": Object.freeze({
-    id: "floresta-espinhosa",
-    name: "Floresta Espinhosa",
+  bosque: Object.freeze({
+    id: "bosque",
+    name: "Bosque",
+    variants: ["clareira", "mata fechada", "caminho sinuoso", "bosque úmido"],
     commonEnemies: ["goblin", "wolf", "spider"],
     biomeEnemies: ["thorn-beast"],
     blockThemes: ["wood", "thorn", "moss"],
     powerupPool: ["ghost-potion", "super-strength", "bad-news", "salamander"],
-    bossPool: ["thorn-king"]
+    bossPool: ["forest-warden"]
+  }),
+  // Alias para sementes e URLs antigas do protótipo.
+  "floresta-espinhosa": Object.freeze({
+    id: "bosque",
+    name: "Bosque",
+    variants: ["clareira", "mata fechada", "caminho sinuoso", "bosque úmido"],
+    commonEnemies: ["goblin", "wolf", "spider"],
+    biomeEnemies: ["thorn-beast"],
+    blockThemes: ["wood", "thorn", "moss"],
+    powerupPool: ["ghost-potion", "super-strength", "bad-news", "salamander"],
+    bossPool: ["forest-warden"]
   })
 });
 
@@ -66,10 +78,10 @@ export const PHASE_CONTENT = Object.freeze({
 
 const clone = (value) => JSON.parse(JSON.stringify(value));
 
-export const getPhaseContent = ({ level = 1, biome = "floresta-espinhosa" } = {}) => {
+export const getPhaseContent = ({ level = 1, biome = "bosque" } = {}) => {
   const phaseKey = Math.max(1, Math.min(4, Number(level) || 1));
   const phase = PHASE_CONTENT[phaseKey];
-  const biomeData = BIOME_CATALOG[biome] || BIOME_CATALOG["floresta-espinhosa"];
+  const biomeData = BIOME_CATALOG[biome] || BIOME_CATALOG.bosque;
   return {
     ...clone(phase),
     biome: clone(biomeData),
