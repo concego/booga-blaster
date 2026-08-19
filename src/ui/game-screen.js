@@ -1,11 +1,11 @@
-import { playUiSound, playGameplaySounds, playEnvironmentSonar } from "../audio/ui-audio.js?v=svg-test-56";
-import { startBiomeMusic } from "../audio/music-controller.js?v=svg-test-56";
-import { createBoogaState } from "../game/booga-state.js?v=svg-test-56";
-import { dispatchDirection, prepareLaunch, launchSpell, scanState, getAdjacentFindings, selectElement } from "../game/booga-actions.js?v=svg-test-56";
-import { addLogMessage } from "../game/demo-state.js?v=svg-test-56";
-import { createLogView } from "./log.js?v=svg-test-56";
-import { renderArena } from "./arena-svg.js?v=svg-test-56";
-import { bindKeyboardControls } from "./keyboard-controls.js?v=svg-test-56";
+import { playUiSound, playGameplaySounds, playEnvironmentSonar } from "../audio/ui-audio.js?v=svg-test-57";
+import { startBiomeMusic } from "../audio/music-controller.js?v=svg-test-57";
+import { createBoogaState } from "../game/booga-state.js?v=svg-test-57";
+import { dispatchDirection, prepareLaunch, launchSpell, scanState, getAdjacentFindings, selectElement } from "../game/booga-actions.js?v=svg-test-57";
+import { addLogMessage } from "../game/demo-state.js?v=svg-test-57";
+import { createLogView } from "./log.js?v=svg-test-57";
+import { renderArena } from "./arena-svg.js?v=svg-test-57";
+import { bindKeyboardControls } from "./keyboard-controls.js?v=svg-test-57";
 import { createEffectsStatus } from "./effects-status.js?v=effects-02";
 
 const elementLabels = { fire: "Fogo", water: "Água", earth: "Terra", air: "Ar" };
@@ -96,7 +96,7 @@ export const bindGameScreen = () => {
     if (moved) {
       try { playEnvironmentSonar(state); } catch (error) { /* áudio não pode bloquear o jogo */ }
     }
-    try { playGameplaySounds(message); } catch (error) { /* feedback visual continua */ }
+    try { playGameplaySounds(message, state.selectedElement); } catch (error) { /* feedback visual continua */ }
     renderState();
   };
 
@@ -107,7 +107,7 @@ export const bindGameScreen = () => {
     setStatus(message);
     addLog(message);
     if (wasArmed) {
-      try { playGameplaySounds(message); } catch (error) { /* feedback visual continua */ }
+      try { playGameplaySounds(message, state.selectedElement); } catch (error) { /* feedback visual continua */ }
     } else playUiSound("confirm");
     renderState();
   };
