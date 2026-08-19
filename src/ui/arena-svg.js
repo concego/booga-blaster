@@ -100,10 +100,11 @@ const addChest = (group, chest) => {
   }));
 };
 
-const addWall = (group, cell) => {
+const addWall = (group, cell, block = null) => {
   const point = center(cell);
+  const colorClass = block?.color ? ` wall-${block.color}` : "";
   group.append(createSvg("rect", {
-    x: point.x - 35, y: point.y - 35, width: 70, height: 70, rx: 12, class: "dynamic-wall"
+    x: point.x - 35, y: point.y - 35, width: 70, height: 70, rx: 12, class: `dynamic-wall${colorClass}`
   }));
   group.append(createSvg("path", {
     d: `M ${point.x - 23} ${point.y - 18}L ${point.x - 7} ${point.y - 5}L ${point.x - 19} ${point.y + 19} M ${point.x + 4} ${point.y - 27}L ${point.x + 18} ${point.y - 7}L ${point.x + 8} ${point.y + 23}`,
@@ -119,7 +120,9 @@ export const renderArena = (state) => {
 
   state.zones.forEach((zone) => zone.cells.forEach((cell) => addZone(group, cell, zone.type)));
   state.grid.cells.forEach((row, y) => row.forEach((value, x) => {
-    if (value === "#") addWall(group, { x, y });
+    if (value !== "#") return;
+    const block = state.grid.blocks?.find((item) => item.x === x && item.y === y);
+    addWall(group, { x, y }, block);
   }));
   state.projectiles.forEach((projectile) => addProjectile(group, projectile));
   state.chests.filter((chest) => !chest.opened).forEach((chest) => addChest(group, chest));
