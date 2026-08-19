@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Booga Blaster — seleção de sons</title>
+  <style>
+    body { max-width: 760px; margin: 0 auto; padding: 1rem; font: 1rem/1.5 system-ui, sans-serif; background: #10131a; color: #f4f6fb; }
+    h1, h2 { line-height: 1.2; }
+    section { border: 1px solid #3b4354; border-radius: .6rem; padding: 1rem; margin: 1rem 0; }
+    .sound { border-top: 1px solid #303746; padding: .8rem 0; }
+    .sound:first-child { border-top: 0; }
+    label { display: block; font-weight: 700; margin-bottom: .35rem; }
+    audio { width: min(100%, 480px); }
+    small { display: block; color: #c4ccdc; }
+  </style>
+</head>
+<body>
+  <h1>Booga Blaster — seleção de sons</h1>
+  <p>Ouça cada candidato e marque os aprovados no <a href="./README.md">README</a>. Nenhum arquivo veio do Dino Crawler.</p>
+
+  <section><h2>Lançamento dos elementos</h2>
+    <div class="sound"><label for="fire">Fogo — spell fire 01</label><audio id="fire" controls preload="none" src="./lancamentos/fogo-spell-fire-01.ogg"></audio></div>
+    <div class="sound"><label for="water">Água — splash 09</label><audio id="water" controls preload="none" src="./lancamentos/agua-splash-09.ogg"></audio></div>
+    <div class="sound"><label for="earth">Terra — magical stone slide</label><audio id="earth" controls preload="none" src="./lancamentos/terra-magical-stone-slide.mp3"></audio></div>
+    <div class="sound"><label for="air">Ar — short wind swoosh</label><audio id="air" controls preload="none" src="./lancamentos/ar-short-wind-swoosh.mp3"></audio></div>
+  </section>
+
+  <section><h2>Explosão</h2>
+    <div class="sound"><label for="explosion1">Synthesized explosion — CC0</label><audio id="explosion1" controls preload="none" src="./explosao/explosao-synthesized-cc0.mp3"></audio></div>
+    <div class="sound"><label for="explosion2">Spell fire 04 — CC0</label><audio id="explosion2" controls preload="none" src="./explosao/explosao-spell-fire-04.ogg"></audio></div>
+  </section>
+
+  <section><h2>Inimigos</h2>
+    <div class="sound"><label for="hit1">Atingido — creature hurt 01</label><audio id="hit1" controls preload="none" src="./inimigos/atingido-creature-hurt-01.ogg"></audio></div>
+    <div class="sound"><label for="hit2">Atingido — creature hurt 02</label><audio id="hit2" controls preload="none" src="./inimigos/atingido-creature-hurt-02.ogg"></audio></div>
+    <div class="sound"><label for="defeat">Abatido — creature die 01</label><audio id="defeat" controls preload="none" src="./inimigos/abatido-creature-die-01.ogg"></audio></div>
+  </section>
+
+  <section><h2>Coleta de itens</h2>
+    <div class="sound"><label for="item1">Item misc 01</label><audio id="item1" controls preload="none" src="./coleta/item-misc-01.ogg"></audio></div>
+    <div class="sound"><label for="item2">Item misc 02</label><audio id="item2" controls preload="none" src="./coleta/item-misc-02.ogg"></audio></div>
+    <div class="sound"><label for="item3">Item misc 03</label><audio id="item3" controls preload="none" src="./coleta/item-misc-03.ogg"></audio></div>
+  </section>
+</body>
+</html>
