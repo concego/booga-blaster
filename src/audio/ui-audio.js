@@ -26,6 +26,35 @@ const profiles = {
   error: [{ start: 150, end: 110, duration: 0.16, type: "square", volume: 0.1 }]
 };
 
+const fileProfiles = Object.freeze({
+  confirm: { file: "ui-confirm.ogg", volume: 0.42 },
+  select: { file: "ui-select.ogg", volume: 0.38 },
+  cast: { file: "spell-fire-launch.ogg", volume: 0.5 },
+  hit: { file: "spell-fire-impact.ogg", volume: 0.5 },
+  defeat: { file: "enemy-defeat.ogg", volume: 0.52 },
+  pickup: { file: "item-pickup.ogg", volume: 0.48 },
+  blocked: { file: "block-stone.ogg", volume: 0.42 },
+  damage: { file: "enemy-hurt.ogg", volume: 0.5 }
+});
+
+const fileAudioCache = new Map();
+
+const playFileSound = (kind) => {
+  const profile = fileProfiles[kind];
+  if (!profile || typeof window.Audio !== "function") return false;
+  let audio = fileAudioCache.get(kind);
+  if (!audio) {
+    audio = new Audio(new URL(`../../audio/${profile.file}`, import.meta.url).href);
+    audio.preload = "auto";
+    audio.volume = profile.volume;
+    fileAudioCache.set(kind, audio);
+  }
+  audio.currentTime = 0;
+  const promise = audio.play();
+  if (promise?.catch) promise.catch(() => {});
+  return true;
+};
+
 const getAudioContext = () => {
   if (!audioContext) {
     const AudioContext = window.AudioContext || window.webkitAudioContext;
@@ -64,6 +93,7 @@ const playTone = (context, tone) => {
 };
 
 export const playUiSound = (kind) => {
+  if (playFileSound(kind)) return;
   const context = getAudioContext();
   if (!context) return;
   (profiles[kind] || profiles.select).forEach((tone) => playTone(context, tone));
