@@ -1,9 +1,9 @@
-import { tryMovePlayer } from "../core/grid.js?v=svg-test-43";
-import { advanceTurn, getTurnEvents } from "../core/turn-engine.js?v=svg-test-43";
-import { scanState } from "./scan/scan-state.js?v=svg-test-43";
-import { castSpell } from "./spells/spell-engine.js?v=svg-test-43";
-import { getSpell } from "./spells/spell-catalog.js?v=svg-test-43";
-import { collectAtCell } from "./powerups/powerup-system.js?v=svg-test-43";
+import { tryMovePlayer } from "../core/grid.js?v=svg-test-48";
+import { advanceTurn, getTurnEvents } from "../core/turn-engine.js?v=svg-test-48";
+import { scanState, getAdjacentFindings } from "./scan/scan-state.js?v=svg-test-48";
+import { castSpell } from "./spells/spell-engine.js?v=svg-test-48";
+import { getSpell } from "./spells/spell-catalog.js?v=svg-test-48";
+import { collectAtCell } from "./powerups/powerup-system.js?v=svg-test-48";
 
 const appendTurnEvents = (state, message) => {
   const events = getTurnEvents(state);
@@ -46,4 +46,4 @@ export const dispatchDirection = (state, directionName) => {
   return appendTurnEvents(state, pickupText);
 };
 
-export { scanState };
+export { scanState, getAdjacentFindings };
