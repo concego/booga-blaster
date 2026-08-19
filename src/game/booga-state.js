@@ -1,8 +1,8 @@
-import { POWERUP_SOURCES } from "./powerups/powerup-sources.js?v=svg-test-46";
-import { POWERUP_TYPES } from "./powerups/powerup-catalog.js?v=svg-test-46";
-import { createPowerupItem } from "./powerups/powerup-sources.js?v=svg-test-46";
-import { createHeartItem } from "./collectibles/heart-items.js?v=svg-test-46";
-import { generateLevel } from "./level-generator.js?v=svg-test-46";
+import { POWERUP_SOURCES } from "./powerups/powerup-sources.js?v=svg-test-54";
+import { POWERUP_TYPES } from "./powerups/powerup-catalog.js?v=svg-test-54";
+import { createPowerupItem } from "./powerups/powerup-sources.js?v=svg-test-54";
+import { createHeartItem } from "./collectibles/heart-items.js?v=svg-test-54";
+import { generateLevel } from "./level-generator.js?v=svg-test-54";
 
 const ELEMENT_NAMES = { fire: "Fogo", water: "Água", earth: "Terra", air: "Ar" };
 
@@ -10,7 +10,7 @@ export const createBoogaState = ({
   testElements = false,
   seed = Date.now(),
   difficulty = 1,
-  biome = "floresta-espinhosa"
+  biome = "bosque"
 } = {}) => {
   const level = generateLevel({ seed, difficulty, biome, testElements });
   const powerups = level.powerups.map((item) => createPowerupItem(
@@ -30,6 +30,9 @@ export const createBoogaState = ({
     seed: level.seed,
     difficulty,
     biome: level.biome,
+    biomeName: level.biomeName,
+    biomeVariant: level.biomeVariant,
+    phaseName: level.biomeName,
     player: { ...level.start },
     goal: { ...level.goal },
     lives: 3,
@@ -52,7 +55,7 @@ export const createBoogaState = ({
     log: [
       "Supimpus entrou no Bosque Espinhoso.",
       "Fogo selecionado.",
-      `Fase ${difficulty} gerada no bioma ${level.biome}. Semente: ${level.seed}.`,
+      `Fase ${difficulty} gerada no ${level.biomeName}, variação ${level.biomeVariant}. Semente: ${level.seed}.`,
       `Objetivo: alcançar o Boss. Elementos disponíveis: ${level.availableElements.map((element) => ELEMENT_NAMES[element]).join(", ")}.`
     ]
   };
