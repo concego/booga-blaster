@@ -26,3 +26,5 @@ O número usado em `level` representa a fase/progressão do jogador:
 O gerador nunca deve criar uma resistência, imunidade, bloco ou objetivo que exija um elemento ainda bloqueado. Essa validação será aplicada às regras especiais dos biomas.
 
 A semente permite registrar uma fase problemática e reproduzi-la para ajuste de equilíbrio. A geração é procedural, mas a validação rejeita qualquer layout que viole os critérios acima.
+
+A partir da fase 4, alguns blocos recebem uma cor elemental e `immuneTo`. O Scan informa essa resistência, a interface diferencia as cores e uma explosão do elemento correspondente não destrói o bloco. Esses blocos ficam fora da rota crítica para não criar uma fase impossível.
