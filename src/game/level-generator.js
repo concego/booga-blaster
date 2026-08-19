@@ -1,4 +1,4 @@
-import { COMMON_ENEMIES, BIOME_ENEMIES, getPhaseContent } from "./content-catalog.js?v=svg-test-39";
+import { COMMON_ENEMIES, BIOME_ENEMIES, getPhaseContent } from "./content-catalog.js?v=svg-test-43";
 
 const WIDTH = 9;
 const HEIGHT = 5;
@@ -251,4 +251,3 @@ export const generateLevel = ({ seed = Date.now(), difficulty = 1, biome = "flor
   if (!validation.valid) throw new Error("O gerador produziu uma fase inválida.");
   return level;
 };
-EOF
