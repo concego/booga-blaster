@@ -35,7 +35,9 @@ const fileProfiles = Object.freeze({
   "cast-earth": { file: "spell-earth-launch.mp3", volume: 0.42 },
   "cast-air": { file: "spell-air-launch.mp3", volume: 0.42 },
   explosion: { file: "spell-explosion.ogg", volume: 0.42 },
-  pickup: { file: "item-pickup.wav", volume: 0.48 }
+  pickup: { file: "item-pickup.wav", volume: 0.48 },
+  damage: { file: "supimpus-damage.wav", volume: 0.46 },
+  lifeLost: { file: "supimpus-life-lost.wav", volume: 0.5 }
 });
 
 const fileAudioCache = new Map();
@@ -156,7 +158,8 @@ export const playGameplaySounds = (message, selectedElement = "fire") => {
   if (text.includes("inimigo") && text.includes("derrotad")) playUiSound("defeat");
   else if (text.includes("inimigo") && text.includes("atingid")) playUiSound("hit");
   if (text.includes("atacou supimpus")) playUiSound("enemyAttack");
-  if (text.includes("uma vida foi perdida") || text.includes("corações:") && text.includes("supimpus foi atingido")) playUiSound("damage");
+  if (text.includes("uma vida foi perdida")) playUiSound("lifeLost");
+  else if (text.includes("corações:") && text.includes("supimpus foi atingido")) playUiSound("damage");
   if (text.includes("supimpus avançou")) playUiSound("move");
   if (text.includes("avançou.") && !text.includes("supimpus")) playUiSound("enemyMove");
   if (text.includes("bloqueado") || text.includes("bloqueia o caminho")) playUiSound("blocked");
