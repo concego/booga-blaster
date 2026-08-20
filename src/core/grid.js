@@ -1,4 +1,4 @@
-import { getDirection } from "./directions.js?v=svg-test-43";
+import { getDirection } from "./directions.js?v=svg-test-57";
 
 export const getBlockAt = (state, x, y) => {
   if (!state.grid.blocks) return null;
@@ -30,6 +30,12 @@ export const tryMovePlayer = (state, directionName) => {
 
   state.player.x = x;
   state.player.y = y;
+  const webIndex = state.webs?.findIndex((web) => web.x === x && web.y === y) ?? -1;
+  if (webIndex >= 0) {
+    state.webs.splice(webIndex, 1);
+    state.player.stunned = 1;
+    return { ok: true, message: `Supimpus avançou para ${direction.label} e pisou em uma teia. Ficou atordoado por 1 turno.` };
+  }
   return { ok: true, message: `Supimpus avançou para ${direction.label}.` };
 };
 
