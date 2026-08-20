@@ -1,8 +1,8 @@
-import { POWERUP_SOURCES } from "./powerups/powerup-sources.js?v=svg-test-75";
-import { POWERUP_TYPES } from "./powerups/powerup-catalog.js?v=svg-test-75";
-import { createPowerupItem } from "./powerups/powerup-sources.js?v=svg-test-75";
-import { createHeartItem } from "./collectibles/heart-items.js?v=svg-test-75";
-import { generateLevel } from "./level-generator.js?v=svg-test-75";
+import { POWERUP_SOURCES } from "./powerups/powerup-sources.js?v=svg-test-76";
+import { POWERUP_TYPES } from "./powerups/powerup-catalog.js?v=svg-test-76";
+import { createPowerupItem } from "./powerups/powerup-sources.js?v=svg-test-76";
+import { createHeartItem } from "./collectibles/heart-items.js?v=svg-test-76";
+import { generateLevel } from "./level-generator.js?v=svg-test-76";
 
 const ELEMENT_NAMES = { fire: "Fogo", water: "Água", earth: "Terra", air: "Ar" };
 
@@ -32,7 +32,9 @@ export const createBoogaState = ({
     biome: level.biome,
     biomeName: level.biomeName,
     biomeVariant: level.biomeVariant,
-    phaseName: level.biomeName,
+    phaseName: `Fase ${difficulty} — ${level.biomeName}`,
+    currentPhase: difficulty,
+    campaignSeed: seed,
     arenaMode: "normal",
     specialEnemy: null,
     summonedEnemyIds: [],
