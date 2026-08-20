@@ -34,6 +34,7 @@
 - Tem uma poção de uso único;
 - Gasta 1 turno para pegar a poção da bolsa;
 - A poção restaura 1 coração;
+- Ao ficar com 1 coração, corre para se esconder atrás de blocos antes de tentar pegar a poção;
 - Ao entrar na arena, faz uma pequena introdução:
   > “Ah, então você é o Goblin de quem estão falando. Bem, não importa, eu já treinei muito limpando o porão da taverna. Isso vai ser fácil!”
 
