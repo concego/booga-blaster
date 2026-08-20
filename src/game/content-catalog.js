@@ -1,4 +1,7 @@
 const ALL_ELEMENTS = ["fire", "water", "earth", "air"];
+export const TOTAL_PHASES = 21;
+export const ENVIRONMENT_COUNT = 7;
+export const PHASES_PER_ENVIRONMENT = 3;
 
 export const COMMON_ENEMIES = Object.freeze({
   goblin: Object.freeze({ id: "goblin", name: "Goblin", hp: 1, role: "common" }),
@@ -79,8 +82,10 @@ export const PHASE_CONTENT = Object.freeze({
 const clone = (value) => JSON.parse(JSON.stringify(value));
 
 export const getPhaseContent = ({ level = 1, biome = "bosque" } = {}) => {
-  const numericLevel = Math.max(1, Number(level) || 1);
+  const numericLevel = Math.min(TOTAL_PHASES, Math.max(1, Number(level) || 1));
   const phaseKey = Math.min(4, numericLevel);
+  const environmentIndex = Math.ceil(numericLevel / PHASES_PER_ENVIRONMENT);
+  const phaseInEnvironment = ((numericLevel - 1) % PHASES_PER_ENVIRONMENT) + 1;
   const phase = clone(PHASE_CONTENT[phaseKey]);
   const biomeData = BIOME_CATALOG[biome] || BIOME_CATALOG.bosque;
   const scaledEnemyCount = Math.min(8, 2 + numericLevel);
@@ -88,15 +93,19 @@ export const getPhaseContent = ({ level = 1, biome = "bosque" } = {}) => {
     ...phase,
     biome: clone(biomeData),
     level: numericLevel,
+    environmentIndex,
+    phaseInEnvironment,
     enemyCount: scaledEnemyCount,
     specialEnemyCount: 1,
-    isBossPhase: numericLevel % 3 === 0,
+    isBossPhase: phaseInEnvironment === PHASES_PER_ENVIRONMENT,
     allowedElements: [...(numericLevel >= 4 ? ALL_ELEMENTS : phase.allowedElements)],
     allowedPowerups: [...phase.allowedPowerups],
     blockThemes: [...new Set([...phase.blockThemes, ...biomeData.blockThemes])]
   };
 };
 
-export const getPhaseBossId = ({ level = 1 } = {}) => (
-  Number(level) % 3 === 0 ? "forest-warden" : null
-);
+export const getPhaseBossId = ({ level = 1 } = {}) => {
+  const numericLevel = Math.min(TOTAL_PHASES, Math.max(1, Number(level) || 1));
+  const phaseInEnvironment = ((numericLevel - 1) % PHASES_PER_ENVIRONMENT) + 1;
+  return phaseInEnvironment === PHASES_PER_ENVIRONMENT ? "forest-warden" : null;
+};
