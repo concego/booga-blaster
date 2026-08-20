@@ -1,5 +1,5 @@
-import { isBlocked } from "../../core/grid.js?v=svg-test-77";
-import { damagePlayer } from "./player-damage.js?v=svg-test-77";
+import { isBlocked } from "../../core/grid.js?v=svg-test-78";
+import { damagePlayer } from "./player-damage.js?v=svg-test-78";
 
 const distanceToPlayer = (state, enemy) => (
   Math.abs(enemy.x - state.player.x) + Math.abs(enemy.y - state.player.y)
@@ -158,10 +158,12 @@ export const processEnemyTurn = (state) => {
       continue;
     }
 
-    const specialEvent = handleSpecialAction(state, enemy);
-    if (specialEvent) {
-      events.push(specialEvent);
-      continue;
+    if (enemy.behavior === "slingshot-potion" || enemy.behavior === "summon-wolves") {
+      const specialEvent = handleSpecialAction(state, enemy);
+      if (specialEvent) {
+        events.push(specialEvent);
+        continue;
+      }
     }
 
     if (distanceToPlayer(state, enemy) === 1) {
@@ -170,7 +172,13 @@ export const processEnemyTurn = (state) => {
     }
 
     if (moveEnemyTowardsPlayer(state, enemy)) {
-      events.push(`${enemy.name} avançou.`);
+      events.push(`${enemy.name} avançou agressivamente.`);
+      continue;
+    }
+
+    const specialEvent = enemy.behavior === "webs" ? handleSpecialAction(state, enemy) : null;
+    if (specialEvent) {
+      events.push(specialEvent);
       continue;
     }
 
