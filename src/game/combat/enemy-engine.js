@@ -1,5 +1,5 @@
-import { isBlocked } from "../../core/grid.js?v=svg-test-70";
-import { damagePlayer } from "./player-damage.js?v=svg-test-70";
+import { isBlocked } from "../../core/grid.js?v=svg-test-71";
+import { damagePlayer } from "./player-damage.js?v=svg-test-71";
 
 const distanceToPlayer = (state, enemy) => (
   Math.abs(enemy.x - state.player.x) + Math.abs(enemy.y - state.player.y)
@@ -20,21 +20,7 @@ const canMoveTo = (state, enemy, x, y) => (
   !airBlocks(state, x, y)
 );
 
-const breakBlock = (state, enemy) => {
-  if (enemy.behavior !== "break-blocks") return false;
-  const block = (state.grid.blocks || [])
-    .filter((item) => state.grid.cells[item.y]?.[item.x] === "#")
-    .sort((a, b) => (
-      Math.abs(a.x - enemy.x) + Math.abs(a.y - enemy.y)
-    ) - (
-      Math.abs(b.x - enemy.x) + Math.abs(b.y - enemy.y)
-    ))[0];
-  if (!block) return false;
-  state.grid.cells[block.y][block.x] = ".";
-  return true;
-};
-
-const moveEnemyTowardsPlayer = (state, enemy) => {
+const movementCandidates = (state, enemy) => {
   const dx = state.player.x - enemy.x;
   const dy = state.player.y - enemy.y;
   const candidates = [];
@@ -45,11 +31,25 @@ const moveEnemyTowardsPlayer = (state, enemy) => {
     candidates.push({ x: enemy.x, y: enemy.y - Math.sign(dy) });
     candidates.push({ x: enemy.x - Math.sign(dx), y: enemy.y });
   }
+  return candidates;
+};
 
-  const destination = candidates.find(({ x, y }) => canMoveTo(state, enemy, x, y));
+const moveEnemyTowardsPlayer = (state, enemy) => {
+  const destination = movementCandidates(state, enemy)
+    .find(({ x, y }) => canMoveTo(state, enemy, x, y));
   if (!destination) return false;
   enemy.x = destination.x;
   enemy.y = destination.y;
+  return true;
+};
+
+const breakBlockInPath = (state, enemy) => {
+  if (enemy.behavior !== "break-blocks") return false;
+  const block = movementCandidates(state, enemy)
+    .map(({ x, y }) => state.grid.blocks?.find((item) => item.x === x && item.y === y))
+    .find((item) => item && state.grid.cells[item.y]?.[item.x] === "#");
+  if (!block) return false;
+  state.grid.cells[block.y][block.x] = ".";
   return true;
 };
 
@@ -77,13 +77,13 @@ export const processEnemyTurn = (state) => {
       continue;
     }
 
-    if (breakBlock(state, enemy)) {
-      events.push(`${enemy.name} quebrou um bloco.`);
+    if (moveEnemyTowardsPlayer(state, enemy)) {
+      events.push(`${enemy.name} avançou.`);
       continue;
     }
 
-    if (moveEnemyTowardsPlayer(state, enemy)) {
-      events.push(`${enemy.name} avançou.`);
+    if (breakBlockInPath(state, enemy)) {
+      events.push(`${enemy.name} quebrou um bloco no caminho.`);
     }
   }
 
