@@ -1,5 +1,5 @@
-import { isBlocked } from "../../core/grid.js?v=svg-test-82";
-import { damagePlayer } from "./player-damage.js?v=svg-test-82";
+import { isBlocked } from "../../core/grid.js?v=svg-test-83";
+import { damagePlayer } from "./player-damage.js?v=svg-test-83";
 
 const distanceToPlayer = (state, enemy) => (
   Math.abs(enemy.x - state.player.x) + Math.abs(enemy.y - state.player.y)
@@ -20,9 +20,9 @@ const canMoveTo = (state, enemy, x, y) => (
   !airBlocks(state, x, y)
 );
 
-const movementCandidates = (state, enemy) => {
-  const dx = state.player.x - enemy.x;
-  const dy = state.player.y - enemy.y;
+const movementCandidatesTo = (enemy, target) => {
+  const dx = target.x - enemy.x;
+  const dy = target.y - enemy.y;
   const candidates = [];
 
   if (dy !== 0) candidates.push({ x: enemy.x, y: enemy.y + Math.sign(dy) });
@@ -34,8 +34,49 @@ const movementCandidates = (state, enemy) => {
   return candidates;
 };
 
+const movementCandidates = (state, enemy) => movementCandidatesTo(enemy, state.player);
+
 const moveEnemyTowardsPlayer = (state, enemy) => {
   const destination = movementCandidates(state, enemy)
+    .find(({ x, y }) => canMoveTo(state, enemy, x, y));
+  if (!destination) return false;
+  enemy.x = destination.x;
+  enemy.y = destination.y;
+  return true;
+};
+
+const isCoveredFromPlayer = (state, enemy) => {
+  if (enemy.x === state.player.x) {
+    const start = Math.min(enemy.y, state.player.y) + 1;
+    const end = Math.max(enemy.y, state.player.y);
+    return Array.from({ length: end - start }, (_, index) => start + index)
+      .some((y) => state.grid.cells[y]?.[enemy.x] === "#");
+  }
+  if (enemy.y === state.player.y) {
+    const start = Math.min(enemy.x, state.player.x) + 1;
+    const end = Math.max(enemy.x, state.player.x);
+    return Array.from({ length: end - start }, (_, index) => start + index)
+      .some((x) => state.grid.cells[enemy.y]?.[x] === "#");
+  }
+  return false;
+};
+
+const moveTowardsCover = (state, enemy) => {
+  const coverCells = [];
+  for (let y = 0; y < state.grid.height; y += 1) {
+    for (let x = 0; x < state.grid.width; x += 1) {
+      if (state.grid.cells[y][x] === "#") continue;
+      const candidate = { x, y };
+      if (isCoveredFromPlayer(state, { ...enemy, ...candidate })) coverCells.push(candidate);
+    }
+  }
+  const target = coverCells.sort((a, b) => (
+    Math.abs(b.x - state.player.x) + Math.abs(b.y - state.player.y)
+  ) - (
+    Math.abs(a.x - state.player.x) + Math.abs(a.y - state.player.y)
+  ))[0];
+  if (!target) return false;
+  const destination = movementCandidatesTo(enemy, target)
     .find(({ x, y }) => canMoveTo(state, enemy, x, y));
   if (!destination) return false;
   enemy.x = destination.x;
@@ -132,9 +173,13 @@ const handleSpecialAction = (state, enemy) => {
       }
       return `${enemy.name} está pegando a poção na bolsa.`;
     }
-    if (enemy.potionAvailable && !enemy.potionUsed && state.hearts < 3) {
+    if (enemy.potionAvailable && !enemy.potionUsed && enemy.hp <= 1) {
+      if (!isCoveredFromPlayer(state, enemy)) {
+        if (moveTowardsCover(state, enemy)) return `${enemy.name} correu para se esconder atrás de um bloco.`;
+        return `${enemy.name} procurou cobertura para pegar a poção.`;
+      }
       enemy.potionTurns = 1;
-      return `${enemy.name} começou a pegar a poção da bolsa.`;
+      return `${enemy.name} se escondeu e começou a pegar a poção da bolsa.`;
     }
     if (enemy.reloadTurns > 0) {
       enemy.reloadTurns -= 1;
