@@ -1,11 +1,11 @@
-import { getSpell } from "./spell-catalog.js?v=svg-test-43";
-import { blastCells } from "./blast.js?v=svg-test-43";
-import { coneCells, upsertZone } from "./area-effects.js?v=svg-test-43";
-import { pushEnemies, throwStones } from "./instant-effects.js?v=svg-test-43";
-import { revealBlockContents } from "../powerups/powerup-reveal.js?v=svg-test-43";
-import { damageEnemyAt, CONTACT_DAMAGE } from "../combat/damage.js?v=svg-test-43";
-import { damagePlayer } from "../combat/player-damage.js?v=svg-test-43";
-import { getBlockAt } from "../../core/grid.js?v=svg-test-43";
+import { getSpell } from "./spell-catalog.js?v=svg-test-57";
+import { blastCells } from "./blast.js?v=svg-test-57";
+import { coneCells, upsertZone } from "./area-effects.js?v=svg-test-57";
+import { pushEnemies, throwStones } from "./instant-effects.js?v=svg-test-57";
+import { revealBlockContents } from "../powerups/powerup-reveal.js?v=svg-test-57";
+import { damageEnemyAt, CONTACT_DAMAGE } from "../combat/damage.js?v=svg-test-57";
+import { damagePlayer } from "../combat/player-damage.js?v=svg-test-57";
+import { getBlockAt } from "../../core/grid.js?v=svg-test-57";
 
 const destroyBlocks = (state, cells, element) => {
   let destroyed = 0;
@@ -64,8 +64,14 @@ const explode = (state, projectile) => {
   if (blocks.destroyed) events.push(`${blocks.destroyed} bloco${blocks.destroyed > 1 ? "s" : ""} destruído${blocks.destroyed > 1 ? "s" : ""}.`);
   if (blocks.resisted) events.push(`${blocks.resisted} bloco${blocks.resisted > 1 ? "s" : ""} ${blocks.resisted > 1 ? "resistiram" : "resistiu"} ao elemento ${spell.name}.`);
   if (blocks.revealed) events.push("Um power-up foi revelado.");
-  if (enemies.hit.length) events.push(`${enemies.hit.length} inimigo${enemies.hit.length > 1 ? "s" : ""} atingido${enemies.hit.length > 1 ? "s" : ""}.`);
-  if (enemies.defeated.length) events.push(`${enemies.defeated.length} inimigo${enemies.defeated.length > 1 ? "s" : ""} derrotado${enemies.defeated.length > 1 ? "s" : ""}.`);
+  if (enemies.hit.length) {
+    const names = enemies.hit.map((enemy) => enemy.name).join(", ");
+    events.push(`${enemies.hit.length} inimigo${enemies.hit.length > 1 ? "s" : ""} atingido${enemies.hit.length > 1 ? "s" : ""}: ${names}.`);
+  }
+  if (enemies.defeated.length) {
+    const names = enemies.defeated.map((enemy) => enemy.name).join(", ");
+    events.push(`${enemies.defeated.length} inimigo${enemies.defeated.length > 1 ? "s" : ""} derrotado${enemies.defeated.length > 1 ? "s" : ""}: ${names}.`);
+  }
   if (enemies.defeated.some((enemy) => enemy.drop)) events.push("Um power-up caiu.");
   if (enemies.defeated.some((enemy) => enemy.heartDrop)) events.push("Um coração caiu.");
 
