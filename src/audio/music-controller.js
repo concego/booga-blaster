@@ -1,6 +1,11 @@
-// As faixas do Dino Crawler não são usadas aqui. Cada bioma e a Boss Battle
-// receberão arquivos próprios antes de serem ativados no jogo.
-const TRACKS = Object.freeze({});
+// A música do Bosque é uma faixa aprovada no repositório separado
+// concego/sound-testing. As faixas do Dino Crawler não são usadas aqui.
+const TRACKS = Object.freeze({
+  bosque: Object.freeze({
+    src: new URL("../../audio/forest-ambience.mp3", import.meta.url).href,
+    volume: 0.22
+  })
+});
 
 let ambientAudio = null;
 let activeTrack = null;
