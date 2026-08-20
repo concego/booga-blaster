@@ -28,17 +28,29 @@ const profiles = {
 };
 
 const fileProfiles = Object.freeze({
-  confirm: { file: "ui-confirm.ogg", volume: 0.42 },
-  select: { file: "ui-select.ogg", volume: 0.38 },
-  "cast-fire": { file: "spell-fire-launch.ogg", volume: 0.5 },
-  "cast-water": { file: "spell-water-launch.ogg", volume: 0.42 },
-  "cast-earth": { file: "spell-earth-launch.mp3", volume: 0.42 },
-  "cast-air": { file: "spell-air-launch.mp3", volume: 0.42 },
-  explosion: { file: "spell-explosion.ogg", volume: 0.42 },
-  pickup: { file: "item-pickup.wav", volume: 0.48 },
+  confirm: { file: "approved/02-ui-confirm.ogg", volume: 0.42 },
+  select: { file: "approved/01-ui-select.ogg", volume: 0.38 },
+  "cast-fire": { file: "approved/01-fogo-spell-fire-01.ogg", volume: 0.5 },
+  "cast-water": { file: "approved/13-agua-bubble-01.ogg", volume: 0.42 },
+  "cast-earth": { file: "approved/03-terra-magical-stone-slide.mp3", volume: 0.42 },
+  "cast-air": { file: "approved/17-ar-air-zoom-vacuum.mp3", volume: 0.42 },
+  explosion: { file: "approved/20-explosao-bang-01.ogg", volume: 0.42 },
+  pickup: { file: "approved/27-item-bottle.wav", volume: 0.48 },
   damage: { file: "supimpus-damage.wav", volume: 0.46 },
   lifeLost: { file: "supimpus-life-lost.wav", volume: 0.5 },
-  "enemy-spider": { file: "enemy-spider.ogg", volume: 0.44 }
+  "enemy-hit-1": { file: "approved/37-inimigo-atingido-hurt-01.ogg", volume: 0.44 },
+  "enemy-hit-2": { file: "approved/38-inimigo-atingido-hurt-02.ogg", volume: 0.44 },
+  "enemy-spider": { file: "approved/36-inimigo-aranha-bug-02.ogg", volume: 0.44 },
+  "enemy-goblin-1": { file: "approved/31-inimigo-goblin-02.wav", volume: 0.44 },
+  "enemy-goblin-2": { file: "approved/32-inimigo-goblin-03.wav", volume: 0.44 },
+  "enemy-troll": { file: "approved/23-inimigo-giant-01.wav", volume: 0.5 },
+  "enemy-gutteral": { file: "approved/24-inimigo-gutteral-beast-01.wav", volume: 0.5 },
+  "enemy-shade": { file: "approved/26-inimigo-shade-01.wav", volume: 0.46 },
+  "enemy-ogre-1": { file: "approved/39-inimigo-pesado-monster-01.wav", volume: 0.5 },
+  "enemy-ogre-2": { file: "approved/40-inimigo-pesado-monster-02.wav", volume: 0.5 },
+  "spider-web": { file: "approved/43-rainha-aranha-teia-splurt.wav", volume: 0.46 },
+  "bravo-shot": { file: "approved/45-bravo-estilingue-crackle-01.wav", volume: 0.46 },
+  "bravo-voice": { file: "approved/46-bravo-fala-npc-01.wav", volume: 0.44 }
 });
 
 const fileAudioCache = new Map();
@@ -156,10 +168,19 @@ export const playGameplaySounds = (message, selectedElement = "fire") => {
   }
   if (text.includes("power-up") || text.includes("vida extra") || text.includes("coração encontrado") || text.includes("coração caiu") || text.includes("ativada") || text.includes("baú aberto")) playUiSound("pickup");
   if (text.includes("explodiu")) playUiSound("explosion");
-  if (text.includes("aranha")) playUiSound("enemy-spider");
-  else if (text.includes("inimigo") && text.includes("derrotad")) playUiSound("defeat");
-  else if (text.includes("inimigo") && text.includes("atingid")) playUiSound("hit");
-  if (text.includes("atacou supimpus") || text.includes("atirou em supimpus")) playUiSound("enemyAttack");
+  if (text.includes("ah, então você é o goblin")) playUiSound("bravo-voice");
+  if (text.includes("lançou uma teia")) playUiSound("spider-web");
+  else if (text.includes("aranha")) playUiSound("enemy-spider");
+  if (text.includes("inimigo") && text.includes("atingid")) {
+    playUiSound(Math.random() < 0.5 ? "damage" : "enemy-hit-2");
+  } else if (text.includes("inimigo") && text.includes("derrotad")) playUiSound("defeat");
+  if (text.includes("goblin") && !text.includes("ah, então você é o goblin")) playUiSound(Math.random() < 0.5 ? "enemy-goblin-1" : "enemy-goblin-2");
+  else if (text.includes("troll")) playUiSound("enemy-troll");
+  else if (text.includes("gutteral")) playUiSound("enemy-gutteral");
+  else if (text.includes("shade")) playUiSound("enemy-shade");
+  else if (text.includes("ogro")) playUiSound(Math.random() < 0.5 ? "enemy-ogre-1" : "enemy-ogre-2");
+  if (text.includes("atacou supimpus")) playUiSound("enemyAttack");
+  if (text.includes("atirou em supimpus")) playUiSound(text.includes("bravo novato") ? "bravo-shot" : "enemyAttack");
   if (text.includes("uma vida foi perdida")) playUiSound("lifeLost");
   else if (text.includes("corações:") && (text.includes("supimpus foi atingido") || text.includes("atacou supimpus") || text.includes("atirou em supimpus"))) playUiSound("damage");
   if (text.includes("supimpus avançou")) playUiSound("move");
