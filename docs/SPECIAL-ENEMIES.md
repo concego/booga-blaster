@@ -13,8 +13,10 @@
 ### Rainha Aranha — fase 1
 
 - Vida: 3 corações;
-- Lança uma teia a um quadrado de distância;
-- Quando Supimpus pisa na teia, fica atordoado por 1 turno.
+- Tenta se aproximar agressivamente para atacar;
+- Quando não consegue avançar, lança uma teia a um quadrado de distância;
+- As teias permanecem na arena até serem destruídas por uma magia;
+- Quando Supimpus pisa em uma teia, fica atordoado por 1 turno.
 
 ### Lobo Alfa — fase 2
 
