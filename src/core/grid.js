@@ -32,7 +32,6 @@ export const tryMovePlayer = (state, directionName) => {
   state.player.y = y;
   const webIndex = state.webs?.findIndex((web) => web.x === x && web.y === y) ?? -1;
   if (webIndex >= 0) {
-    state.webs.splice(webIndex, 1);
     state.player.stunned = 1;
     return { ok: true, message: `Supimpus avançou para ${direction.label} e pisou em uma teia. Ficou atordoado por 1 turno.` };
   }
