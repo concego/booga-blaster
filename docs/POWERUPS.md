@@ -13,10 +13,10 @@ Corações são itens coletáveis separados dos power-ups. Um coração recupera
 | Tipo | Efeito | Duração |
 |---|---|---|
 | Vida extra | Aumenta o número de vidas | Permanente até ser consumida |
-| Poção Fantasma | Permite atravessar blocos | A definir |
-| Salamandra | Permite atravessar chamas sem dano | A definir; exemplo discutido: 8 turnos |
-| Toupeira | Permite ocupar células afetadas por Terra sem dano | A definir |
-| Super Força | Aumenta a distância de lançamento | A definir |
+| Poção Fantasma | Permite atravessar blocos | 8 turnos |
+| Salamandra | Permite atravessar chamas sem dano | 8 turnos |
+| Toupeira | Permite ocupar células afetadas por Terra sem dano | 8 turnos |
+| Super Força | Aumenta a distância de lançamento | 8 turnos |
 | Notícia ruim | Supimpus realiza 2 avanços enquanto os inimigos realizam 1 | 2 turnos |
 
 ## Fontes
@@ -40,4 +40,4 @@ Um item escondido não pode ser coletado antes de ser revelado. Depois de revela
 - O Escoteiro de teste derruba Notícia ruim.
 - O Brutamontes de teste derruba um coração.
 
-O modo temporário `?test=elements` mantém esses itens e libera os quatro elementos para validação.
+As zonas de Chamas causam dano a Supimpus no início de cada turno em que ele permanece sobre elas. A Salamandra impede esse dano durante sua duração. O modo temporário `?test=elements` mantém esses itens e libera os quatro elementos para validação.
