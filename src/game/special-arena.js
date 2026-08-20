@@ -1,4 +1,4 @@
-import { getSpecialEnemyForPhase } from "./special-enemies.js?v=svg-test-73";
+import { getSpecialEnemyForPhase } from "./special-enemies.js?v=svg-test-75";
 
 const ARENA_WIDTH = 9;
 const ARENA_HEIGHT = 5;
@@ -28,8 +28,10 @@ export const enterSpecialArena = (state) => {
   state.specialEnemy = special;
   state.phaseName = `Arena: ${special.name}`;
   state.goal = null;
-  state.player = { x: 1, y: 2 };
+  state.player = { x: 1, y: 2, stunned: 0 };
   state.enemies = [{ ...special, x: 7, y: 2 }];
+  state.summonedEnemyIds = [];
+  state.webs = [];
   state.grid = { width: ARENA_WIDTH, height: ARENA_HEIGHT, cells, blocks };
   state.projectiles = [];
   state.zones = [];
