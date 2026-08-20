@@ -31,6 +31,7 @@ const SPECIAL_ENEMIES = Object.freeze({
     potionUsed: false,
     ranged: 2,
     personality: "Usa um estilingue de alcance 2 e carrega uma poção de um uso.",
+    intro: "Ah, então você é o Goblin de quem estão falando. Bem, não importa, eu já treinei muito limpando o porão da taverna. Isso vai ser fácil!",
     isSpecial: true
   }),
   troll: Object.freeze({
