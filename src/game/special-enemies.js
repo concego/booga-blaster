@@ -11,8 +11,12 @@ const SPECIAL_ENEMIES = Object.freeze({
   })
 });
 
-export const getSpecialEnemyForPhase = (phase = 1) => {
-  if (Number(phase) !== 1) return null;
-  const template = SPECIAL_ENEMIES.troll;
+export const createSpecialEnemy = (id) => {
+  const template = SPECIAL_ENEMIES[id];
+  if (!template) return null;
   return { ...template, maxHp: template.hp, hp: template.hp, stunned: 0 };
 };
+
+export const getSpecialEnemyForPhase = (phase = 1) => (
+  Number(phase) === 1 ? createSpecialEnemy("troll") : null
+);
