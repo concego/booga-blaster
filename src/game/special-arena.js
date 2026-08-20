@@ -1,4 +1,4 @@
-import { getSpecialEnemyForPhase } from "./special-enemies.js?v=svg-test-75";
+import { getSpecialEnemyForPhase } from "./special-enemies.js?v=svg-test-76";
 
 const ARENA_WIDTH = 9;
 const ARENA_HEIGHT = 5;
