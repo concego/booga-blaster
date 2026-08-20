@@ -41,7 +41,7 @@ export const PHASE_CONTENT = Object.freeze({
   1: Object.freeze({
     level: 1,
     enemyCount: 3,
-    specialEnemyCount: 0,
+    specialEnemyCount: 1,
     allowedElements: ["fire"],
     allowedPowerups: ["super-strength", "bad-news", "extra-life"],
     specialRules: [],
@@ -67,8 +67,8 @@ export const PHASE_CONTENT = Object.freeze({
   }),
   4: Object.freeze({
     level: 4,
-    enemyCount: 5,
-    specialEnemyCount: 2,
+    enemyCount: 6,
+    specialEnemyCount: 1,
     allowedElements: ALL_ELEMENTS,
     allowedPowerups: ["super-strength", "bad-news", "extra-life", "ghost-potion", "salamander", "mole"],
     specialRules: ["elemental-blocks", "elemental-combinations"],
@@ -79,15 +79,24 @@ export const PHASE_CONTENT = Object.freeze({
 const clone = (value) => JSON.parse(JSON.stringify(value));
 
 export const getPhaseContent = ({ level = 1, biome = "bosque" } = {}) => {
-  const phaseKey = Math.max(1, Math.min(4, Number(level) || 1));
-  const phase = PHASE_CONTENT[phaseKey];
+  const numericLevel = Math.max(1, Number(level) || 1);
+  const phaseKey = Math.min(4, numericLevel);
+  const phase = clone(PHASE_CONTENT[phaseKey]);
   const biomeData = BIOME_CATALOG[biome] || BIOME_CATALOG.bosque;
+  const scaledEnemyCount = Math.min(8, 2 + numericLevel);
   return {
-    ...clone(phase),
+    ...phase,
     biome: clone(biomeData),
-    level: Number(level) >= 4 ? Number(level) : phase.level,
-    allowedElements: [...(Number(level) >= 4 ? ALL_ELEMENTS : phase.allowedElements)],
+    level: numericLevel,
+    enemyCount: scaledEnemyCount,
+    specialEnemyCount: 1,
+    isBossPhase: numericLevel % 3 === 0,
+    allowedElements: [...(numericLevel >= 4 ? ALL_ELEMENTS : phase.allowedElements)],
     allowedPowerups: [...phase.allowedPowerups],
     blockThemes: [...new Set([...phase.blockThemes, ...biomeData.blockThemes])]
   };
 };
+
+export const getPhaseBossId = ({ level = 1 } = {}) => (
+  Number(level) % 3 === 0 ? "forest-warden" : null
+);
