@@ -1,20 +1,25 @@
-import { POWERUP_SOURCES, createPowerupItem } from "../powerups/powerup-sources.js?v=svg-test-32";
-import { createHeartItem } from "../collectibles/heart-items.js?v=svg-test-32";
+import { POWERUP_SOURCES, createPowerupItem } from "../powerups/powerup-sources.js?v=svg-test-69";
+import { createHeartItem } from "../collectibles/heart-items.js?v=svg-test-69";
 
 export const CONTACT_DAMAGE = 1;
 export const STONE_DAMAGE = 1;
 
-export const damageEnemy = (enemy, amount) => {
+export const damageEnemy = (enemy, amount, element = null) => {
+  if (enemy.onlyElement && enemy.onlyElement !== element) {
+    return { defeated: false, resisted: true };
+  }
   enemy.hp = Math.max(0, (enemy.hp ?? 1) - amount);
-  return enemy.hp === 0;
+  return { defeated: enemy.hp === 0, resisted: false };
 };
 
-export const damageEnemyAt = (state, cell, amount) => {
+export const damageEnemyAt = (state, cell, amount, element = null) => {
   const enemy = state.enemies.find((item) => item.x === cell.x && item.y === cell.y);
-  if (!enemy) return { hit: false, defeated: false };
-  const defeated = damageEnemy(enemy, amount);
-  if (defeated) {
-    state.enemies = state.enemies.filter((item) => item !== enemy);
+  if (!enemy) return { hit: false, defeated: false, resisted: false };
+  const result = damageEnemy(enemy, amount, element);
+  if (result.defeated) {
+    state.enemies = enemy.isSpecial
+      ? []
+      : state.enemies.filter((item) => item !== enemy);
     if (enemy.drop) {
       state.powerups.push(createPowerupItem(
         enemy.drop,
@@ -30,6 +35,14 @@ export const damageEnemyAt = (state, cell, amount) => {
         `heart-drop-${enemy.id}-${state.turn}`
       ));
     }
+    if (enemy.isSpecial) {
+      state.enemies = [];
+      state.summonedEnemyIds = [];
+      state.specialEnemy = null;
+      state.arenaMode = "complete";
+      state.phaseComplete = true;
+      state.phaseName = "Fase concluída";
+    }
   }
-  return { hit: true, defeated, enemy };
+  return { hit: true, defeated: result.defeated, resisted: result.resisted, enemy };
 };
