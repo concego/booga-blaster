@@ -28,7 +28,8 @@
 ### Bravo Novato — fase 3, Boss da Floresta
 
 - Vida: 3 corações;
-- Usa um estilingue com alcance de até 2 células;
+- Usa um estilingue com alcance de até 3 células;
+- Quando termina de recarregar, o jogo anuncia que o estilingue está carregado;
 - Precisa de 1 turno para recarregar o estilingue;
 - Tem uma poção de uso único;
 - Gasta 1 turno para pegar a poção da bolsa;
