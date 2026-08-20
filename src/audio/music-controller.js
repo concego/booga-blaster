@@ -1,7 +1,7 @@
 // A música da Floresta é uma faixa aprovada no repositório separado
 // concego/sound-testing. As faixas do Dino Crawler não são usadas aqui.
 const FOREST_TRACK = Object.freeze({
-  src: new URL("../../audio/forest-ambience.mp3", import.meta.url).href,
+  src: new URL("../../audio/approved/01-bosque-forest-ambience-cc0.mp3", import.meta.url).href,
   volume: 0.22
 });
 
