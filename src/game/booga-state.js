@@ -1,8 +1,8 @@
-import { POWERUP_SOURCES } from "./powerups/powerup-sources.js?v=svg-test-77";
-import { POWERUP_TYPES } from "./powerups/powerup-catalog.js?v=svg-test-77";
-import { createPowerupItem } from "./powerups/powerup-sources.js?v=svg-test-77";
-import { createHeartItem } from "./collectibles/heart-items.js?v=svg-test-77";
-import { generateLevel } from "./level-generator.js?v=svg-test-77";
+import { POWERUP_SOURCES } from "./powerups/powerup-sources.js?v=svg-test-78";
+import { POWERUP_TYPES } from "./powerups/powerup-catalog.js?v=svg-test-78";
+import { createPowerupItem } from "./powerups/powerup-sources.js?v=svg-test-78";
+import { createHeartItem } from "./collectibles/heart-items.js?v=svg-test-78";
+import { generateLevel } from "./level-generator.js?v=svg-test-78";
 
 const ELEMENT_NAMES = { fire: "Fogo", water: "Água", earth: "Terra", air: "Ar" };
 
