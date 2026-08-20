@@ -13,8 +13,12 @@
 ### Troll
 
 - Arena própria com blocos quebráveis;
-- Personalidade: quebra um bloco por turno quando não está adjacente a Supimpus;
-- Restrição: só recebe dano de Fogo;
+- Personalidade: tenta se aproximar para atacar;
+- Quando o caminho direto até Supimpus está bloqueado por um bloco, quebra esse bloco em vez de ficar parado;
+- Restrição: é imune ao dano dos outros elementos, mas seus efeitos de controle continuam funcionando:
+  - Água empurra o Troll;
+  - Ar impede o avanço do Troll;
+  - as pedras de Terra não causam dano nem atordoam o Troll;
 - Vida: 3 corações;
 - Ao ser derrotado, conclui a arena e encerra a fase.
 
