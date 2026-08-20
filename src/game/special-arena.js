@@ -1,4 +1,4 @@
-import { getSpecialEnemyForPhase } from "./special-enemies.js?v=svg-test-76";
+import { getSpecialEnemyForPhase } from "./special-enemies.js?v=svg-test-77";
 
 const ARENA_WIDTH = 9;
 const ARENA_HEIGHT = 5;
@@ -38,7 +38,7 @@ export const enterSpecialArena = (state) => {
   state.chests = [];
   state.powerups = [];
   state.heartItems = [];
-  return `Objetivo alcançado. Supimpus entrou na arena de ${special.name}. ${special.personality}`;
+  return `Objetivo alcançado. Supimpus entrou na arena de ${special.name}.`;
 };
 
 export const isSpecialArena = (state) => state.arenaMode === "special";
