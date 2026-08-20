@@ -1,5 +1,5 @@
-import { isBlocked } from "../../core/grid.js?v=svg-test-80";
-import { damagePlayer } from "./player-damage.js?v=svg-test-80";
+import { isBlocked } from "../../core/grid.js?v=svg-test-82";
+import { damagePlayer } from "./player-damage.js?v=svg-test-82";
 
 const distanceToPlayer = (state, enemy) => (
   Math.abs(enemy.x - state.player.x) + Math.abs(enemy.y - state.player.y)
@@ -138,7 +138,9 @@ const handleSpecialAction = (state, enemy) => {
     }
     if (enemy.reloadTurns > 0) {
       enemy.reloadTurns -= 1;
-      return `${enemy.name} está recarregando o estilingue.`;
+      return enemy.reloadTurns === 0
+        ? `${enemy.name} carregou o estilingue.`
+        : `${enemy.name} está recarregando o estilingue.`;
     }
     if (distanceToPlayer(state, enemy) <= enemy.ranged) return rangedAttack(state, enemy);
   }
