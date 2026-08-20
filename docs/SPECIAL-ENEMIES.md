@@ -24,10 +24,17 @@
 
 O catálogo de especiais é orientado a dados. O Troll pode reaparecer nas fases que não são Boss. A cada terceira fase, o encontro usa o Guardião do Bosque como Boss provisório, até que sua personalidade específica seja definida.
 
+## Estrutura da campanha
+
+- A campanha tem **21 fases** divididas em **7 ambientes**;
+- Cada ambiente tem 3 fases;
+- As fases 1 e 2 de cada ambiente terminam com um especial fixo;
+- A terceira fase de cada ambiente termina com o Boss fixo daquele ambiente;
+- Assim, os Bosses ficam nas fases 3, 6, 9, 12, 15, 18 e 21.
+
 ## Escalonamento atual
 
 - A quantidade de inimigos comuns começa em 3 e aumenta em 1 por fase, até o limite atual de 8;
-- Fases 3, 6, 9 etc. usam um Boss;
 - Todas as fases têm exatamente um encontro especial após o objetivo;
 - Os elementos seguem a progressão existente: Fogo, depois Água, Terra e finalmente Ar;
 - O seed e as regras do gerador definem aleatoriamente o mapa, blocos, inimigos comuns, itens e variação do Bosque;
