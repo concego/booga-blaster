@@ -1,10 +1,10 @@
-import { tryMovePlayer } from "../core/grid.js?v=svg-test-73";
-import { advanceTurn, getTurnEvents } from "../core/turn-engine.js?v=svg-test-73";
-import { scanState, getAdjacentFindings } from "./scan/scan-state.js?v=svg-test-73";
-import { castSpell } from "./spells/spell-engine.js?v=svg-test-73";
-import { getSpell } from "./spells/spell-catalog.js?v=svg-test-73";
-import { collectAtCell } from "./powerups/powerup-system.js?v=svg-test-73";
-import { enterSpecialArena } from "./special-arena.js?v=svg-test-73";
+import { tryMovePlayer } from "../core/grid.js?v=svg-test-75";
+import { advanceTurn, getTurnEvents } from "../core/turn-engine.js?v=svg-test-75";
+import { scanState, getAdjacentFindings } from "./scan/scan-state.js?v=svg-test-75";
+import { castSpell } from "./spells/spell-engine.js?v=svg-test-75";
+import { getSpell } from "./spells/spell-catalog.js?v=svg-test-75";
+import { collectAtCell } from "./powerups/powerup-system.js?v=svg-test-75";
+import { enterSpecialArena } from "./special-arena.js?v=svg-test-75";
 
 const appendTurnEvents = (state, message) => {
   const events = getTurnEvents(state);
@@ -28,6 +28,7 @@ export const selectElement = (state, element) => {
 export const prepareLaunch = (state) => {
   if (state.gameOver) return "Fim de jogo.";
   if (state.phaseComplete) return "Fase concluída.";
+  if (state.player.stunned > 0) return "Supimpus está atordoado e não pode agir neste turno.";
   state.launchArmed = true;
   return "Lançar preparado. Escolha uma direção ou pressione Lançar novamente.";
 };
@@ -41,6 +42,12 @@ export const launchSpell = (state, directionName = null) => {
 export const dispatchDirection = (state, directionName) => {
   if (state.gameOver) return "Fim de jogo.";
   if (state.phaseComplete) return "Fase concluída.";
+  if (state.player.stunned > 0) {
+    state.player.stunned -= 1;
+    state.launchArmed = false;
+    advanceTurn(state);
+    return appendTurnEvents(state, "Supimpus está atordoado e perdeu este turno.");
+  }
   if (state.launchArmed) return launchSpell(state, directionName);
   const result = tryMovePlayer(state, directionName);
   if (!result.ok) return result.message;
