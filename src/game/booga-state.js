@@ -1,8 +1,8 @@
-import { POWERUP_SOURCES } from "./powerups/powerup-sources.js?v=svg-test-73";
-import { POWERUP_TYPES } from "./powerups/powerup-catalog.js?v=svg-test-73";
-import { createPowerupItem } from "./powerups/powerup-sources.js?v=svg-test-73";
-import { createHeartItem } from "./collectibles/heart-items.js?v=svg-test-73";
-import { generateLevel } from "./level-generator.js?v=svg-test-73";
+import { POWERUP_SOURCES } from "./powerups/powerup-sources.js?v=svg-test-74";
+import { POWERUP_TYPES } from "./powerups/powerup-catalog.js?v=svg-test-74";
+import { createPowerupItem } from "./powerups/powerup-sources.js?v=svg-test-74";
+import { createHeartItem } from "./collectibles/heart-items.js?v=svg-test-74";
+import { generateLevel } from "./level-generator.js?v=svg-test-74";
 
 const ELEMENT_NAMES = { fire: "Fogo", water: "Água", earth: "Terra", air: "Ar" };
 
@@ -57,7 +57,7 @@ export const createBoogaState = ({
     chests: level.chests,
     grid: { width: 9, height: 5, cells: level.cells, blocks: level.blocks },
     log: [
-      "Supimpus entrou no Bosque Espinhoso.",
+      `Supimpus entrou no ambiente ${level.biomeName}.`,
       "Fogo selecionado.",
       `Fase ${difficulty} gerada no ${level.biomeName}, variação ${level.biomeVariant}. Semente: ${level.seed}.`,
       `Objetivo: alcançar a arena do inimigo especial. Elementos disponíveis: ${level.availableElements.map((element) => ELEMENT_NAMES[element]).join(", ")}.`
