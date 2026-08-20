@@ -161,7 +161,7 @@ export const playGameplaySounds = (message, selectedElement = "fire") => {
   else if (text.includes("inimigo") && text.includes("atingid")) playUiSound("hit");
   if (text.includes("atacou supimpus")) playUiSound("enemyAttack");
   if (text.includes("uma vida foi perdida")) playUiSound("lifeLost");
-  else if (text.includes("corações:") && text.includes("supimpus foi atingido")) playUiSound("damage");
+  else if (text.includes("corações:") && (text.includes("supimpus foi atingido") || text.includes("atacou supimpus"))) playUiSound("damage");
   if (text.includes("supimpus avançou")) playUiSound("move");
   if (text.includes("avançou.") && !text.includes("supimpus")) playUiSound("enemyMove");
   if (text.includes("bloqueado") || text.includes("bloqueia o caminho")) playUiSound("blocked");
