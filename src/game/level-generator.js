@@ -1,4 +1,4 @@
-import { COMMON_ENEMIES, BIOME_ENEMIES, getPhaseContent } from "./content-catalog.js?v=svg-test-78";
+import { COMMON_ENEMIES, BIOME_ENEMIES, getPhaseContent } from "./content-catalog.js?v=svg-test-79";
 
 const WIDTH = 9;
 const HEIGHT = 5;
@@ -215,6 +215,7 @@ export const generateLevel = ({ seed = Date.now(), difficulty = 1, biome = "bosq
   const pool = shuffle(freeCells(cells, reserved), rng);
   const mapSuperStrength = takeCell(pool, reserved);
   const mapBadNews = takeCell(pool, reserved);
+  const mapMole = content.allowedPowerups.includes("mole") ? takeCell(pool, reserved) : null;
   const mapHeart = takeCell(pool, reserved);
   const chestCell = takeCell(pool, reserved);
   const heartChestCell = takeCell(pool, reserved);
@@ -239,6 +240,7 @@ export const generateLevel = ({ seed = Date.now(), difficulty = 1, biome = "bosq
     powerups: [
       { type: "super-strength", source: "map", position: mapSuperStrength },
       { type: "bad-news", source: "map", position: mapBadNews },
+      ...(mapMole ? [{ type: "mole", source: "map", position: mapMole }] : []),
       { type: chestPowerupType, source: "chest", position: chestCell, id: chestPowerupId },
       { type: "extra-life", source: "block-content", position: blockCell }
     ],
