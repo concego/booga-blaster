@@ -11,15 +11,23 @@ O Booga Blaster não reutiliza arquivos do Dino Crawler. A seleção é feita pr
 - `spell-water-launch.ogg` — lançamento de Água — candidato 1.13;
 - `spell-air-launch.mp3` — lançamento de Ar — candidato 1.17;
 - `spell-explosion.ogg` — explosão — candidato 1.20;
-- `item-pickup.wav` — coleta de item — candidato 1.27.
+- `item-pickup.wav` — coleta de item — candidato 1.27;
+- `supimpus-damage.wav` — Supimpus perdeu corações, mas não uma vida — candidato 1.31;
+- `supimpus-life-lost.wav` — Supimpus perdeu uma vida — candidato 1.32;
+- `forest-ambience.mp3` — música/ambiente das fases do Bosque — candidato 4.1.
 
 ## Sons de inimigos aprovados, aguardando mapeamento por tipo
 
-Os candidatos 1.23, 1.24 e 1.26 foram aprovados como sons de inimigos, mas ainda não foram integrados. Eles serão associados a tipos específicos, não usados globalmente:
+Os candidatos abaixo foram aprovados, mas ainda aguardam o mapeamento de tipo/evento antes de entrar no runtime. Eles serão associados especificamente, não usados globalmente:
 
 - `23-inimigo-giant-01.wav`;
 - `24-inimigo-gutteral-beast-01.wav`;
-- `26-inimigo-shade-01.wav`.
+- `26-inimigo-shade-01.wav`;
+- `36-inimigo-aranha-bug-02.ogg`;
+- `37-inimigo-atingido-hurt-01.ogg`;
+- `38-inimigo-atingido-hurt-02.ogg`;
+- `39-inimigo-pesado-monster-01.wav`;
+- `40-inimigo-pesado-monster-02.wav`.
 
 ## Fontes
 
