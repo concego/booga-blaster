@@ -1,5 +1,5 @@
-import { getPowerup } from "../powerups/powerup-catalog.js?v=svg-test-48";
-import { getBlockAt } from "../../core/grid.js?v=svg-test-48";
+import { getPowerup } from "../powerups/powerup-catalog.js?v=svg-test-57";
+import { getBlockAt } from "../../core/grid.js?v=svg-test-57";
 
 const elementNames = { fire: "Fogo", water: "Água", earth: "Terra", air: "Ar" };
 
@@ -36,6 +36,7 @@ const adjacentNameAt = (state, x, y) => {
   if (powerup) return getPowerup(powerup.type)?.name || "power-up";
   if (state.heartItems.some((item) => item.revealed && !item.collected && item.x === x && item.y === y)) return "coração";
   if (state.projectiles.some((item) => item.cell.x === x && item.cell.y === y)) return "projétil";
+  if (state.webs?.some((web) => web.x === x && web.y === y)) return "teia";
   if (state.zones.some((zone) => zone.cells.some((cell) => cell.x === x && cell.y === y))) return "efeito elemental";
   if (state.goal?.x === x && state.goal?.y === y) return "objetivo";
   if (state.grid.cells[y]?.[x] === "#") {
