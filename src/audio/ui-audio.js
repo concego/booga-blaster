@@ -178,7 +178,7 @@ export const playGameplaySounds = (message, selectedElement = "fire") => {
   else if (text.includes("troll")) playUiSound("enemy-troll");
   else if (text.includes("gutteral")) playUiSound("enemy-gutteral");
   else if (text.includes("shade")) playUiSound("enemy-shade");
-  else if (text.includes("ogro")) playUiSound(Math.random() < 0.5 ? "enemy-ogre-1" : "enemy-ogre-2");
+  else if (text.includes("ogro") || text.includes("orc")) playUiSound(Math.random() < 0.5 ? "enemy-ogre-1" : "enemy-ogre-2");
   if (text.includes("atacou supimpus")) playUiSound("enemyAttack");
   if (text.includes("atirou em supimpus")) playUiSound(text.includes("bravo novato") ? "bravo-shot" : "enemyAttack");
   if (text.includes("uma vida foi perdida")) playUiSound("lifeLost");
