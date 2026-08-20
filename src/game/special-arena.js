@@ -1,17 +1,26 @@
-import { getSpecialEnemyForPhase } from "./special-enemies.js?v=svg-test-82";
+import { getSpecialEnemyForPhase } from "./special-enemies.js?v=svg-test-83";
 
 const ARENA_WIDTH = 9;
 const ARENA_HEIGHT = 5;
 const keyOf = ({ x, y }) => `${x},${y}`;
 
 const createArenaBlocks = (special) => {
-  if (special.behavior !== "break-blocks") return [];
-  return [
-    { x: 3, y: 1, theme: "wood", color: null, immuneTo: [] },
-    { x: 5, y: 1, theme: "thorn", color: null, immuneTo: [] },
-    { x: 3, y: 3, theme: "moss", color: null, immuneTo: [] },
-    { x: 5, y: 3, theme: "wood", color: null, immuneTo: [] }
-  ];
+  if (special.behavior === "break-blocks") {
+    return [
+      { x: 3, y: 1, theme: "wood", color: null, immuneTo: [] },
+      { x: 5, y: 1, theme: "thorn", color: null, immuneTo: [] },
+      { x: 3, y: 3, theme: "moss", color: null, immuneTo: [] },
+      { x: 5, y: 3, theme: "wood", color: null, immuneTo: [] }
+    ];
+  }
+  if (special.behavior === "slingshot-potion") {
+    return [
+      { x: 4, y: 2, theme: "wood", color: null, immuneTo: [] },
+      { x: 5, y: 1, theme: "moss", color: null, immuneTo: [] },
+      { x: 5, y: 3, theme: "moss", color: null, immuneTo: [] }
+    ];
+  }
+  return [];
 };
 
 export const enterSpecialArena = (state) => {
