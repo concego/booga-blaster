@@ -1,11 +1,11 @@
-import { getSpell } from "./spell-catalog.js?v=svg-test-77";
-import { blastCells } from "./blast.js?v=svg-test-77";
-import { coneCells, upsertZone } from "./area-effects.js?v=svg-test-77";
-import { pushEnemies, throwStones } from "./instant-effects.js?v=svg-test-77";
-import { revealBlockContents } from "../powerups/powerup-reveal.js?v=svg-test-77";
-import { damageEnemyAt, CONTACT_DAMAGE } from "../combat/damage.js?v=svg-test-77";
-import { damagePlayer } from "../combat/player-damage.js?v=svg-test-77";
-import { getBlockAt } from "../../core/grid.js?v=svg-test-77";
+import { getSpell } from "./spell-catalog.js?v=svg-test-78";
+import { blastCells } from "./blast.js?v=svg-test-78";
+import { coneCells, upsertZone } from "./area-effects.js?v=svg-test-78";
+import { pushEnemies, throwStones } from "./instant-effects.js?v=svg-test-78";
+import { revealBlockContents } from "../powerups/powerup-reveal.js?v=svg-test-78";
+import { damageEnemyAt, CONTACT_DAMAGE } from "../combat/damage.js?v=svg-test-78";
+import { damagePlayer } from "../combat/player-damage.js?v=svg-test-78";
+import { getBlockAt } from "../../core/grid.js?v=svg-test-78";
 
 const destroyBlocks = (state, cells, element) => {
   let destroyed = 0;
@@ -42,6 +42,14 @@ const damageEnemies = (state, cells, element) => {
   return { defeated, hit, resisted };
 };
 
+const destroyWebs = (state, cells) => {
+  if (!state.webs?.length) return 0;
+  const cellKeys = new Set(cells.map((cell) => `${cell.x},${cell.y}`));
+  const destroyed = state.webs.filter((web) => cellKeys.has(`${web.x},${web.y}`)).length;
+  if (destroyed) state.webs = state.webs.filter((web) => !cellKeys.has(`${web.x},${web.y}`));
+  return destroyed;
+};
+
 const explode = (state, projectile) => {
   const spell = getSpell(projectile.element);
   if (!spell) return "Um projétil sem elemento explodiu sem efeito.";
@@ -49,8 +57,11 @@ const explode = (state, projectile) => {
   const blast = blastCells(state, projectile.cell);
   const cone = projectile.direction ? coneCells(state, projectile.cell, projectile.direction) : [];
   const blocks = destroyBlocks(state, blast, projectile.element);
+  const webs = destroyWebs(state, blast);
   const enemies = damageEnemies(state, blast, projectile.element);
   const events = [`${spell.name} explodiu.`];
+
+  if (webs) events.push(`${webs} teia${webs > 1 ? "s" : ""} destruída${webs > 1 ? "s" : ""}.`);
 
   const pushed = spell.instantEffect === "push" && projectile.direction
     ? pushEnemies(state, blast, projectile.direction)
