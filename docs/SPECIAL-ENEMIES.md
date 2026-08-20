@@ -32,7 +32,9 @@
 - Precisa de 1 turno para recarregar o estilingue;
 - Tem uma poção de uso único;
 - Gasta 1 turno para pegar a poção da bolsa;
-- A poção restaura 1 coração.
+- A poção restaura 1 coração;
+- Ao entrar na arena, faz uma pequena introdução:
+  > “Ah, então você é o Goblin de quem estão falando. Bem, não importa, eu já treinei muito limpando o porão da taverna. Isso vai ser fácil!”
 
 ## Troll — especial reutilizável
 
