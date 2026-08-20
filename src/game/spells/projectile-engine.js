@@ -1,11 +1,11 @@
-import { getSpell } from "./spell-catalog.js?v=svg-test-73";
-import { blastCells } from "./blast.js?v=svg-test-73";
-import { coneCells, upsertZone } from "./area-effects.js?v=svg-test-73";
-import { pushEnemies, throwStones } from "./instant-effects.js?v=svg-test-73";
-import { revealBlockContents } from "../powerups/powerup-reveal.js?v=svg-test-73";
-import { damageEnemyAt, CONTACT_DAMAGE } from "../combat/damage.js?v=svg-test-73";
-import { damagePlayer } from "../combat/player-damage.js?v=svg-test-73";
-import { getBlockAt } from "../../core/grid.js?v=svg-test-73";
+import { getSpell } from "./spell-catalog.js?v=svg-test-75";
+import { blastCells } from "./blast.js?v=svg-test-75";
+import { coneCells, upsertZone } from "./area-effects.js?v=svg-test-75";
+import { pushEnemies, throwStones } from "./instant-effects.js?v=svg-test-75";
+import { revealBlockContents } from "../powerups/powerup-reveal.js?v=svg-test-75";
+import { damageEnemyAt, CONTACT_DAMAGE } from "../combat/damage.js?v=svg-test-75";
+import { damagePlayer } from "../combat/player-damage.js?v=svg-test-75";
+import { getBlockAt } from "../../core/grid.js?v=svg-test-75";
 
 const destroyBlocks = (state, cells, element) => {
   let destroyed = 0;
