@@ -134,6 +134,8 @@ h2 { margin-bottom: .8rem; font-size: 1.1rem; }
 #dynamic-arena { display: block; visibility: visible; opacity: 1; }
 .dynamic-player { display: block; visibility: visible; opacity: 1; fill: #a77bd4; stroke: #f0d8ff; stroke-width: 4; }
 .dynamic-enemy { fill: #d95f63; stroke: #ffd1a8; stroke-width: 4; }
+.dynamic-web { fill: none; stroke: #e8e0ff; stroke-width: 3; }
+.web-strand { fill: none; stroke: #b8a9e8; stroke-width: 2; }
 .enemy-hp-back { fill: #3b1f2a; stroke: #ffd1a8; stroke-width: 1; }
 .enemy-hp { fill: #ff8b62; }
 .enemy-stun-ring { fill: none; stroke: #a9e8ff; stroke-width: 4; stroke-dasharray: 5 6; }
