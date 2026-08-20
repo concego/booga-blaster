@@ -1,5 +1,5 @@
-import { isBlocked } from "../../core/grid.js";
-import { STONE_DAMAGE, damageEnemyAt } from "../combat/damage.js";
+import { isBlocked } from "../../core/grid.js?v=svg-test-71";
+import { STONE_DAMAGE, damageEnemyAt } from "../combat/damage.js?v=svg-test-71";
 
 const enemyAt = (state, cell) => state.enemies.find((enemy) => enemy.x === cell.x && enemy.y === cell.y);
 
@@ -24,7 +24,7 @@ export const throwStones = (state, cells) => {
   let hit = 0;
   cells.forEach((cell) => {
     const result = damageEnemyAt(state, cell, STONE_DAMAGE);
-    if (!result.hit || !result.enemy) return;
+    if (!result.hit || !result.enemy || result.resisted) return;
     hit += 1;
     result.enemy.stunned = Math.max(result.enemy.stunned || 0, 1);
   });
