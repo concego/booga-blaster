@@ -8,9 +8,31 @@
 - Inimigos invocados ficam vinculados ao especial e desaparecem quando ele é derrotado.
 - A cada três fases, o especial será um Boss.
 
-## Primeiro especial implementado
+## Especiais e Bosses da Floresta
 
-### Troll
+### Rainha Aranha — fase 1
+
+- Vida: 3 corações;
+- Lança uma teia a um quadrado de distância;
+- Quando Supimpus pisa na teia, fica atordoado por 1 turno.
+
+### Lobo Alfa — fase 2
+
+- Vida: 3 corações;
+- Uiva e invoca Lobos;
+- Os Lobos invocados tentam cercar Supimpus junto com o Alfa;
+- Ao derrotar o Alfa, todos os Lobos invocados desaparecem.
+
+### Bravo Novato — fase 3, Boss da Floresta
+
+- Vida: 3 corações;
+- Usa um estilingue com alcance de até 2 células;
+- Precisa de 1 turno para recarregar o estilingue;
+- Tem uma poção de uso único;
+- Gasta 1 turno para pegar a poção da bolsa;
+- A poção restaura 1 coração.
+
+## Troll — especial reutilizável
 
 - Arena própria com blocos quebráveis;
 - Personalidade: tenta se aproximar para atacar;
