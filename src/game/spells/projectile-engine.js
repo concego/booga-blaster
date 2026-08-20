@@ -1,11 +1,11 @@
-import { getSpell } from "./spell-catalog.js?v=svg-test-79";
-import { blastCells } from "./blast.js?v=svg-test-79";
-import { coneCells, upsertZone } from "./area-effects.js?v=svg-test-79";
-import { pushEnemies, throwStones } from "./instant-effects.js?v=svg-test-79";
-import { revealBlockContents } from "../powerups/powerup-reveal.js?v=svg-test-79";
-import { damageEnemyAt, CONTACT_DAMAGE } from "../combat/damage.js?v=svg-test-79";
-import { damagePlayer } from "../combat/player-damage.js?v=svg-test-79";
-import { getBlockAt } from "../../core/grid.js?v=svg-test-79";
+import { getSpell } from "./spell-catalog.js?v=svg-test-80";
+import { blastCells } from "./blast.js?v=svg-test-80";
+import { coneCells, upsertZone } from "./area-effects.js?v=svg-test-80";
+import { pushEnemies, throwStones } from "./instant-effects.js?v=svg-test-80";
+import { revealBlockContents } from "../powerups/powerup-reveal.js?v=svg-test-80";
+import { damageEnemyAt, CONTACT_DAMAGE } from "../combat/damage.js?v=svg-test-80";
+import { damagePlayer } from "../combat/player-damage.js?v=svg-test-80";
+import { getBlockAt } from "../../core/grid.js?v=svg-test-80";
 
 const destroyBlocks = (state, cells, element) => {
   let destroyed = 0;
@@ -88,7 +88,7 @@ const explode = (state, projectile) => {
   if (enemies.resisted.length) events.push(`${enemies.resisted.map((enemy) => enemy.name).join(", ")} resistiu ao elemento ${spell.name}.`);
   if (enemies.defeated.some((enemy) => enemy.drop)) events.push("Um power-up caiu.");
   if (enemies.defeated.some((enemy) => enemy.heartDrop)) events.push("Um coração caiu.");
-  if (enemies.defeated.some((enemy) => enemy.isSpecial)) events.push("O inimigo especial foi derrotado. A arena foi concluída e os inimigos invocados desapareceram.");
+  if (enemies.defeated.some((enemy) => enemy.isSpecial)) events.push("A arena foi vencida.");
 
   const playerHit = blast.some((cell) => cell.x === state.player.x && cell.y === state.player.y);
   if (playerHit) {
