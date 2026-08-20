@@ -13,6 +13,15 @@ const center = (cell) => ({
   y: ORIGIN + cell.y * CELL_SIZE + CELL_SIZE / 2
 });
 
+const addWeb = (group, web) => {
+  const point = center(web);
+  group.append(createSvg("circle", { cx: point.x, cy: point.y, r: 25, class: "dynamic-web" }));
+  group.append(createSvg("path", {
+    d: `M ${point.x - 20} ${point.y - 20}L ${point.x + 20} ${point.y + 20} M ${point.x + 20} ${point.y - 20}L ${point.x - 20} ${point.y + 20}`,
+    class: "web-strand"
+  }));
+};
+
 const addZone = (group, cell, type) => {
   const point = center(cell);
   const className = type === "flame" ? "dynamic-flame" : "dynamic-wind";
@@ -119,6 +128,7 @@ export const renderArena = (state) => {
   group.replaceChildren();
 
   state.zones.forEach((zone) => zone.cells.forEach((cell) => addZone(group, cell, zone.type)));
+  state.webs?.forEach((web) => addWeb(group, web));
   state.grid.cells.forEach((row, y) => row.forEach((value, x) => {
     if (value !== "#") return;
     const block = state.grid.blocks?.find((item) => item.x === x && item.y === y);
