@@ -1,12 +1,12 @@
-import { playUiSound, playGameplaySounds, playEnvironmentSonar } from "../audio/ui-audio.js?v=svg-test-80";
-import { startBiomeMusic } from "../audio/music-controller.js?v=svg-test-80";
-import { createBoogaState } from "../game/booga-state.js?v=svg-test-80";
-import { advancePhase } from "../game/advance-phase.js?v=svg-test-80";
-import { dispatchDirection, prepareLaunch, launchSpell, scanState, getAdjacentFindings, selectElement } from "../game/booga-actions.js?v=svg-test-80";
-import { addLogMessage } from "../game/demo-state.js?v=svg-test-80";
-import { createLogView } from "./log.js?v=svg-test-80";
-import { renderArena } from "./arena-svg.js?v=svg-test-80";
-import { bindKeyboardControls } from "./keyboard-controls.js?v=svg-test-80";
+import { playUiSound, playGameplaySounds, playEnvironmentSonar } from "../audio/ui-audio.js?v=svg-test-81";
+import { startBiomeMusic } from "../audio/music-controller.js?v=svg-test-81";
+import { createBoogaState } from "../game/booga-state.js?v=svg-test-81";
+import { advancePhase } from "../game/advance-phase.js?v=svg-test-81";
+import { dispatchDirection, prepareLaunch, launchSpell, scanState, getAdjacentFindings, selectElement } from "../game/booga-actions.js?v=svg-test-81";
+import { addLogMessage } from "../game/demo-state.js?v=svg-test-81";
+import { createLogView } from "./log.js?v=svg-test-81";
+import { renderArena } from "./arena-svg.js?v=svg-test-81";
+import { bindKeyboardControls } from "./keyboard-controls.js?v=svg-test-81";
 import { createEffectsStatus } from "./effects-status.js?v=effects-02";
 
 const elementLabels = { fire: "Fogo", water: "Água", earth: "Terra", air: "Ar" };
