@@ -1,5 +1,5 @@
-import { POWERUP_SOURCES, createPowerupItem } from "../powerups/powerup-sources.js?v=svg-test-73";
-import { createHeartItem } from "../collectibles/heart-items.js?v=svg-test-73";
+import { POWERUP_SOURCES, createPowerupItem } from "../powerups/powerup-sources.js?v=svg-test-76";
+import { createHeartItem } from "../collectibles/heart-items.js?v=svg-test-76";
 
 export const CONTACT_DAMAGE = 1;
 export const STONE_DAMAGE = 1;
