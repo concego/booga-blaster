@@ -24,8 +24,8 @@ Os candidatos abaixo foram aprovados, mas ainda aguardam o mapeamento de tipo/ev
 - `23-inimigo-giant-01.wav` — reservado para o Troll quando esse inimigo existir;
 - `24-inimigo-gutteral-beast-01.wav`;
 - `26-inimigo-shade-01.wav`;
-- `37-inimigo-atingido-hurt-01.ogg`;
-- `38-inimigo-atingido-hurt-02.ogg`;
+- `37-inimigo-atingido-hurt-01.ogg` — reservado para o Aprendiz masculino;
+- `38-inimigo-atingido-hurt-02.ogg` — reservado para a Aprendiz feminina;
 - `39-inimigo-pesado-monster-01.wav` — reservado para o Ogro quando esse inimigo existir;
 - `40-inimigo-pesado-monster-02.wav` — reservado para o Ogro quando esse inimigo existir.
 
