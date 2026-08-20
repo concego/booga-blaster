@@ -1,4 +1,4 @@
-import { COMMON_ENEMIES, BIOME_ENEMIES, getPhaseContent } from "./content-catalog.js?v=svg-test-75";
+import { COMMON_ENEMIES, BIOME_ENEMIES, getPhaseContent } from "./content-catalog.js?v=svg-test-76";
 
 const WIDTH = 9;
 const HEIGHT = 5;
