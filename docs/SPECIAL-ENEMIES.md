@@ -22,4 +22,11 @@
 - Vida: 3 corações;
 - Ao ser derrotado, conclui a arena e encerra a fase.
 
-O catálogo de especiais é orientado a dados. Troll está disponível na fase 1; os especiais das fases seguintes serão adicionados sem reaproveitar regras ou sons de tipos diferentes.
+O catálogo de especiais é orientado a dados. O Troll pode reaparecer nas fases que não são Boss. A cada terceira fase, o encontro usa o Guardião do Bosque como Boss provisório, até que sua personalidade específica seja definida.
+
+## Escalonamento atual
+
+- A quantidade de inimigos comuns começa em 3 e aumenta em 1 por fase, até o limite atual de 8;
+- Fases 3, 6, 9 etc. usam um Boss;
+- Todas as fases têm exatamente um encontro especial após o objetivo;
+- Os elementos seguem a progressão existente: Fogo, depois Água, Terra e finalmente Ar.
