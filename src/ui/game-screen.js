@@ -1,11 +1,12 @@
-import { playUiSound, playGameplaySounds, playEnvironmentSonar } from "../audio/ui-audio.js?v=svg-test-75";
-import { startBiomeMusic } from "../audio/music-controller.js?v=svg-test-75";
-import { createBoogaState } from "../game/booga-state.js?v=svg-test-75";
-import { dispatchDirection, prepareLaunch, launchSpell, scanState, getAdjacentFindings, selectElement } from "../game/booga-actions.js?v=svg-test-75";
-import { addLogMessage } from "../game/demo-state.js?v=svg-test-75";
-import { createLogView } from "./log.js?v=svg-test-75";
-import { renderArena } from "./arena-svg.js?v=svg-test-75";
-import { bindKeyboardControls } from "./keyboard-controls.js?v=svg-test-75";
+import { playUiSound, playGameplaySounds, playEnvironmentSonar } from "../audio/ui-audio.js?v=svg-test-76";
+import { startBiomeMusic } from "../audio/music-controller.js?v=svg-test-76";
+import { createBoogaState } from "../game/booga-state.js?v=svg-test-76";
+import { advancePhase } from "../game/advance-phase.js?v=svg-test-76";
+import { dispatchDirection, prepareLaunch, launchSpell, scanState, getAdjacentFindings, selectElement } from "../game/booga-actions.js?v=svg-test-76";
+import { addLogMessage } from "../game/demo-state.js?v=svg-test-76";
+import { createLogView } from "./log.js?v=svg-test-76";
+import { renderArena } from "./arena-svg.js?v=svg-test-76";
+import { bindKeyboardControls } from "./keyboard-controls.js?v=svg-test-76";
 import { createEffectsStatus } from "./effects-status.js?v=effects-02";
 
 const elementLabels = { fire: "Fogo", water: "Água", earth: "Terra", air: "Ar" };
@@ -13,6 +14,7 @@ const elementLabels = { fire: "Fogo", water: "Água", earth: "Terra", air: "Ar" 
 export const bindGameScreen = () => {
   const params = new URLSearchParams(window.location.search);
   const testElements = params.get("test") === "elements";
+  const testCampaign = params.get("test") === "forest-campaign";
   const seed = params.get("seed") || Date.now();
   const difficulty = Math.max(1, Number(params.get("level") || 1) || 1);
   const biome = params.get("biome") || "bosque";
@@ -29,6 +31,7 @@ export const bindGameScreen = () => {
   const effectsStatus = createEffectsStatus(effects, effectsAnnouncer);
   const lives = document.querySelector("#lives");
   const hearts = document.querySelector("#hearts");
+  const nextPhaseButton = document.querySelector("#next-phase-button");
 
   const labelElement = () => elementLabels[state.selectedElement];
   const setStatus = (message) => {
@@ -48,6 +51,10 @@ export const bindGameScreen = () => {
     lives.textContent = String(state.lives);
     hearts.textContent = `${state.hearts}/3`;
     effectsStatus.render(state.effects, state.effectsRevision);
+    if (nextPhaseButton) {
+      const canAdvance = testCampaign && state.phaseComplete && state.currentPhase < 3;
+      nextPhaseButton.hidden = !canAdvance;
+    }
     renderArena(state);
   };
 
@@ -112,6 +119,15 @@ export const bindGameScreen = () => {
     renderState();
   };
 
+  const handleNextPhase = () => {
+    if (!testCampaign || !state.phaseComplete || state.currentPhase >= 3) return;
+    const message = advancePhase(state);
+    updateElementButtons();
+    setStatus(message);
+    addLog(message);
+    renderState();
+  };
+
   const handleScan = () => {
     startBiomeMusic(state.biome);
     const result = scanState(state);
@@ -136,6 +152,7 @@ export const bindGameScreen = () => {
   });
   document.querySelector("#launch-button").addEventListener("click", handleLaunch);
   document.querySelector("#scan-button").addEventListener("click", handleScan);
+  if (nextPhaseButton) nextPhaseButton.addEventListener("click", handleNextPhase);
   bindKeyboardControls({
     onDirection: handleDirection,
     onElement: handleElement,
