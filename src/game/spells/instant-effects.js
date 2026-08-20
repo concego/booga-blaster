@@ -1,5 +1,5 @@
-import { isBlocked } from "../../core/grid.js?v=svg-test-75";
-import { STONE_DAMAGE, damageEnemyAt } from "../combat/damage.js?v=svg-test-75";
+import { isBlocked } from "../../core/grid.js?v=svg-test-76";
+import { STONE_DAMAGE, damageEnemyAt } from "../combat/damage.js?v=svg-test-76";
 
 const enemyAt = (state, cell) => state.enemies.find((enemy) => enemy.x === cell.x && enemy.y === cell.y);
 
