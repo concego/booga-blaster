@@ -1,11 +1,11 @@
-import { getSpell } from "./spell-catalog.js?v=svg-test-78";
-import { blastCells } from "./blast.js?v=svg-test-78";
-import { coneCells, upsertZone } from "./area-effects.js?v=svg-test-78";
-import { pushEnemies, throwStones } from "./instant-effects.js?v=svg-test-78";
-import { revealBlockContents } from "../powerups/powerup-reveal.js?v=svg-test-78";
-import { damageEnemyAt, CONTACT_DAMAGE } from "../combat/damage.js?v=svg-test-78";
-import { damagePlayer } from "../combat/player-damage.js?v=svg-test-78";
-import { getBlockAt } from "../../core/grid.js?v=svg-test-78";
+import { getSpell } from "./spell-catalog.js?v=svg-test-79";
+import { blastCells } from "./blast.js?v=svg-test-79";
+import { coneCells, upsertZone } from "./area-effects.js?v=svg-test-79";
+import { pushEnemies, throwStones } from "./instant-effects.js?v=svg-test-79";
+import { revealBlockContents } from "../powerups/powerup-reveal.js?v=svg-test-79";
+import { damageEnemyAt, CONTACT_DAMAGE } from "../combat/damage.js?v=svg-test-79";
+import { damagePlayer } from "../combat/player-damage.js?v=svg-test-79";
+import { getBlockAt } from "../../core/grid.js?v=svg-test-79";
 
 const destroyBlocks = (state, cells, element) => {
   let destroyed = 0;
@@ -92,8 +92,12 @@ const explode = (state, projectile) => {
 
   const playerHit = blast.some((cell) => cell.x === state.player.x && cell.y === state.player.y);
   if (playerHit) {
-    const damage = damagePlayer(state, 1);
-    if (damage.gameOver) events.push("Supimpus foi atingido. Fim de jogo.");
+    const damage = damagePlayer(state, 1, projectile.element);
+    if (damage.resisted) {
+      const protection = projectile.element === "fire" ? "Salamandra" : "Toupeira";
+      events.push(`${protection} protegeu Supimpus do elemento ${spell.name}.`);
+    }
+    else if (damage.gameOver) events.push("Supimpus foi atingido. Fim de jogo.");
     else if (damage.lostLife) events.push("Supimpus foi atingido. Uma vida foi perdida; corações restaurados.");
     else events.push(`Supimpus foi atingido. Corações: ${state.hearts}/3.`);
   }
