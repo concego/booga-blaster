@@ -37,7 +37,8 @@ const fileProfiles = Object.freeze({
   explosion: { file: "spell-explosion.ogg", volume: 0.42 },
   pickup: { file: "item-pickup.wav", volume: 0.48 },
   damage: { file: "supimpus-damage.wav", volume: 0.46 },
-  lifeLost: { file: "supimpus-life-lost.wav", volume: 0.5 }
+  lifeLost: { file: "supimpus-life-lost.wav", volume: 0.5 },
+  "enemy-spider": { file: "enemy-spider.ogg", volume: 0.44 }
 });
 
 const fileAudioCache = new Map();
@@ -155,7 +156,8 @@ export const playGameplaySounds = (message, selectedElement = "fire") => {
   }
   if (text.includes("power-up") || text.includes("vida extra") || text.includes("coração encontrado") || text.includes("coração caiu") || text.includes("ativada") || text.includes("baú aberto")) playUiSound("pickup");
   if (text.includes("explodiu")) playUiSound("explosion");
-  if (text.includes("inimigo") && text.includes("derrotad")) playUiSound("defeat");
+  if (text.includes("aranha")) playUiSound("enemy-spider");
+  else if (text.includes("inimigo") && text.includes("derrotad")) playUiSound("defeat");
   else if (text.includes("inimigo") && text.includes("atingid")) playUiSound("hit");
   if (text.includes("atacou supimpus")) playUiSound("enemyAttack");
   if (text.includes("uma vida foi perdida")) playUiSound("lifeLost");
