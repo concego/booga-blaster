@@ -1,5 +1,5 @@
-import { isBlocked } from "../../core/grid.js?v=svg-test-69";
-import { damagePlayer } from "./player-damage.js?v=svg-test-69";
+import { isBlocked } from "../../core/grid.js?v=svg-test-70";
+import { damagePlayer } from "./player-damage.js?v=svg-test-70";
 
 const distanceToPlayer = (state, enemy) => (
   Math.abs(enemy.x - state.player.x) + Math.abs(enemy.y - state.player.y)
