@@ -1,6 +1,6 @@
-import { generateLevel } from "./level-generator.js?v=svg-test-76";
-import { createPowerupItem } from "./powerups/powerup-sources.js?v=svg-test-76";
-import { createHeartItem } from "./collectibles/heart-items.js?v=svg-test-76";
+import { generateLevel } from "./level-generator.js?v=svg-test-77";
+import { createPowerupItem } from "./powerups/powerup-sources.js?v=svg-test-77";
+import { createHeartItem } from "./collectibles/heart-items.js?v=svg-test-77";
 
 export const advancePhase = (state) => {
   const nextPhase = state.currentPhase + 1;
