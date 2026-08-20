@@ -14,7 +14,8 @@ O Booga Blaster não reutiliza arquivos do Dino Crawler. A seleção é feita pr
 - `item-pickup.wav` — coleta de item — candidato 1.27;
 - `supimpus-damage.wav` — Supimpus perdeu corações, mas não uma vida — candidato 1.31;
 - `supimpus-life-lost.wav` — Supimpus perdeu uma vida — candidato 1.32;
-- `forest-ambience.mp3` — música/ambiente das fases do Bosque — candidato 4.1.
+- `forest-ambience.mp3` — música/ambiente das fases do Bosque — candidato 4.1;
+- `enemy-spider.ogg` — som da Aranha ao ser atingida ou derrotada — candidato 1.36.
 
 ## Sons de inimigos aprovados, aguardando mapeamento por tipo
 
