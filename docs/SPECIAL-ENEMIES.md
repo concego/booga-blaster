@@ -27,6 +27,7 @@ O catálogo de especiais é orientado a dados. O Troll pode reaparecer nas fases
 ## Estrutura da campanha
 
 - A campanha tem **21 fases** divididas em **7 ambientes**;
+- Ambientes, na ordem da campanha: **Floresta**, **Subterrâneo**, **Planície**, **Vale**, **Montanha**, **Castelo** e **Torre de magia**;
 - Cada ambiente tem 3 fases;
 - As fases 1 e 2 de cada ambiente terminam com um especial fixo;
 - A terceira fase de cada ambiente termina com o Boss fixo daquele ambiente;
