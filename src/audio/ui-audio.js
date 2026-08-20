@@ -41,8 +41,6 @@ const fileProfiles = Object.freeze({
   "enemy-hit-1": { file: "approved/37-inimigo-atingido-hurt-01.ogg", volume: 0.44 },
   "enemy-hit-2": { file: "approved/38-inimigo-atingido-hurt-02.ogg", volume: 0.44 },
   "enemy-spider": { file: "approved/36-inimigo-aranha-bug-02.ogg", volume: 0.44 },
-  "enemy-goblin-1": { file: "approved/31-inimigo-goblin-02.wav", volume: 0.44 },
-  "enemy-goblin-2": { file: "approved/32-inimigo-goblin-03.wav", volume: 0.44 },
   "enemy-troll": { file: "approved/23-inimigo-giant-01.wav", volume: 0.5 },
   "enemy-gutteral": { file: "approved/24-inimigo-gutteral-beast-01.wav", volume: 0.5 },
   "enemy-shade": { file: "approved/26-inimigo-shade-01.wav", volume: 0.46 },
@@ -174,8 +172,7 @@ export const playGameplaySounds = (message, selectedElement = "fire") => {
   if (text.includes("inimigo") && text.includes("atingid")) {
     playUiSound(Math.random() < 0.5 ? "damage" : "enemy-hit-2");
   } else if (text.includes("inimigo") && text.includes("derrotad")) playUiSound("defeat");
-  if (text.includes("goblin") && !text.includes("ah, então você é o goblin")) playUiSound(Math.random() < 0.5 ? "enemy-goblin-1" : "enemy-goblin-2");
-  else if (text.includes("troll")) playUiSound("enemy-troll");
+  if (text.includes("troll")) playUiSound("enemy-troll");
   else if (text.includes("gutteral")) playUiSound("enemy-gutteral");
   else if (text.includes("shade")) playUiSound("enemy-shade");
   else if (text.includes("ogro") || text.includes("orc")) playUiSound(Math.random() < 0.5 ? "enemy-ogre-1" : "enemy-ogre-2");
