@@ -1,9 +1,10 @@
-import { tryMovePlayer } from "../core/grid.js?v=svg-test-67";
-import { advanceTurn, getTurnEvents } from "../core/turn-engine.js?v=svg-test-67";
-import { scanState, getAdjacentFindings } from "./scan/scan-state.js?v=svg-test-67";
-import { castSpell } from "./spells/spell-engine.js?v=svg-test-67";
-import { getSpell } from "./spells/spell-catalog.js?v=svg-test-67";
-import { collectAtCell } from "./powerups/powerup-system.js?v=svg-test-67";
+import { tryMovePlayer } from "../core/grid.js?v=svg-test-69";
+import { advanceTurn, getTurnEvents } from "../core/turn-engine.js?v=svg-test-69";
+import { scanState, getAdjacentFindings } from "./scan/scan-state.js?v=svg-test-69";
+import { castSpell } from "./spells/spell-engine.js?v=svg-test-69";
+import { getSpell } from "./spells/spell-catalog.js?v=svg-test-69";
+import { collectAtCell } from "./powerups/powerup-system.js?v=svg-test-69";
+import { enterSpecialArena } from "./special-arena.js?v=svg-test-69";
 
 const appendTurnEvents = (state, message) => {
   const events = getTurnEvents(state);
@@ -13,6 +14,7 @@ const appendTurnEvents = (state, message) => {
 
 export const selectElement = (state, element) => {
   if (state.gameOver) return { ok: false, message: "Fim de jogo." };
+  if (state.phaseComplete) return { ok: false, message: "Fase concluída." };
   const spell = getSpell(element);
   const name = spell ? spell.name : element;
   if (!state.unlockedElements.includes(element)) {
@@ -25,6 +27,7 @@ export const selectElement = (state, element) => {
 
 export const prepareLaunch = (state) => {
   if (state.gameOver) return "Fim de jogo.";
+  if (state.phaseComplete) return "Fase concluída.";
   state.launchArmed = true;
   return "Lançar preparado. Escolha uma direção ou pressione Lançar novamente.";
 };
@@ -37,13 +40,18 @@ export const launchSpell = (state, directionName = null) => {
 
 export const dispatchDirection = (state, directionName) => {
   if (state.gameOver) return "Fim de jogo.";
+  if (state.phaseComplete) return "Fase concluída.";
   if (state.launchArmed) return launchSpell(state, directionName);
   const result = tryMovePlayer(state, directionName);
   if (!result.ok) return result.message;
   advanceTurn(state);
   const pickupMessages = collectAtCell(state, state.player);
   const pickupText = pickupMessages.join(" ");
-  return appendTurnEvents(state, pickupText);
+  const reachedGoal = state.arenaMode === "normal" && state.goal && (
+    state.player.x === state.goal.x && state.player.y === state.goal.y
+  );
+  const arenaText = reachedGoal ? enterSpecialArena(state) : "";
+  return appendTurnEvents(state, [pickupText, arenaText].filter(Boolean).join(" "));
 };
 
 export { scanState, getAdjacentFindings };
