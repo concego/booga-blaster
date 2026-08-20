@@ -1,5 +1,5 @@
-import { damageEnemyAt } from "../combat/damage.js?v=svg-test-79";
-import { damagePlayer } from "../combat/player-damage.js?v=svg-test-79";
+import { damageEnemyAt } from "../combat/damage.js?v=svg-test-84";
+import { damagePlayer } from "../combat/player-damage.js?v=svg-test-84";
 
 export const processFlameZones = (state) => {
   const events = [];
