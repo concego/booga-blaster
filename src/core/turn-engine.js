@@ -1,6 +1,6 @@
-import { processEnemyTurn } from "../game/combat/enemy-engine.js?v=svg-test-70";
-import { resolveProjectiles } from "../game/spells/projectile-engine.js?v=svg-test-70";
-import { processFlameZones } from "../game/spells/zone-engine.js?v=svg-test-70";
+import { processEnemyTurn } from "../game/combat/enemy-engine.js?v=svg-test-71";
+import { resolveProjectiles } from "../game/spells/projectile-engine.js?v=svg-test-71";
+import { processFlameZones } from "../game/spells/zone-engine.js?v=svg-test-71";
 
 const hasBadNews = (state) => state.effects.some((effect) => effect.effect === "bad-news");
 
