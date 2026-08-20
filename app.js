@@ -1,9 +1,9 @@
 try {
-  const { initMainMenu } = await import("./src/ui/main-menu.js?v=svg-test-72");
+  const { initMainMenu } = await import("./src/ui/main-menu.js?v=svg-test-73");
   initMainMenu({
     onStart: async ({ language }) => {
       try {
-        const { bindGameScreen } = await import(`./src/ui/game-screen.js?v=svg-test-72&lang=${language}`);
+        const { bindGameScreen } = await import(`./src/ui/game-screen.js?v=svg-test-73&lang=${language}`);
         bindGameScreen({ language });
       } catch (error) {
         console.error("Falha ao iniciar a partida", error);
