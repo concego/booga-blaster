@@ -172,8 +172,6 @@ h2 { margin-bottom: .8rem; font-size: 1.1rem; }
 .action-row button { min-width: 9rem; }
 .primary-action { border-color: var(--accent); background: #6e4324; }
 .secondary-action { background: #203d46; }
-.next-phase-action { margin-top: 12px; width: 100%; }
-
 .action-status { min-height: 1.5em; margin: 1rem 0 0; color: var(--muted); text-align: center; }
 
 .log-heading-row { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; }
