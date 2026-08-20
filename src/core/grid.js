@@ -21,7 +21,8 @@ export const tryMovePlayer = (state, directionName) => {
 
   const x = state.player.x + direction.dx;
   const y = state.player.y + direction.dy;
-  if (isBlocked(state, x, y)) {
+  const ghostActive = state.effects?.some((effect) => effect.effect === "ghost");
+  if (!isInsideGrid(state, x, y) || (state.grid.cells[y][x] === "#" && !ghostActive)) {
     return { ok: false, message: `Bloqueado ao ${direction.label}.` };
   }
   if (state.enemies.some((enemy) => enemy.x === x && enemy.y === y)) {
