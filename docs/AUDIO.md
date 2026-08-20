@@ -21,14 +21,13 @@ O Booga Blaster não reutiliza arquivos do Dino Crawler. A seleção é feita pr
 
 Os candidatos abaixo foram aprovados, mas ainda aguardam o mapeamento de tipo/evento antes de entrar no runtime. Eles serão associados especificamente, não usados globalmente:
 
-- `23-inimigo-giant-01.wav`;
+- `23-inimigo-giant-01.wav` — reservado para o Troll quando esse inimigo existir;
 - `24-inimigo-gutteral-beast-01.wav`;
 - `26-inimigo-shade-01.wav`;
-- `36-inimigo-aranha-bug-02.ogg`;
 - `37-inimigo-atingido-hurt-01.ogg`;
 - `38-inimigo-atingido-hurt-02.ogg`;
-- `39-inimigo-pesado-monster-01.wav`;
-- `40-inimigo-pesado-monster-02.wav`.
+- `39-inimigo-pesado-monster-01.wav` — reservado para o Ogro quando esse inimigo existir;
+- `40-inimigo-pesado-monster-02.wav` — reservado para o Ogro quando esse inimigo existir.
 
 ## Fontes
 
