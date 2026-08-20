@@ -1,4 +1,38 @@
 const SPECIAL_ENEMIES = Object.freeze({
+  "spider-queen": Object.freeze({
+    id: "spider-queen",
+    name: "Rainha Aranha",
+    hp: 3,
+    role: "special",
+    behavior: "webs",
+    webRange: 1,
+    personality: "Lança teias a um quadrado de distância.",
+    isSpecial: true
+  }),
+  "alpha-wolf": Object.freeze({
+    id: "alpha-wolf",
+    name: "Lobo Alfa",
+    hp: 3,
+    role: "special",
+    behavior: "summon-wolves",
+    summonCooldown: 0,
+    personality: "Uiva, invoca lobos e tenta encurralar Supimpus.",
+    isSpecial: true
+  }),
+  "novice-bravo": Object.freeze({
+    id: "novice-bravo",
+    name: "Bravo Novato",
+    hp: 3,
+    role: "boss",
+    behavior: "slingshot-potion",
+    reloadTurns: 0,
+    potionAvailable: true,
+    potionTurns: 0,
+    potionUsed: false,
+    ranged: 2,
+    personality: "Usa um estilingue de alcance 2 e carrega uma poção de um uso.",
+    isSpecial: true
+  }),
   troll: Object.freeze({
     id: "troll",
     name: "Troll",
@@ -27,5 +61,11 @@ export const createSpecialEnemy = (id) => {
 
 export const getSpecialEnemyForPhase = (phase = 1) => {
   const numericPhase = Math.max(1, Number(phase) || 1);
-  return createSpecialEnemy(numericPhase % 3 === 0 ? "forest-warden" : "troll");
+  const phaseInEnvironment = ((numericPhase - 1) % 3) + 1;
+  const specialId = {
+    1: "spider-queen",
+    2: "alpha-wolf",
+    3: "novice-bravo"
+  }[phaseInEnvironment];
+  return createSpecialEnemy(specialId);
 };
