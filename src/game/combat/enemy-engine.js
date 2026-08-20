@@ -1,5 +1,5 @@
-import { isBlocked } from "../../core/grid.js?v=svg-test-16";
-import { damagePlayer } from "./player-damage.js?v=svg-test-16";
+import { isBlocked } from "../../core/grid.js?v=svg-test-69";
+import { damagePlayer } from "./player-damage.js?v=svg-test-69";
 
 const distanceToPlayer = (state, enemy) => (
   Math.abs(enemy.x - state.player.x) + Math.abs(enemy.y - state.player.y)
@@ -19,6 +19,20 @@ const canMoveTo = (state, enemy, x, y) => (
   !enemyAt(state, x, y, enemy) &&
   !airBlocks(state, x, y)
 );
+
+const breakBlock = (state, enemy) => {
+  if (enemy.behavior !== "break-blocks") return false;
+  const block = (state.grid.blocks || [])
+    .filter((item) => state.grid.cells[item.y]?.[item.x] === "#")
+    .sort((a, b) => (
+      Math.abs(a.x - enemy.x) + Math.abs(a.y - enemy.y)
+    ) - (
+      Math.abs(b.x - enemy.x) + Math.abs(b.y - enemy.y)
+    ))[0];
+  if (!block) return false;
+  state.grid.cells[block.y][block.x] = ".";
+  return true;
+};
 
 const moveEnemyTowardsPlayer = (state, enemy) => {
   const dx = state.player.x - enemy.x;
@@ -60,6 +74,11 @@ export const processEnemyTurn = (state) => {
 
     if (distanceToPlayer(state, enemy) === 1) {
       events.push(attackPlayer(state, enemy));
+      continue;
+    }
+
+    if (breakBlock(state, enemy)) {
+      events.push(`${enemy.name} quebrou um bloco.`);
       continue;
     }
 
