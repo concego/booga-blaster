@@ -160,6 +160,7 @@ const elementCastKinds = {
 export const playGameplaySounds = (message, selectedElement = "fire") => {
   if (!message) return;
   const text = message.toLowerCase();
+  const mentionsGoblin = text.includes("goblin");
   if (text.includes("fim de jogo")) {
     playUiSound("gameOver");
     return;
@@ -169,15 +170,15 @@ export const playGameplaySounds = (message, selectedElement = "fire") => {
   if (text.includes("ah, então você é o goblin")) playUiSound("bravo-voice");
   if (text.includes("lançou uma teia")) playUiSound("spider-web");
   else if (text.includes("aranha")) playUiSound("enemy-spider");
-  if (text.includes("inimigo") && text.includes("atingid")) {
+  if (!mentionsGoblin && text.includes("inimigo") && text.includes("atingid")) {
     playUiSound(Math.random() < 0.5 ? "enemy-hit-1" : "enemy-hit-2");
-  } else if (text.includes("inimigo") && text.includes("derrotad")) playUiSound("defeat");
-  if (text.includes("troll")) playUiSound("enemy-troll");
+  } else if (!mentionsGoblin && text.includes("inimigo") && text.includes("derrotad")) playUiSound("defeat");
+  if (!mentionsGoblin && text.includes("troll")) playUiSound("enemy-troll");
   else if (text.includes("gutteral")) playUiSound("enemy-gutteral");
   else if (text.includes("shade")) playUiSound("enemy-shade");
   else if (text.includes("ogro") || text.includes("orc")) playUiSound(Math.random() < 0.5 ? "enemy-ogre-1" : "enemy-ogre-2");
-  if (text.includes("atacou supimpus")) playUiSound("enemyAttack");
-  if (text.includes("atirou em supimpus")) playUiSound(text.includes("bravo novato") ? "bravo-shot" : "enemyAttack");
+  if (!mentionsGoblin && text.includes("atacou supimpus")) playUiSound("enemyAttack");
+  if (!mentionsGoblin && text.includes("atirou em supimpus")) playUiSound(text.includes("bravo novato") ? "bravo-shot" : "enemyAttack");
   if (text.includes("uma vida foi perdida")) playUiSound("lifeLost");
   else if (text.includes("corações:") && (text.includes("supimpus foi atingido") || text.includes("atacou supimpus") || text.includes("atirou em supimpus"))) playUiSound("damage");
   if (text.includes("supimpus avançou")) playUiSound("move");
