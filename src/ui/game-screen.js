@@ -1,4 +1,4 @@
-import { playUiSound, playGameplaySounds, playEnvironmentSonar } from "../audio/ui-audio.js?v=svg-test-87";
+import { playUiSound, playGameplaySounds, playEnvironmentSonar } from "../audio/ui-audio.js?v=svg-test-88";
 import { startBiomeMusic } from "../audio/music-controller.js?v=svg-test-84";
 import { createBoogaState } from "../game/booga-state.js?v=svg-test-84";
 import { advancePhase } from "../game/advance-phase.js?v=svg-test-84";
