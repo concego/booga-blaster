@@ -170,7 +170,7 @@ export const playGameplaySounds = (message, selectedElement = "fire") => {
   if (text.includes("lançou uma teia")) playUiSound("spider-web");
   else if (text.includes("aranha")) playUiSound("enemy-spider");
   if (text.includes("inimigo") && text.includes("atingid")) {
-    playUiSound(Math.random() < 0.5 ? "damage" : "enemy-hit-2");
+    playUiSound(Math.random() < 0.5 ? "enemy-hit-1" : "enemy-hit-2");
   } else if (text.includes("inimigo") && text.includes("derrotad")) playUiSound("defeat");
   if (text.includes("troll")) playUiSound("enemy-troll");
   else if (text.includes("gutteral")) playUiSound("enemy-gutteral");
